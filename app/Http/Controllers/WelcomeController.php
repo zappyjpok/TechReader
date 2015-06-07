@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Services\BootstrapRows;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -33,16 +35,41 @@ class WelcomeController extends Controller {
         $pageTitle = "Check Out Are Sales";
         $items = 1;
 
+        // Refactor this into a class for everypage!
         if($items = 1) {
             $cartMessage = $items . "Item";
         } else {
-            $cartMessage = $item . "Item";
+            $cartMessage = $items . "Item";
         }
+
+        //Test Output
+        $output = $this->bootstrapRows();
 
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
-            'cartMessage' => $cartMessage
+            'cartMessage' => $cartMessage,
+            'output' => $output
         ]);
 	}
 
+    public function test()
+    {
+
+        $columns = [
+            'tom', 'jack', 'scott', 'james', 'lee', 'luke', 'adam', 'eric', 'matt', 'jenn', 'Thuy', 'mary'
+        ];
+
+        $grid = new BootstrapRows(3, $columns);
+        $grid->setBootstrapSmClass('col-xs-4');
+        $output = $grid->createRows();
+
+
+        $check =$grid->getData();
+
+        return view('test')->with([
+            'output' => $output,
+            'check' => $check
+        ]);
+    }
 }
+

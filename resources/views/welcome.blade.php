@@ -43,14 +43,55 @@
 
         </section>
 
-        <main> <!-- List of Products-->
-            <section class="container pull-right">
+        <main class="container"> <!-- List of Products-->
+            <section class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1">
                 <h3> {{ $pageTitle }} </h3>
-
+                <article class="row">
+                    <section class="col-xs-4">
+                        <img src="#">
+                        <h4> Product Name </h4>
+                        <p> Some random text that describes the product </p>
+                    </section>
+                    <section class="col-xs-4">
+                        <img src="#">
+                        <h4> Product Name </h4>
+                        <p> Some random text that describes the product </p>
+                    </section>
+                    <section class="col-xs-4">
+                        <img src="#">
+                        <h4> Product Name </h4>
+                        <p> Some random text that describes the product </p>
+                    </section>
+                </article>
+                <article class="row">
+                    <section class="col-xs-4">
+                        <img src="#">
+                        <h4> Product Name </h4>
+                        <p> Some random text that describes the product </p>
+                    </section>
+                    <section class="col-xs-4">
+                        <img src="#">
+                        <h4> Product Name </h4>
+                        <p> Some random text that describes the product </p>
+                    </section>
+                    <section class="col-xs-4">
+                        <img src="#">
+                        <h4> Product Name </h4>
+                        <p> Some random text that describes the product </p>
+                    </section>
+                    {{ $output }}
+                </article>
             </section>
-            <aside class="container pull-left"> <!-- Sidebar with deals! -->
+            <aside class="col-lg-3 col-md-3 side-menu"> <!-- Sidebar with deals! -->
                 <section>
                     <h3> Latest Deals </h3>
+                    <ul>
+                        <li> <h5> Product Name </h5> <img src="#"></li>
+                        <li> <h5> Product Name </h5> <img src="#"></li>
+                        <li> <h5> Product Name </h5> <img src="#"></li>
+                        <li> <h5> Product Name </h5> <img src="#"></li>
+                        <li> <h5> Product Name </h5> <img src="#"></li>
+                    </ul>
                 </section>
             </aside>
         </main>
