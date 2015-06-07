@@ -30,7 +30,19 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+        $pageTitle = "Check Out Are Sales";
+        $items = 1;
+
+        if($items = 1) {
+            $cartMessage = $items . "Item";
+        } else {
+            $cartMessage = $item . "Item";
+        }
+
+		return view('welcome')->with([
+            'pageTitle' => $pageTitle,
+            'cartMessage' => $cartMessage
+        ]);
 	}
 
 }
