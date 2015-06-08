@@ -21,6 +21,7 @@ class BootstrapRows {
     private $bootstrapSmClass;
     private $bootstrapMdClass;
     private $bootstrapLgClass;
+    private $errorMessage;
 
     private $data = [];
 
@@ -37,19 +38,90 @@ class BootstrapRows {
         return $this->data;
     }
 
-    public function setParentElement(){
+    /**
+     * Customise the parent element that will use the class="row"
+     *
+     * @param $element
+     */
+    public function setParentElement($element){
 
+        $element = $this->checkElementTags($element);
+        $this->parentElement = trim($element, '>');
+        $this->setParentElementClose();
+        return $this->parentElement;
     }
 
+    /**
+     * Creates a closing tag for the parent element
+     */
     private function setParentElementClose(){
-
+        $closeElement = $this->parentElement;
+        $this->parentElementClose = str_replace('<', '</', $closeElement);
     }
 
-    public function setChildElement(){
-
+    /**
+     * Customise the parent element that will use the class="bootstrap-class"
+     *
+     * @param $element
+     */
+    public function setChildElement($element){
+        $element = $this->checkElementTags($element);
+        $this->childElement = trim($element, '>');
+        $this->setChildElementClose();
     }
 
+    /**
+     * Creates a closing tag for the child element
+     */
     private function setChildElementClose(){
+        $closeElement = $this->childElement;
+        $this->childElementClose = str_replace('<', '</', $closeElement);
+    }
+
+    /**
+     * Checks if the element has an opening and closing tag
+     *
+     * @param $element
+     * @return string
+     */
+    private function checkElementTags($element)
+    {
+        $strlen = strlen($element);
+        $opening = $element[0];
+        $closing = $element[$strlen-1];
+
+        if($opening !='<') {
+            $element = '<' . $element;
+        }
+        if ($closing != '>'){
+            $element = $element . '>';
+        }
+        if ($this->checkElementType($element) == True) {
+            return $element;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the element is an HTML element
+     *
+     * @param $element
+     * @return bool
+     */
+    private function checkElementType($element){
+        $acceptedValues = ['div', 'section', 'article', 'summary', 'header', 'main'];
+        $lastChar = strlen($element) -1;
+
+        $element = trim($element, '>');
+
+        $element = trim($element, '<');
+
+        if(in_array($element, $acceptedValues)) {
+            return True;
+        } else {
+            exit('Not an acceptable Element!');
+        }
 
     }
 

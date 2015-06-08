@@ -42,13 +42,9 @@ class WelcomeController extends Controller {
             $cartMessage = $items . "Item";
         }
 
-        //Test Output
-        $output = $this->bootstrapRows();
-
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
-            'cartMessage' => $cartMessage,
-            'output' => $output
+            'cartMessage' => $cartMessage
         ]);
 	}
 
@@ -62,13 +58,15 @@ class WelcomeController extends Controller {
         $grid = new BootstrapRows(3, $columns);
         $grid->setBootstrapSmClass('col-xs-4');
         $output = $grid->createRows();
+        $char = $grid->setParentElement('section');
 
 
         $check =$grid->getData();
 
         return view('test')->with([
             'output' => $output,
-            'check' => $check
+            'check' => $check,
+            'char' => $char
         ]);
     }
 }
