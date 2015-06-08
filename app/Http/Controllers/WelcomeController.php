@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Services\BootstrapRows;
+use App\Product as Product;
+use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller {
 
@@ -51,22 +53,29 @@ class WelcomeController extends Controller {
     public function test()
     {
 
-        $columns = [
-            'tom', 'jack', 'scott', 'james', 'lee', 'luke', 'adam', 'eric', 'matt', 'jenn', 'Thuy', 'mary'
-        ];
+        $titles =       DB::table('products')->select('proTitle')->get();
+        $descriptions = DB::table('products')->select('proDescription')->get();
+        $images =       DB::table('products')->select('proImagePath')->get();
 
-        $grid = new BootstrapRows(3, $columns);
-        $grid->setBootstrapSmClass('col-xs-4');
-        $output = $grid->createRows();
-        $char = $grid->setParentElement('section');
+        $grid = new BootstrapRows(4, 3);
+        $grid->setBootstrapClass('col-xs-3 col-md-3 col-lg-3');
+        $grid->setParentElement('section');
+        $grid->setChildElement('article');
+        $grid->addTitle($titles);
+
+        $output = $grid->createBootstrapGrid();
+
+        $string = '';
 
 
-        $check =$grid->getData();
+
 
         return view('test')->with([
             'output' => $output,
-            'check' => $check,
-            'char' => $char
+            'string' => $string,
+            'titles' => $titles,
+            'images' => $images,
+            'descriptions' => $descriptions
         ]);
     }
 }

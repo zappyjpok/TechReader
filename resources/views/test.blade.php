@@ -4,12 +4,22 @@
     <div class="container">
         <h2> Test Test</h2>
 
-        {{ $char }}
 
         <h3> Output </h3>
 
+        {{ $output  }}
+
+        <h3> Secret Output </h3>
+
         {!! $output !!}
 
-        <div> {{ var_dump($check) }}</div>
+        <h3> Extra Data </h3>
+
+
+
+        <h3> Test String </h3>
+
+        {{ $string }}
+
     </div>
 @endsection

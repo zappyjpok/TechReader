@@ -18,24 +18,25 @@ class BootstrapRows {
     private $childElementClose = '</div>';
     private $columnNumber;
     private $rows;
-    private $bootstrapSmClass;
-    private $bootstrapMdClass;
-    private $bootstrapLgClass;
-    private $errorMessage;
+    private $bootstrapClass;
+    private $title = false;
+    private $titleData = [];
+    private $description = false;
+    private $descriptionData = [];
+    private $image = false;
+    private $imageData = [];
+    private $errorMessage = [];
 
-    private $data = [];
-
-    public function __construct($columnNumber, $data) {
-        $this->setData($data);
+    /**
+     *  On instantiation set: number of rows for the page, the column numbers and the data to use
+     *
+     * @param $columnNumber
+     * @param $row
+     * @param $data
+     */
+    public function __construct($columnNumber, $row) {
         $this->columnNumber = $columnNumber;
-    }
-
-    private function setData($data){
-        $this->data = $data;
-    }
-
-    public function getData(){
-        return $this->data;
+        $this->rows = $row;
     }
 
     /**
@@ -46,9 +47,9 @@ class BootstrapRows {
     public function setParentElement($element){
 
         $element = $this->checkElementTags($element);
-        $this->parentElement = trim($element, '>');
+        $this->parentElement = $element;
         $this->setParentElementClose();
-        return $this->parentElement;
+        $this->parentElement = trim($element, '>');
     }
 
     /**
@@ -66,8 +67,9 @@ class BootstrapRows {
      */
     public function setChildElement($element){
         $element = $this->checkElementTags($element);
-        $this->childElement = trim($element, '>');
+        $this->childElement = $element;
         $this->setChildElementClose();
+        $this->childElement = trim($element, '>');
     }
 
     /**
@@ -125,34 +127,100 @@ class BootstrapRows {
 
     }
 
-    public function setBootstrapSmClass($smallClass) {
-        $this->bootstrapSmClass = $smallClass;
+    /**
+     * Set: bootstrap grid class
+     *
+     * @param $class
+     */
+    public function setBootstrapClass($class) {
+        $this->bootstrapClass = $class;
     }
 
-    public function setBootstrapMdClass() {
-
+    /**
+     * Creates a title in each grid
+     *
+     * @param $titleData
+     */
+    public function addTitle($titleData){
+        $this->title = true;
+        $this->titleData = $titleData;
     }
 
-    public function setBootstrapLgClass() {
-
+    /**
+     * Creates a description in each grid
+     *
+     * @param $descriptionData
+     */
+    public function addDescription($descriptionData) {
+        $this->description = true;
+        $this->descriptionData = $descriptionData;
     }
 
-    public function createRows(){
-        for($i = 0; $i<$this->columnNumber; $i++) {
+    /**
+     * Creates a Image for each grid
+     *
+     * @param $imageData
+     */
+    public function addImage($imageData) {
+        $this->image = true;
+        $this->imageData = $imageData;
+    }
+
+    private function checkValuesAdded() {
+        if ($this->title == true || $this->description == true || $this->image == true ) {
+            return true;
+        } else {
+            exit('Please add either a title, description, or image');
+        }
+    }
+    public function createBootstrapGrid(){
+        // Loop through the row:
+        // Create opening Tag, content, and closing Tag
+        for($i = 0; $i < 1; $i++) {
             $this->output .= $this->parentElement . " class='row'>";
-            if(!empty($this->data)){
-                $a = $this->arrayShift($this->data);
-            }
-            foreach($a as $b) {
-                $this->output .= $this->childElement . " class='$this->bootstrapSmClass'>";
-                $this->output .= $b;
-                $this->output .= $this->childElementClose;
-                unset($a[$b]);
-            }
+            // content of child elements
+            $this->output .= $this->createRow();
+
             $this->output .= $this->parentElementClose;
         }
 
         return $this->output;
+    }
+
+    private function createRow(){
+        $string = '';
+        // Check a value added
+        if ($this->checkValuesAdded() == true) {
+            // loop through number of columns
+            for ($i = 0; $i < $this->columnNumber; $i++) {
+                // create opening tag, output data, closing tag
+                $string .= $this->childElement . " class=" . $this->bootstrapClass . '>';
+                $string .= $this->createColumn();
+                $string .= $this->childElementClose;
+            }
+        }
+        return $string;
+    }
+
+    public function getArray() {
+        return $this->titleData;
+    }
+
+    private function createColumn(){
+        $string = '';
+
+        if($this->title == true){
+            $title = array_shift($this->titleData);
+            $title = $title->proTitle;
+            $string .= '<h3>' . $title . '</h3>';
+        }
+        if($this->description == true){
+
+        }
+        if($this->image == true){
+
+        }
+        return $string;
     }
 
     private function arrayShift(){
@@ -160,11 +228,13 @@ class BootstrapRows {
         //count the values
         $values = count($this->data);
 
-        //foreach loop remove $row number of values from the array
-
         //if greater than rows
-        if($values >= 4) {
+        if($values >= $this->columnNumber) {
             for($i = 0; $i < $this->columnNumber; $i++){
+                $tempArray[$i] = array_shift($this->data);
+            }
+        } else {
+            for($i = 0; $i < $values; $i++) {
                 $tempArray[$i] = array_shift($this->data);
             }
         }
@@ -173,3 +243,18 @@ class BootstrapRows {
     }
 
 }
+
+
+/*
+
+      $values = $this->arrayShift($this->data);
+                foreach($values as $value) {
+                    $this->output .= $this->childElement . " class=" . $class . '>';
+                    $this->output .= $value;
+                    $this->output .= $this->childElementClose;
+                    unset($values[$value]);
+                }
+        }
+
+
+ */
