@@ -15,7 +15,7 @@
 
         <h3> Extra Data </h3>
 
-
+        {{ var_dump($a) }}
 
         <h3> Test String </h3>
 

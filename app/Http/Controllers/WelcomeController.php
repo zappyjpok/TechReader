@@ -53,29 +53,30 @@ class WelcomeController extends Controller {
     public function test()
     {
 
-        $titles =       DB::table('products')->select('proTitle')->get();
-        $descriptions = DB::table('products')->select('proDescription')->get();
-        $images =       DB::table('products')->select('proImagePath')->get();
+        $data = DB::table('products')->select('proTitle', 'proDescription', 'proImagePath','proPrice')->get();
 
-        $grid = new BootstrapRows(4, 3);
+        $grid = new BootstrapRows(4, 3, $data);
         $grid->setBootstrapClass('col-xs-3 col-md-3 col-lg-3');
         $grid->setParentElement('section');
         $grid->setChildElement('article');
-        $grid->addTitle($titles);
+        $grid->addTitle();
+        $grid->addDescription();
+        $grid->addImage();
+        $grid->addPrice();
+
+        $a = $grid->createColumn();
 
         $output = $grid->createBootstrapGrid();
 
         $string = '';
-
-
-
 
         return view('test')->with([
             'output' => $output,
             'string' => $string,
             'titles' => $titles,
             'images' => $images,
-            'descriptions' => $descriptions
+            'descriptions' => $descriptions,
+            'a' => $a
         ]);
     }
 }

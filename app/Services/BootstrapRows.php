@@ -12,6 +12,7 @@ namespace App\Services;
 class BootstrapRows {
 
     private $output = '';
+    private $data = [];
     private $parentElement = '<div';
     private $parentElementClose = '</div>';
     private $childElement = '<div';
@@ -25,6 +26,8 @@ class BootstrapRows {
     private $descriptionData = [];
     private $image = false;
     private $imageData = [];
+    private $price = false;
+    private $priceData = [];
     private $errorMessage = [];
 
     /**
@@ -34,9 +37,10 @@ class BootstrapRows {
      * @param $row
      * @param $data
      */
-    public function __construct($columnNumber, $row) {
+    public function __construct($columnNumber, $row, $data) {
         $this->columnNumber = $columnNumber;
         $this->rows = $row;
+        $this->data = $data;
     }
 
     /**
@@ -139,31 +143,33 @@ class BootstrapRows {
     /**
      * Creates a title in each grid
      *
-     * @param $titleData
+
      */
-    public function addTitle($titleData){
+    public function addTitle(){
         $this->title = true;
-        $this->titleData = $titleData;
     }
 
     /**
      * Creates a description in each grid
      *
-     * @param $descriptionData
      */
-    public function addDescription($descriptionData) {
+    public function addDescription() {
         $this->description = true;
-        $this->descriptionData = $descriptionData;
     }
 
     /**
      * Creates a Image for each grid
      *
-     * @param $imageData
      */
-    public function addImage($imageData) {
+    public function addImage() {
         $this->image = true;
-        $this->imageData = $imageData;
+    }
+
+    /**
+     * Creates a price for each grid
+     */
+    public function addPrice() {
+        $this->price = true;
     }
 
     private function checkValuesAdded() {
@@ -176,7 +182,7 @@ class BootstrapRows {
     public function createBootstrapGrid(){
         // Loop through the row:
         // Create opening Tag, content, and closing Tag
-        for($i = 0; $i < 1; $i++) {
+        for($i = 0; $i <$this->rows; $i++) {
             $this->output .= $this->parentElement . " class='row'>";
             // content of child elements
             $this->output .= $this->createRow();
@@ -206,55 +212,29 @@ class BootstrapRows {
         return $this->titleData;
     }
 
-    private function createColumn(){
+    public function createColumn(){
         $string = '';
+        $array= array_shift($this->data);
 
         if($this->title == true){
-            $title = array_shift($this->titleData);
-            $title = $title->proTitle;
+            $title = $array->proTitle;
             $string .= '<h3>' . $title . '</h3>';
         }
-        if($this->description == true){
-
-        }
         if($this->image == true){
-
+            $image = $array->proImagePath;
+            $string .= "<img src='" . $image . "' />'";
         }
+        if($this->description == true){
+            $description = $array->proDescription;
+            $string .= '<p>' . $description . '</p>';
+        }
+        if($this->price == true){
+            $price = $array->proPrice;
+            $string .= '<p class="price">  Price $' .  $price . '</p>';
+        }
+
         return $string;
     }
 
-    private function arrayShift(){
-        $tempArray = [];
-        //count the values
-        $values = count($this->data);
-
-        //if greater than rows
-        if($values >= $this->columnNumber) {
-            for($i = 0; $i < $this->columnNumber; $i++){
-                $tempArray[$i] = array_shift($this->data);
-            }
-        } else {
-            for($i = 0; $i < $values; $i++) {
-                $tempArray[$i] = array_shift($this->data);
-            }
-        }
-
-        return $tempArray;
-    }
 
 }
-
-
-/*
-
-      $values = $this->arrayShift($this->data);
-                foreach($values as $value) {
-                    $this->output .= $this->childElement . " class=" . $class . '>';
-                    $this->output .= $value;
-                    $this->output .= $this->childElementClose;
-                    unset($values[$value]);
-                }
-        }
-
-
- */
