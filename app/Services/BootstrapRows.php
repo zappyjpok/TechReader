@@ -23,11 +23,10 @@ class BootstrapRows {
     private $title = false;
     private $titleData = [];
     private $description = false;
-    private $descriptionData = [];
     private $image = false;
-    private $imageData = [];
     private $price = false;
-    private $priceData = [];
+    private $link = false;
+    private $linkURL;
     private $errorMessage = [];
 
     /**
@@ -172,6 +171,21 @@ class BootstrapRows {
         $this->price = true;
     }
 
+    /**
+     * Creates a link for each grid
+     *
+     * @param $url
+     */
+    public function addLink($url){
+        $this->linkURL = $url;
+        $this->link = true;
+    }
+
+    /**
+     * Check if any values were added
+     *
+     * @return bool
+     */
     private function checkValuesAdded() {
         if ($this->title == true || $this->description == true || $this->image == true ) {
             return true;
@@ -179,6 +193,12 @@ class BootstrapRows {
             exit('Please add either a title, description, or image');
         }
     }
+
+    /**
+     * Creates the grid
+     *
+     * @return string
+     */
     public function createBootstrapGrid(){
         // Loop through the row:
         // Create opening Tag, content, and closing Tag
@@ -193,6 +213,11 @@ class BootstrapRows {
         return $this->output;
     }
 
+    /**
+     * Creates the rows
+     *
+     * @return string
+     */
     private function createRow(){
         $string = '';
         // Check a value added
@@ -208,17 +233,25 @@ class BootstrapRows {
         return $string;
     }
 
-    public function getArray() {
-        return $this->titleData;
-    }
-
+    /**
+     * Creates the rows
+     *
+     * @return string
+     */
     public function createColumn(){
         $string = '';
         $array= array_shift($this->data);
 
         if($this->title == true){
             $title = $array->proTitle;
-            $string .= '<h3>' . $title . '</h3>';
+            $string .= '<h3>';
+            if($this->link == true) {
+                $string .= '<a href=' . $this->linkURL . '>';
+            }
+            $string .= $title . '</h3>';
+            if($this->link == true) {
+                $string .= '</a>';
+            }
         }
         if($this->image == true){
             $image = $array->proImagePath;
@@ -230,7 +263,8 @@ class BootstrapRows {
         }
         if($this->price == true){
             $price = $array->proPrice;
-            $string .= '<p class="price">  Price $' .  $price . '</p>';
+            $string .= '<p class="priceTitle">  Price ';
+            $string .= '<span class="price">' . '$' . $price . '</span></p>';
         }
 
         return $string;

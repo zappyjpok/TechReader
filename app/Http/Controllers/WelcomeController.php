@@ -63,6 +63,7 @@ class WelcomeController extends Controller {
         $grid->addDescription();
         $grid->addImage();
         $grid->addPrice();
+        $grid->addLink('#');
 
         $a = $grid->createColumn();
 
@@ -73,9 +74,6 @@ class WelcomeController extends Controller {
         return view('test')->with([
             'output' => $output,
             'string' => $string,
-            'titles' => $titles,
-            'images' => $images,
-            'descriptions' => $descriptions,
             'a' => $a
         ]);
     }

@@ -15,3 +15,14 @@ img {
     height: 150px;
     width: 150px;
 }
+
+.priceTitle {
+    color:#00b3ee;
+    font-weight: bold;
+}
+
+.price {
+    color:#d58512;
+
+    font-weight: bold;
+}

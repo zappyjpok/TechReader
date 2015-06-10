@@ -14,11 +14,16 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('salProductId');
+            $table->integer('salProductId')->unsigned();
             $table->date('salStart');
             $table->date('salFinish');
             $table->decimal('salDiscount');
             $table->timestamps();
+
+            $table->foreign('salProductId')
+                ->references('id')
+                ->on('products')
+                ->onDelete('cascade');
         });
     }
 
