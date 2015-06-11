@@ -21,6 +21,13 @@ img {
     font-weight: bold;
 }
 
+.priceCut {
+    color: #080808;
+    font-weight: 100;
+    text-decoration: line-through
+}
+
+
 .price {
     color:#d58512;
 

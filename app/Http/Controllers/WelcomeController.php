@@ -2,6 +2,7 @@
 
 use App\Services\BootstrapRows;
 use App\Product as Product;
+use App\Services\BootstrapRowsSales;
 use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller {
@@ -44,9 +45,26 @@ class WelcomeController extends Controller {
             $cartMessage = $items . "Item";
         }
 
+        $sale = DB::table('sales')
+            ->join('products', 'sales.salProductId', '=', 'products.id')
+            ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
+            ->get();
+
+        $grid = new BootstrapRows(3, 3, $sale);
+        $grid->setBootstrapClass('col-md-3 col-lg-3');
+        $grid->setParentElement('section');
+        $grid->setChildElement('div');
+        $grid->addTitle();
+        $grid->addDescription();
+        $grid->addImage();
+        $grid->addPrice();
+        $grid->addLink('#');
+        $output = $grid->createBootstrapGrid();
+
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
-            'cartMessage' => $cartMessage
+            'cartMessage' => $cartMessage,
+            'output' => $output
         ]);
 	}
 
@@ -55,7 +73,19 @@ class WelcomeController extends Controller {
 
         $data = DB::table('products')->select('proTitle', 'proDescription', 'proImagePath','proPrice')->get();
 
-        $grid = new BootstrapRows(4, 3, $data);
+        $sales = DB::table('sales')
+            ->join('products', 'sales.salProductId', '=', 'products.id')
+            ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
+            ->get();
+
+        $sale = DB::table('products')
+            ->Leftjoin('sales', 'sales.salProductId', '=', 'products.id')
+            ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
+            ->get();
+
+        $all = '';
+
+        $grid = new BootstrapRows(4, 3, $sale);
         $grid->setBootstrapClass('col-xs-3 col-md-3 col-lg-3');
         $grid->setParentElement('section');
         $grid->setChildElement('article');
@@ -65,8 +95,6 @@ class WelcomeController extends Controller {
         $grid->addPrice();
         $grid->addLink('#');
 
-        $a = $grid->createColumn();
-
         $output = $grid->createBootstrapGrid();
 
         $string = '';
@@ -74,7 +102,10 @@ class WelcomeController extends Controller {
         return view('test')->with([
             'output' => $output,
             'string' => $string,
-            'a' => $a
+            'sales' => $sales,
+            'sale' => $sale,
+            'data' => $data,
+            'all' => $all
         ]);
     }
 }

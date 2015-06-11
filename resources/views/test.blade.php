@@ -8,6 +8,14 @@
 
         {!! $output !!}
 
+        <h3> Vardump </h3>
+
+        @foreach($sale as $x)
+            {{ var_dump($x) }}
+            <br>
+            <br>
+            @endforeach
+
 
 
     </div>

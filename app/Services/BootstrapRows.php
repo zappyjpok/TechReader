@@ -13,6 +13,7 @@ class BootstrapRows {
 
     private $output = '';
     private $data = [];
+    private $shiftData = [];
     private $parentElement = '<div';
     private $parentElementClose = '</div>';
     private $childElement = '<div';
@@ -21,7 +22,6 @@ class BootstrapRows {
     private $rows;
     private $bootstrapClass;
     private $title = false;
-    private $titleData = [];
     private $description = false;
     private $image = false;
     private $price = false;
@@ -186,7 +186,7 @@ class BootstrapRows {
      *
      * @return bool
      */
-    private function checkValuesAdded() {
+    protected function checkValuesAdded() {
         if ($this->title == true || $this->description == true || $this->image == true ) {
             return true;
         } else {
@@ -225,9 +225,15 @@ class BootstrapRows {
             // loop through number of columns
             for ($i = 0; $i < $this->columnNumber; $i++) {
                 // create opening tag, output data, closing tag
-                $string .= $this->childElement . " class=" . $this->bootstrapClass . '>';
-                $string .= $this->createColumn();
-                $string .= $this->childElementClose;
+                $string .= $this->childElement . " class=" . $this->bootstrapClass . "> \n";
+                // create shift
+                $this->shiftData = array_shift($this->data);
+                if($this->shiftData->salDiscount != null) {
+                    $string .= $this->createSalesColumn();
+                } else {
+                    $string .= $this->createColumn();
+                }
+                $string .= $this->childElementClose . "\n";
             }
         }
         return $string;
@@ -238,36 +244,82 @@ class BootstrapRows {
      *
      * @return string
      */
-    public function createColumn(){
+    private function createColumn(){
         $string = '';
-        $array= array_shift($this->data);
 
         if($this->title == true){
-            $title = $array->proTitle;
+            $title = $this->shiftData->proTitle;
             $string .= '<h3>';
             if($this->link == true) {
                 $string .= '<a href=' . $this->linkURL . '>';
             }
-            $string .= $title . '</h3>';
+            $string .= $title . "</h3>";
             if($this->link == true) {
-                $string .= '</a>';
+                $string .= "</a>\n";
             }
         }
         if($this->image == true){
-            $image = $array->proImagePath;
-            $string .= "<img src='" . $image . "' />'";
+            $image = $this->shiftData->proImagePath;
+            $string .= "<img src='" . $image . "' />" . "\n";
         }
         if($this->description == true){
-            $description = $array->proDescription;
+            $description = $this->shiftData->proDescription;
             $string .= '<p>' . $description . '</p>';
         }
         if($this->price == true){
-            $price = $array->proPrice;
+            $price = $this->shiftData->proPrice;
             $string .= '<p class="priceTitle">  Price ';
             $string .= '<span class="price">' . '$' . $price . '</span></p>';
         }
 
         return $string;
+    }
+
+    public function createSalesColumn(){
+        $string = '';
+
+        if($this->title == true){
+            $title = $this->shiftData->proTitle;
+            $string .= '<h3>';
+            if($this->link == true) {
+                $string .= '<a href=' . $this->linkURL . '>';
+            }
+            $string .= $title . "</h3>";
+            if($this->link == true) {
+                $string .= "</a>\n";
+            }
+        }
+        if($this->image == true){
+            $image = $this->shiftData->proImagePath;
+            $string .= "<img src='" . $image . "' />" . "\n";
+        }
+        if($this->description == true){
+            $description = $this->shiftData->proDescription;
+            $string .= '<p>' . $description . '</p>';
+        }
+        if($this->price == true){
+            $price = $this->shiftData->proPrice;
+            $string .= '<p class="priceCut">  Original Price $';
+            $string .= $price . '</p>';
+            $string .= "<span class='priceTitle'> Sale Price </span>";
+            $string .= "<span class='price'>" . $this->discountPrice($price, $this->shiftData->salDiscount);
+            $string .= "</span>";
+        }
+
+        return $string;
+    }
+
+    /**
+     *Create Discount Price
+     *
+     * @param $price
+     * @param $discount
+     * @return int|string
+     */
+    private function discountPrice($price, $discount){
+        $discount = (1 - $discount) * $price;
+        $discount = number_format($discount, 2);
+        return $discount;
     }
 
 
