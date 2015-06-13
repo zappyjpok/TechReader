@@ -21,10 +21,6 @@ class CreateUsersTable extends Migration
             $table->integer('useVipNumber');
             $table->date('useDOB');
             $table->date('useDateJoined');
-            $table->string('useAddress');
-            $table->string('useCity');
-            $table->string('usePostalCode');
-            $table->string('useState');
             $table->timestamps();
         });
     }

@@ -24,7 +24,14 @@
 
 <body>
 <div class="container">
+    @include('../_includes._header')
+    @include('../_includes._navbar')
+    @include('../_includes._cart')
+
+
     @yield('content')
+
+
 
 </div>
 

@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
 
         Eloquent::unguard();
 
-        for($i=0; $i<50; $i++)
+        for($i=0; $i<20; $i++)
         {
             User::create([
                 'useEmail' => $faker->email,
@@ -24,12 +24,7 @@ class UsersTableSeeder extends Seeder
                 'useLastName' => $faker->lastName,
                 'usePassword' => Hash::make($faker->word),
                 'useVipNumber'=> $faker->numberBetween($min=1000, $max=9999),
-                'useDOB' => $faker->dateTimeThisCentury($max = 1966-01-01),
                 'useDateJoined' => $faker->dateTimeThisYear($max = 'now'),
-                'useAddress' => $faker->streetAddress,
-                'useCity' => $faker->city,
-                'usePostalCode' =>$faker->postcode,
-                'useState' => $faker->state
             ]);
         }
 

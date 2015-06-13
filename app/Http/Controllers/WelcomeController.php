@@ -39,11 +39,7 @@ class WelcomeController extends Controller {
         $items = 1;
 
         // Refactor this into a class for everypage!
-        if($items = 1) {
-            $cartMessage = $items . "Item";
-        } else {
-            $cartMessage = $items . "Item";
-        }
+
 
         $sale = DB::table('sales')
             ->join('products', 'sales.salProductId', '=', 'products.id')
@@ -63,7 +59,6 @@ class WelcomeController extends Controller {
 
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
-            'cartMessage' => $cartMessage,
             'output' => $output
         ]);
 	}

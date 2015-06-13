@@ -1,65 +1,49 @@
-@extends('app')
+@extends('_layouts._layout')
 
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+    {!! Form::open(['class' => 'form-inline']) !!}
+        <section class="row form-spacing">
+            <div class="col-md-2">
+                {!! Form::label('FirstName', 'First Name:') !!}
+            </div>
+            <div class="col-md-4 input-lg">
+                {!! Form::text('FirstName', null, ['class' => 'form-control', 'placeholder' => 'Enter First Name'])  !!}
+            </div>
+            <div class="col-md-2">
+                {!! Form::label('LastName', 'Last Name:') !!}
+            </div>
+            <div class="col-md-4">
+                {!! Form::text('LastName', null, ['class' => 'form-control', 'placeholder' => 'Enter Last Name'])  !!}
+            </div>
+        </section>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-							</div>
-						</div>
+        <section class="row form-spacing">
+            <div class="col-md-2">
+                {!! Form::label('Email', 'Email:') !!}
+            </div>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
+            <div class="col-md-10">
+                {!! Form::text('Email', null, ['class' => 'form-control', 'placeholder' => 'Enter Email'])  !!}
+            </div>
+        </section>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
+        <section class="row form-spacing">
+            <div class="col-md-2">
+                {!! Form::label('Password', 'Password:') !!}
+            </div>
+            <div class="col-md-4">
+                {!! Form::password('Password', ['class' => 'form-control'])  !!}
+            </div>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
-							</div>
-						</div>
+            <div class="col-md-2">
+                {!! Form::label('ConfirmPassword', 'Confirm Password:') !!}
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Register
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+            </div>
+            <div class="col-md-4">
+                {!! Form::password('ConfirmPassword', ['class' => 'form-control'])  !!}
+            </div>
+        </section>
+
+    {!! Form::close() !!}
 @endsection

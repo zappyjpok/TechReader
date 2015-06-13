@@ -10,7 +10,10 @@
 <section class="row top-buffer-20"> <!-- Search Box and Shopping Cart-->
     <div class="pull-left"> <!-- Shopping Cart-->
         <a href="#" class="btn btn-info btn-lg">
-            <span class="glyphicon glyphicon-shopping-cart"></span> {{ $cartMessage }}
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            @if(isset($cartMessage ))
+                {{ $cartMessage }}
+            @endif
         </a>
     </div>
     <div class="pull-right"> <!-- Search Box -->

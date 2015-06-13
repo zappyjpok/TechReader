@@ -7,7 +7,7 @@
  */
 ?>
 
-<aside class="col-lg-3 col-md-3 side-menu"> <!-- Sidebar with deals! -->
+<aside class="col-lg-3 col-md-3 pull-right side-menu"> <!-- Sidebar with deals! -->
     <section>
         <h3> Latest Deals </h3>
         <ul>
