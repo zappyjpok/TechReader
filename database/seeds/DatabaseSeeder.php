@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder {
 
 		// $this->call('UserTableSeeder');
         $this->call('UsersTableSeeder');
-        $this->call('AddressesTableSeeder');
-        $this->call('RolesTableSeeder');
         $this->call('ProductsTableSeeder');
+        $this->call('RolesTableSeeder');
         $this->call('SalesTableSeeder');
+        $this->call('AddressesTableSeeder');
 	}
 
 }

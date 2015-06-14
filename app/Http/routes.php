@@ -22,6 +22,8 @@ Route::controllers([
 
 Route::resource('users', 'UsersController');
 
+Route::resource('products', 'ProductsController');
+
 
 // delete later
 Route::get('test', 'WelcomeController@Test');

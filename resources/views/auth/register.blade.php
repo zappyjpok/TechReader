@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::open(['class' => 'form-inline']) !!}
+    {!! Form::open(['class' => 'form-group']) !!}
         <section class="row form-spacing">
             <div class="col-md-2">
                 {!! Form::label('FirstName', 'First Name:') !!}
@@ -23,7 +23,7 @@
                 {!! Form::label('Email', 'Email:') !!}
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-6">
                 {!! Form::text('Email', null, ['class' => 'form-control', 'placeholder' => 'Enter Email'])  !!}
             </div>
         </section>

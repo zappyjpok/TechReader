@@ -14,7 +14,7 @@
     <section> <!-- Login Navbar -->
         <ul class="nav nav-pills pull-right">
             <li><a href="#"> Login </a></li>
-            <li><a href="#"> Register </a></li>
+            <li><a href="{{ URL::to('auth/register') }}"> Register </a></li>
             <li><a href="#"> My Account </a></li>
         </ul>
     </section>
