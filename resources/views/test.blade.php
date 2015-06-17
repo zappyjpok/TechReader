@@ -6,15 +6,14 @@
 
         <h3> Secret Output </h3>
 
-        {!! $output !!}
 
         <h3> Vardump </h3>
 
-        @foreach($sale as $x)
-            {{ var_dump($x) }}
-            <br>
-            <br>
-            @endforeach
+        @if(isset($x))
+            <pre>
+                   {{ print_r(var_dump($x)) }}
+            </pre>
+         @endif
 
 
 

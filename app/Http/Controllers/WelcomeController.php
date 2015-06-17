@@ -89,8 +89,9 @@ class WelcomeController extends Controller {
         $grid->addImage();
         $grid->addPrice();
         $grid->addLink('#');
-
         $output = $grid->createBootstrapGrid();
+
+
 
         $string = '';
 

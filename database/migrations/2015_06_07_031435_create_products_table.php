@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function(Blueprint $table) {
             $table->increments('id');
             $table->string('proTitle');
+            $table->string('proName');
             $table->string('proAuthor');
             $table->date('proPublishDate');
             $table->string('proPublisher');

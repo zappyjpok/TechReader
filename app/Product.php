@@ -11,6 +11,19 @@ class Product extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+
+    // List of fillable fields to protect from mass assignment
+    protected $fillable = [
+        'proName',
+        'proAuthor',
+        'proTitle',
+        'proPublishDate',
+        'proPublisher',
+        'proPrice',
+        'proDescription',
+        'proImagePath'
+        ];
+
     public function sales() {
         return $this->hasMany('App\Sale');
     }

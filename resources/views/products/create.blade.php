@@ -11,62 +11,62 @@
 
 @section('content')
 
-{!! Form::open(['class' => 'form-group']) !!}
+{!! Form::open(['class' => 'form-group', 'url' => 'products']) !!}
 
     <section class="row form-spacing">
         <div class="col-md-2">
-            {!! Form::label('ProductName', 'Product Name:') !!}
+            {!! Form::label('proName', 'Product Name:') !!}
         </div>
         <div class="col-md-4 input-lg">
-            {!! Form::text('ProductName', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Name'])  !!}
+            {!! Form::text('proName', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Name'])  !!}
         </div>
         <div class="col-md-2">
-            {!! Form::label('Author', 'Author:') !!}
+            {!! Form::label('proAuthor', 'Author:') !!}
         </div>
         <div class="col-md-4">
-            {!! Form::text('Author', null, ['class' => 'form-control', 'placeholder' => 'Enter Author'])  !!}
+            {!! Form::text('proAuthor', null, ['class' => 'form-control', 'placeholder' => 'Enter Author'])  !!}
         </div>
     </section>
 
     <section class="row form-spacing">
         <div class="col-md-2">
-            {!! Form::label('Title', 'Title') !!}
+            {!! Form::label('proTitle', 'Title') !!}
         </div>
         <div class="col-md-4 input-lg">
-            {!! Form::text('Title', null, ['class' => 'form-control', 'placeholder' => 'Enter Title'])  !!}
+            {!! Form::text('proTitle', null, ['class' => 'form-control', 'placeholder' => 'Enter Title'])  !!}
         </div>
         <div class="col-md-2">
-            {!! Form::label('Author', 'Author:') !!}
+            {!! Form::label('proPublishDate', 'Publish Date:') !!}
         </div>
         <div class="col-md-4">
-            <input type="date" class="form-control">
+            <input type="date" name ="proPublishDate" class="form-control">
         </div>
     </section>
 
     <section class="row form-spacing">
         <div class="col-md-2">
-            {!! Form::label('Publisher', 'Publisher') !!}
+            {!! Form::label('proPublisher', 'Publisher') !!}
         </div>
         <div class="col-md-4 input-lg">
-            {!! Form::text('Publisher', null, ['class' => 'form-control', 'placeholder' => 'Enter Publisher'])  !!}
+            {!! Form::text('proPublisher', null, ['class' => 'form-control', 'placeholder' => 'Enter Publisher'])  !!}
         </div>
         <div class="col-md-2">
-            {!! Form::label('Price', 'Price:') !!}
+            {!! Form::label('proPrice', 'Price:') !!}
         </div>
         <div class="col-md-4">
-            {!! Form::text('Price', null, ['class' => 'form-control', 'placeholder' => 'Enter Price'])  !!}
+            {!! Form::text('proPrice', null, ['class' => 'form-control', 'placeholder' => 'Enter Price'])  !!}
         </div>
     </section>
 
     <section class="row form-spacing">
-        {!! Form::textarea('description', null, array('required',
+        {!! Form::textarea('proDescription', null, array('required',
         'class' => 'form-control',
         'placeholder' => 'Please describe the house type here!')) !!}
     </section>
 
     <section class="row form-spacing">
         <div class="col-md-2">
-            {!! Form::label('Image', 'Upload Image:') !!}
+            {!! Form::label('proImagePath', 'Upload Image:') !!}
         </div>
         <div class="col-md-4">
             {!! Form::file('image') !!}

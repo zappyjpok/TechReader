@@ -3,7 +3,8 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use App\Product;
+use Request;
 
 class ProductsController extends Controller {
 
@@ -25,6 +26,8 @@ class ProductsController extends Controller {
 	public function create()
 	{
 		//
+        $button = "Add Product";
+        $pageTitle = '';
         return view('products.create');
 	}
 
@@ -36,6 +39,13 @@ class ProductsController extends Controller {
 	public function store()
 	{
 		//
+        $input = Request::all();
+        Product::create($input);
+
+
+
+        // return redirect('products');
+        return $input;
 	}
 
 	/**
@@ -47,6 +57,11 @@ class ProductsController extends Controller {
 	public function show($id)
 	{
 		//
+        $product = Product::findOrFail($id);
+
+        return view('products.show')->with([
+           'product' => $product
+        ]);
 	}
 
 	/**
