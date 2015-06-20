@@ -21,9 +21,8 @@ Route::controllers([
 ]);
 
 Route::resource('users', 'UsersController');
-
 Route::resource('products', 'ProductsController');
-
+Route::resource('categories', 'CategoriesController');
 
 // delete later
 Route::get('test', 'WelcomeController@Test');

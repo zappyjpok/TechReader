@@ -14,14 +14,41 @@ class ResizeImage {
     protected $extension;
     protected $image;
 
-
+    /**
+     * When Initialize it will set the path and the desired height and width
+     *
+     * @param $originalFile
+     * @param $width
+     * @param $height
+     */
     public function __construct($originalFile, $width, $height)
     {
-        $this->originalFile = url().$originalFile;
-        $this->originalFilePath = public_path().$originalFile;
-        $this->newHeight = $height;
-        $this->newWidth = $width;
+
+        if ($this->checkFile($originalFile) == true) {
+            $this->originalFile = $originalFile;
+            $this->newHeight = $height;
+            $this->newWidth = $width;
+        } else {
+            throw new \Exception($originalFile . ' does not exist');
+        }
+
+
     }
+
+    /**
+     * Check if the files exists before continuing
+     *
+     * @param $file
+     * @return bool
+     */
+    private function checkFile($file) {
+        if(file_exists($file)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     // This image will resize the image
     public function createResizeImage()
@@ -52,10 +79,13 @@ class ResizeImage {
     // Function to get the new scaled down dimensions of the image
     protected function getDimensions()
     {
-        list($originalWidth, $originalHeight) = getimagesize($this->originalFilePath);
+
+        list($originalWidth, $originalHeight) = getimagesize($this->originalFile);
+
         //get original sizes to create the function
         $this->oldHeight = $originalHeight;
         $this->oldWidth = $originalWidth;
+
 
         $scaleRatio = $originalWidth / $originalHeight;
         if (($this->newWidth/$this->newHeight) > $scaleRatio){
@@ -81,8 +111,8 @@ class ResizeImage {
     // create the new path and name for the file with
     protected function createFileName()
     {
-        $nameParts = pathinfo($this->originalFilePath);
-        $this->originalFilePath = $nameParts['dirname'] . '/' . $nameParts['filename'] . '_tn' . '.' . $this->extension;
+        $nameParts = pathinfo($this->originalFile);
+        $this->originalFile = $nameParts['dirname'] . '/' . $nameParts['filename'] . '_tn' . '.' . $this->extension;
     }
 
     // Create the resized image
@@ -92,7 +122,7 @@ class ResizeImage {
 
         imagecopyresampled($resource, $this->image, 0, 0, 0, 0,
             $this->newWidth, $this->newHeight, $this->oldWidth, $this->oldHeight);
-        imagejpeg($resource, $this->originalFilePath, 80);
+        imagejpeg($resource, $this->originalFile, 80);
     }
 
 

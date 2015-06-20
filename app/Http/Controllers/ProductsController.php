@@ -1,9 +1,14 @@
 <?php namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Services\UploadImage;
+use App\Services\ResizeImage;
 
 use App\Product;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Request;
 
 class ProductsController extends Controller {
@@ -15,7 +20,16 @@ class ProductsController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		//get all products
+        $products = Product::all();
+
+        $product = Product::find(5);
+
+        return $product->catagory->catName;
+
+        return view('products.index')->with([
+            'products' => $products
+        ]);
 	}
 
 	/**
@@ -28,7 +42,11 @@ class ProductsController extends Controller {
 		//
         $button = "Add Product";
         $pageTitle = '';
-        return view('products.create');
+        $categories = Category::lists('catName', 'id');
+
+        return view('products.create')->with([
+            'categories' => $categories
+        ]);
 	}
 
 	/**
@@ -38,14 +56,37 @@ class ProductsController extends Controller {
 	 */
 	public function store()
 	{
-		//
+        // Variables needed
+        $max = 500 * 1024; //size of the image
+        $results = []; // error messages
+        $destination =  public_path('images/products'); //use local
+
+		// Add values to the database
         $input = Request::all();
-        Product::create($input);
+        $product = Product::create($input);
 
+        // Prepare the uploaded file
+        $file = $this->uploadFile($destination, $max);
 
+        // Save the newly created image path to the database
+        if (file_exists($file))
+        {
+            $product->proImagePath = $file;
+            $product->save();
+        }
 
-        // return redirect('products');
-        return $input;
+        // Image is resized and a thumbnail has been created
+        if(file_exists($file)) {
+            $resize = new ResizeImage($file, 400, 400);
+            $resize->createResizeImage();
+            $resize->createThumbNail(200, 200);
+        } else {
+            $results[] = 'The resize file was not found';
+        }
+
+        return redirect ('products')->with([
+            'results' => $results,
+        ]);
 	}
 
 	/**
@@ -97,4 +138,25 @@ class ProductsController extends Controller {
 		//
 	}
 
+
+    private function uploadFile($destination, $max){
+        try {
+            $upload = new UploadImage($destination);
+            $upload->setMaxSize($max);
+            $upload->upload();
+            $results = $upload->getMessages();
+        } catch (Exception $e) {
+            $results = $e->getMessage();
+        }
+
+        // Collecting the data to save into the table
+        $fileName = $upload->getName(current($_FILES));
+        $file = $destination . '/' . $fileName;
+
+        return $file;
+    }
+
+    private function saveData() {
+
+    }
 }

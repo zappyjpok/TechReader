@@ -19,7 +19,12 @@ class UploadImage
     ];
     protected $noTrusted = ['bin', 'cgi', 'exe', 'js', 'pl', 'php', 'py', 'sh'];
 
-
+    /**
+     * Test if the folder is writable and if the dir exists
+     *
+     * @param $uploadFolder the folder where the imagmes will be uploaded
+     * @throws \Exception
+     */
     public function __construct($uploadFolder)
     {
         if (!is_dir($uploadFolder) || !is_writable($uploadFolder)) {
@@ -31,6 +36,12 @@ class UploadImage
         $this->destination = $uploadFolder;
     }
 
+    /**
+     * sets the max size of the upload file
+     *
+     * @param $bytes
+     * @throws \Exception
+     */
     public function setMaxSize($bytes)
     {
         $serverMax = self::convertToBytes(ini_get('upload_max_filesize'));
@@ -43,6 +54,12 @@ class UploadImage
         }
     }
 
+    /**
+     * Converts a value to use bytes
+     *
+     * @param $val
+     * @return int|string
+     */
     public static function convertToBytes($val){
         $val = trim($val);
         $last = strtolower($val[strlen($val)-1]);
@@ -59,6 +76,12 @@ class UploadImage
         return $val;
     }
 
+    /**
+     * Convert value from bytes
+     *
+     * @param $bytes
+     * @return string
+     */
     public static function convertFromBytes($bytes)
     {
         $bytes /= 1024;
@@ -69,6 +92,11 @@ class UploadImage
         }
     }
 
+    /**
+     * This function turns fo the check file feature
+     *
+     * @param null $suffix
+     */
     public function allowAllTypes($suffix = null)
     {
         $this->typeCheckingOn = false;

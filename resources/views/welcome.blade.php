@@ -6,7 +6,9 @@
         <section class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1">
             <h3> {{ $pageTitle }} </h3>
             <article class="row">
-                {!! $output !!}
+                @if(isset($output))
+                  {!! $output !!}
+                @endif
             </article>
             <div>
                 <ul class="pagination">

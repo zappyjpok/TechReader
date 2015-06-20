@@ -36,7 +36,7 @@ class WelcomeController extends Controller {
 	public function index()
 	{
         $pageTitle = "Check Out Are Sales";
-        $items = 1;
+        $output = '';
 
         // Refactor this into a class for everypage!
 
@@ -46,16 +46,18 @@ class WelcomeController extends Controller {
             ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
             ->get();
 
-        $grid = new BootstrapRows(3, 3, $sale);
-        $grid->setBootstrapClass('col-md-3 col-lg-3');
-        $grid->setParentElement('section');
-        $grid->setChildElement('div');
-        $grid->addTitle();
-        $grid->addDescription();
-        $grid->addImage();
-        $grid->addPrice();
-        $grid->addLink('#');
-        $output = $grid->createBootstrapGrid();
+        if(!empty($sale)) {
+            $grid = new BootstrapRows(3, 3, $sale);
+            $grid->setBootstrapClass('col-md-3 col-lg-3');
+            $grid->setParentElement('section');
+            $grid->setChildElement('div');
+            $grid->addTitle();
+            $grid->addDescription();
+            $grid->addImage();
+            $grid->addPrice();
+            $grid->addLink('#');
+            $output = $grid->createBootstrapGrid();
+        }
 
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,

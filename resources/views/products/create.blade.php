@@ -11,7 +11,13 @@
 
 @section('content')
 
-{!! Form::open(['class' => 'form-group', 'url' => 'products']) !!}
+{!! Form::open([
+    'class' => 'form-group',
+    'url' => 'products',
+    'file' => true,
+    'enctype' => 'multipart/form-data'
+    ])
+!!}
 
     <section class="row form-spacing">
         <div class="col-md-2">
@@ -59,7 +65,22 @@
     </section>
 
     <section class="row form-spacing">
-        {!! Form::textarea('proDescription', null, array('required',
+        <div class="col-md-2">
+            {!! Form::label('proCategoryId', 'Category') !!}
+        </div>
+        <div class="col-md-4 input-lg">
+            {!! Form::select('proCategoryId', $categories) !!}
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </section>
+
+    <section class="row form-spacing">
+        {!! Form::textarea('proDescription', null, array(
         'class' => 'form-control',
         'placeholder' => 'Please describe the house type here!')) !!}
     </section>

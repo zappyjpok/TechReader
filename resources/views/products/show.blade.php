@@ -6,7 +6,7 @@
  * Time: 8:07 PM
  */ ?>
 
-@extends('_layouts._layout')
+@extends('_layouts._adminLayout')
 
 @section('content')
 
