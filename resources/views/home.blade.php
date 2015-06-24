@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="container">
-  <h2> Test Admin</h2>
+  <ul>
+    <li> <a href="{{ action('ProductsController@index') }}" > Products </a></li>
+  </ul>
 </div>
 @endsection

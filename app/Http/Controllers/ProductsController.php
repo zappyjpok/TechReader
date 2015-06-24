@@ -2,6 +2,7 @@
 
 use App\Category;
 use App\Http\Requests;
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Services\UploadImage;
 use App\Services\ResizeImage;
@@ -9,7 +10,6 @@ use App\Services\ResizeImage;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Request;
 
 class ProductsController extends Controller {
 
@@ -23,12 +23,16 @@ class ProductsController extends Controller {
 		//get all products
         $products = Product::all();
 
-        $product = Product::find(5);
-
-        return $product->catagory->catName;
+        // Add instructions and a link
+        $header = 'Product Information Page';
+        $instructions = 'You can create, update, and delete product information';
+        $createButton = 'Create Product';
 
         return view('products.index')->with([
-            'products' => $products
+            'products' => $products,
+            'header' => $header,
+            'instructions' => $instructions,
+            'createButton' => $createButton
         ]);
 	}
 
@@ -39,9 +43,7 @@ class ProductsController extends Controller {
 	 */
 	public function create()
 	{
-		//
-        $button = "Add Product";
-        $pageTitle = '';
+		// variables needed
         $categories = Category::lists('catName', 'id');
 
         return view('products.create')->with([
@@ -54,39 +56,42 @@ class ProductsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateProductRequest $request)
 	{
         // Variables needed
         $max = 500 * 1024; //size of the image
-        $results = []; // error messages
         $destination =  public_path('images/products'); //use local
 
 		// Add values to the database
-        $input = Request::all();
+        $input = $request->all();
         $product = Product::create($input);
 
         // Prepare the uploaded file
-        $file = $this->uploadFile($destination, $max);
-
-        // Save the newly created image path to the database
-        if (file_exists($file))
+        //not working
+        if (Input::hasFile('proImage'))
         {
-            $product->proImagePath = $file;
-            $product->save();
+            $file = $this->uploadFile($destination, $max);
+            // Save the newly created image path to the database
+            if (file_exists($file))
+            {
+                $product->proImagePath = $file;
+                $product->save();
+            }
+            // Image is resized and a thumbnail has been created
+            if(file_exists($file))
+            {
+                $resize = new ResizeImage($file, 400, 400);
+                $resize->createResizeImage();
+                $resize->createThumbNail(200, 200);
+            }
         }
 
-        // Image is resized and a thumbnail has been created
-        if(file_exists($file)) {
-            $resize = new ResizeImage($file, 400, 400);
-            $resize->createResizeImage();
-            $resize->createThumbNail(200, 200);
-        } else {
-            $results[] = 'The resize file was not found';
-        }
 
-        return redirect ('products')->with([
-            'results' => $results,
-        ]);
+
+
+
+
+        return redirect ('products');
 	}
 
 	/**
@@ -97,7 +102,7 @@ class ProductsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		//Variables needed
         $product = Product::findOrFail($id);
 
         return view('products.show')->with([
@@ -113,7 +118,14 @@ class ProductsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		// variables needed
+        $product = Product::findOrFail($id);
+        $categories = Category::lists('catName', 'id');
+
+        return view('products.edit')->with([
+            'product' => $product,
+            'categories' => $categories
+        ]);
 	}
 
 	/**
@@ -122,9 +134,13 @@ class ProductsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, CreateProductRequest $request)
 	{
-		//
+		// variables needed
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+
+        return redirect('products');
 	}
 
 	/**

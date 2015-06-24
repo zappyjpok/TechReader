@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
@@ -20,6 +21,11 @@ class Product extends Model {
         'proDescription',
         'proImagePath'
         ];
+
+    public function setPublishDateAttribute($date)
+    {
+        $this->attributes['proPublishDate'] = Carbon::createFromFormat('Y-m-d', $date);
+    }
 
     /**
      * A product can have many sales
