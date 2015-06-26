@@ -1,12 +1,13 @@
 <?php namespace App\Http\Controllers;
 
+use App;
 use App\Category;
 use App\Http\Requests;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Services\UploadImage;
 use App\Services\ResizeImage;
-
+use App\Services\DeleteFile;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -27,6 +28,11 @@ class ProductsController extends Controller {
         $header = 'Product Information Page';
         $instructions = 'You can create, update, and delete product information';
         $createButton = 'Create Product';
+
+        $product = $products->find(7);
+        $query = $product->sales;
+        //return $query;
+        return view('test')->with(['query' => $query]);
 
         return view('products.index')->with([
             'products' => $products,
@@ -66,30 +72,17 @@ class ProductsController extends Controller {
         $input = $request->all();
         $product = Product::create($input);
 
-        // Prepare the uploaded file
-        //not working
-        if (Input::hasFile('proImage'))
+        // Save the newly created image path to the database
+        if (!empty($_FILES['image']['name']))
         {
             $file = $this->uploadFile($destination, $max);
-            // Save the newly created image path to the database
-            if (file_exists($file))
-            {
-                $product->proImagePath = $file;
-                $product->save();
-            }
-            // Image is resized and a thumbnail has been created
-            if(file_exists($file))
-            {
-                $resize = new ResizeImage($file, 400, 400);
-                $resize->createResizeImage();
-                $resize->createThumbNail(200, 200);
-            }
+            $product->proImagePath = $file;
+            $product->save();
+
+            $resize = new ResizeImage($file, 400, 400);
+            $resize->createResizeImage();
+            $resize->createThumbNail(200, 200);
         }
-
-
-
-
-
 
         return redirect ('products');
 	}
@@ -128,16 +121,34 @@ class ProductsController extends Controller {
         ]);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param $id
+     * @param CreateProductRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
 	public function update($id, CreateProductRequest $request)
 	{
 		// variables needed
         $product = Product::findOrFail($id);
+
+        $max = 500 * 1024; //size of the image
+        $destination =  public_path('images/products'); //use local
+
+        // Upadate image
+        if (!empty($_FILES['image']['name']))
+        {
+            $this->deleteImage($product->proImagePath);
+            $file = $this->uploadFile($destination, $max);
+            $product->proImagePath = $file;
+            $product->save();
+
+            $resize = new ResizeImage($file, 400, 400);
+            $resize->createResizeImage();
+            $resize->createThumbNail(200, 200);
+        }
+
         $product->update($request->all());
 
         return redirect('products');
@@ -152,10 +163,25 @@ class ProductsController extends Controller {
 	public function destroy($id)
 	{
 		//
+        $product = Product::findOrFail($id);
+
+        //Delete the image and thumbnail
+        $this->deleteImage($product->proImagePath);
+        $product->delete();
+
+        return redirect ('products');
 	}
 
-
-    private function uploadFile($destination, $max){
+    /**
+     * Upload a file
+     *
+     * @param $destination
+     * @param $max
+     * @return string
+     * @throws \Exception
+     */
+    private function uploadFile($destination, $max)
+    {
         try {
             $upload = new UploadImage($destination);
             $upload->setMaxSize($max);
@@ -172,7 +198,22 @@ class ProductsController extends Controller {
         return $file;
     }
 
-    private function saveData() {
-
+    private function deleteImage($image)
+    {
+        $results = [];
+        if(file_exists($image)) {
+            try
+            {
+                $delete = new DeleteFile($image);
+                $delete->deleteThumbnail();
+                $delete->deleteFile();
+                $results = $delete->getMessages();
+            } catch (Exception $e)
+            {
+                $results = $e->getMessage();
+            }
+        }
     }
+
+
 }

@@ -20,6 +20,7 @@ class ProductsTableSeeder extends Seeder
             Product::create([
                 'proTitle' => $faker->word,
                 'proAuthor' => $faker->name,
+                'proCategoryId' => $faker->numberBetween($min = 1, $max = 4),
                 'proPublishDate' => $faker->dateTimeThisDecade,
                 'proPublisher' => $faker->word,
                 'proPrice' => $faker->randomNumber(2),

@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Address as Address;
 use App\Sale as Sale;
+use App\Category;
 
 class DatabaseSeeder extends Seeder {
 
@@ -17,11 +18,11 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		// $this->call('UserTableSeeder');
-        $this->call('UsersTableSeeder');
-        $this->call('ProductsTableSeeder');
-        $this->call('RolesTableSeeder');
-        $this->call('SalesTableSeeder');
+        //$this->call('UsersTableSeeder');
+        //$this->call('CategoriesTableSeeder');
+        //$this->call('ProductsTableSeeder');
+        //$this->call('SalesTableSeeder');
+        //$this->call('RolesTableSeeder');
         $this->call('AddressesTableSeeder');
 	}
 
@@ -59,7 +60,7 @@ class SalesTableSeeder extends Seeder
 
         Eloquent::unguard();
 
-        for($i=0; $i<20; $i++) {
+        for($i=0; $i<10; $i++) {
             Sale::create([
                 'salProductID' => $faker->numberBetween($min = 1, $max = 50),
                 'salStart' => $faker->dateTimeBetween('-14 days', 'now'),
@@ -69,3 +70,32 @@ class SalesTableSeeder extends Seeder
         }
     }
 }
+
+class CategoriesTableSeeder extends Seeder
+{
+    public function run()
+    {
+        // TestDummy::times(20)->create('App\Post');
+
+        Category::create([
+            'catName' => 'Programming'
+        ]);
+
+        Category::create([
+            'catName' => 'Web Development'
+        ]);
+
+        Category::create([
+            'catName' => 'Networking'
+        ]);
+
+        Category::create([
+            'catName' => 'Windows'
+        ]);
+
+        Category::create([
+            'catName' => 'Mac'
+        ]);
+    }
+}
+

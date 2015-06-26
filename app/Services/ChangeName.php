@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App;
+
 class ChangeName {
 
     public static function changeToThumbnail($image)
@@ -14,4 +16,23 @@ class ChangeName {
 
         return $newName;
     }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public static function changeToLocalEnvironment($value, $find)
+    {
+        if (App::isLocal())
+        {
+            $needle = strpos($value, $find);
+            $newName = substr($value, $needle-1);
+
+            $value = $newName;
+        }
+
+        return $value;
+    }
+
+
 }

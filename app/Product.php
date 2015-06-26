@@ -34,7 +34,7 @@ class Product extends Model {
      */
     public function sales()
     {
-        return $this->hasMany('App\Sale');
+        return $this->hasMany('App\Sale', 'salProductId');
     }
 
     /**

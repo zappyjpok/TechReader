@@ -59,6 +59,12 @@ class ResizeImage {
         $this->createImage();
     }
 
+    /**
+     * Create a thumbnail when you resize original image
+     *
+     * @param $height
+     * @param $width
+     */
     public function createThumbNail($height, $width)
     {
         $this->newHeight = $height;
@@ -70,13 +76,19 @@ class ResizeImage {
         $this->createImage();
     }
 
-    // Function to get the file extension to use in the ... function
+    /**
+     * Function to get the file extension to use in the function
+     *
+     *
+     */
     protected function getFileExtension() {
         $nameParts = pathinfo($this->originalFile);
         $this->extension = ($nameParts['extension']);
     }
 
-    // Function to get the new scaled down dimensions of the image
+    /**
+     * Function to get the new scaled down dimensions of the image
+     */
     protected function getDimensions()
     {
 

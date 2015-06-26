@@ -20,6 +20,12 @@ class DeleteFile
     protected $fileName;
     protected $extension;
 
+    /**
+     * Check if file exists
+     *
+     * @param $file
+     * @throws \Exception
+     */
     public function __construct($file)
     {
         if (!file_exists($file)) {
@@ -29,6 +35,10 @@ class DeleteFile
         $this->destination = $file;
     }
 
+    /**
+     * Delete the file
+     *
+     */
     public function deleteFile()
     {
         unlink($this->destination);
@@ -38,12 +48,19 @@ class DeleteFile
         }
     }
 
+    /**
+     * Delete Thumbnail
+     *
+     */
     public function deleteThumbnail()
     {
         $this->deleteThumbnail = true;
         $this->createThumbnailName();
     }
 
+    /**
+     * Create parts of the file
+     */
     protected function getNames()
     {
         $nameParts = pathinfo($this->destination);
@@ -52,12 +69,20 @@ class DeleteFile
         $this->extension = $nameParts['extension'];
     }
 
+    /**
+     * Check messages
+     *
+     * @return array
+     */
     public function getMessages ()
     {
 
         return $this->messages;
     }
 
+    /**
+     * Creates name for the thumbnail
+     */
     protected function createThumbnailName()
     {
 

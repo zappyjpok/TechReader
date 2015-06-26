@@ -56,7 +56,7 @@
                 <td> {{ $product->proAuthor }} </td>
                 <td> ${{ $product->proPrice }} </td>
                 <td>
-                    @if(isset($product->proSale))
+                    @if(isset($product->sales))
                     {{ $product->proSale}}
                     @else
                         <a href="#" class="btn btn-success"> Create Sale </a>
@@ -68,8 +68,11 @@
                     @endif
                 </td>
                 <td>  <a href="{{ action('ProductsController@edit', $product->id) }}" class="btn btn-info"> Update  </a> </td>
-                <td>  <a href="{{ action('ProductsController@destroy', $product->id) }}" class="btn btn-danger"> Delete  </a> </td>
-
+                <td>
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id ]]) !!}
+                        {!! Form::submit('Delete', ['class' => "btn btn-danger btn-sm"]) !!}
+                    {!! Form::close() !!}
+                </td>
             </tr>
         @endforeach
     </tbody>
