@@ -16,6 +16,11 @@ img {
     width: 150px;
 }
 
+.img-lg {
+    height: 300px;
+    width: 300px;
+}
+
 .priceTitle {
     color:#00b3ee;
     font-weight: bold;

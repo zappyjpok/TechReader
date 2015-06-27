@@ -49,22 +49,26 @@
                 <td> <a href="{{ action('ProductsController@show', $product->id) }}"> {{ $product->proTitle }} </a> </td>
                 <td>
                     @if($product->category)
-                        {{ $product->category->catName }}
+                        {{ $product->category->first()->catName }}
+                    @else
+                        {{ $product->getCategoryName($product->proCategoryId) }}
                     @endif
                 </td>
                 <td> {{ $product->proPublisher }} </td>
                 <td> {{ $product->proAuthor }} </td>
                 <td> ${{ $product->proPrice }} </td>
                 <td>
-                    @if(isset($product->sales))
-                    {{ $product->proSale}}
+                    @if(!$product->getSales($product->id))
+                        Not On Sale
                     @else
-                        <a href="#" class="btn btn-success"> Create Sale </a>
+                        {{ $product->getSales($product->id) }}
                     @endif
                 </td>
                 <td>
-                    @if(isset($product->proSale))
-                        <a href="#" class="btn btn-primary"> Edit Sale  </a>
+                    @if(!$product->getSales($product->id))
+                        <a href="{{ action('SalesController@create', $product->proTitle) }}" class="btn btn-success"> Add Sale  </a>
+                    @else
+                        <a href="{{ action('SalesController@edit', $product->proTitle) }}" class="btn btn-primary"> Edit Sale  </a>
                     @endif
                 </td>
                 <td>  <a href="{{ action('ProductsController@edit', $product->id) }}" class="btn btn-info"> Update  </a> </td>

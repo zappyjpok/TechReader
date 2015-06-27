@@ -16,6 +16,9 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 Route::get('products/sales', 'SalesController@index');
+Route::get('products/sales/create/{id}', 'SalesController@create');
+Route::post('products/sales/create/{id}', 'SalesController@store');
+Route::get('products/sales/edit/{id}', 'SalesController@edit');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -25,6 +28,7 @@ Route::controllers([
 Route::resource('users', 'UsersController');
 Route::resource('products', 'ProductsController');
 Route::resource('categories', 'CategoriesController');
+Route::resource('sales', 'SalesController');
 
 // delete later
 Route::get('test', 'WelcomeController@Test');

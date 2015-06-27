@@ -46,4 +46,26 @@ class Product extends Model {
     {
         return $this->belongsTo('App\Category', 'id');
     }
+
+    public function getCategoryName($id)
+    {
+        $name = Category::where('id', $id)->first()->catName;
+        return $name;
+    }
+
+    public function getSales($id)
+    {
+
+        $sale = Sale::where('salProductId', $id, 'OR')
+            ->where('salStart', '<=', Carbon::now(), 'AND')
+            ->where('salFinish', '>', Carbon::now())
+            ->first();
+
+        if(!is_null($sale))
+        {
+            return $sale->salDiscount;
+        } else {
+            return False;
+        }
+    }
 }

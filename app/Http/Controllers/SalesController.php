@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\SaleRequest;
 use App\Http\Controllers\Controller;
 
 use App\Product;
 use App\Sale;
 use Illuminate\Http\Request;
+
 
 class SalesController extends Controller {
 
@@ -17,8 +19,6 @@ class SalesController extends Controller {
 	public function index()
 	{
 		//
-
-
         return 'hello';
 	}
 
@@ -27,9 +27,17 @@ class SalesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($name)
 	{
 		//
+        $product = Product::where('proTitle', $name)->first();
+        $discounts = [.05, .1, .15, .2, .25, .3, .35, .4, .45, .50, .55, .60, .65, .70, .75, .80, .85, .90, .95];
+
+        return view('sales.create')->with([
+            'product'   => $product,
+            'discounts'  => $discounts
+        ]);
+
 	}
 
 	/**
@@ -37,9 +45,11 @@ class SalesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(SaleRequest $request)
 	{
-		//
+        $input = $request->all();
+        $sale = Sale::create($input);
+        return $input;
 	}
 
 	/**

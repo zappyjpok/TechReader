@@ -29,11 +29,6 @@ class ProductsController extends Controller {
         $instructions = 'You can create, update, and delete product information';
         $createButton = 'Create Product';
 
-        $product = $products->find(7);
-        $query = $product->sales;
-        //return $query;
-        return view('test')->with(['query' => $query]);
-
         return view('products.index')->with([
             'products' => $products,
             'header' => $header,
