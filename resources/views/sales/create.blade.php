@@ -25,39 +25,11 @@
         </div>
     </section>
     {!! Form::open([
-    'class' => 'form-group',
-    'url' => 'sales'
+    'class'  => 'form-group',
+    'action' => 'SalesController@store'
     ])
     !!}
-        <section class="row">
-            <div class="col-md-2">
-                {!! Form::label('salStart', 'Start Date') !!}
-            </div>
-            <div class="col-md-4 input-lg">
-                {!! Form::input('date', 'salStart', date('Y-m-d'), ['class' => 'form-control'] ) !!}
-            </div>
-            <div class="col-md-2">
-                {!! Form::label('salFinish', 'Finish Date') !!}
-            </div>
-            <div class="col-md-4 input-lg">
-                {!! Form::input('date', 'salFinish', date('Y-m-d'), ['class' => 'form-control'] ) !!}
-            </div>
-            </div>
-        </section>
-        <section class="row">
-            <div class="col-md-2">
-                {!! Form::label('salDiscount', 'Discount') !!}
-            </div>
-            <div class="col-md-4 input-lg">
-                {!! Form::select('proDiscount', $discounts) !!}
-            </div>
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-4">
-                {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
-            </div>
-        </section>
+        @include('sales._partials._form', ['submitButton' => 'Add Sale'])
     {!! Form::close() !!}
 
 

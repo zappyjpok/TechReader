@@ -22,6 +22,7 @@ class Product extends Model {
         'proImagePath'
         ];
 
+
     public function setPublishDateAttribute($date)
     {
         $this->attributes['proPublishDate'] = Carbon::createFromFormat('Y-m-d', $date);
@@ -58,7 +59,7 @@ class Product extends Model {
 
         $sale = Sale::where('salProductId', $id, 'OR')
             ->where('salStart', '<=', Carbon::now(), 'AND')
-            ->where('salFinish', '>', Carbon::now())
+            ->where('salFinish', '>=', Carbon::now())
             ->first();
 
         if(!is_null($sale))
