@@ -228,7 +228,7 @@ class BootstrapRows {
                 $string .= $this->childElement . " class=" . $this->bootstrapClass . "> \n";
                 // create shift
                 $this->shiftData = array_shift($this->data);
-                if($this->shiftData->salDiscount != null) {
+                if($this->shiftData->discount != null) {
                     $string .= $this->createSalesColumn();
                 } else {
                     $string .= $this->createColumn();
@@ -248,7 +248,7 @@ class BootstrapRows {
         $string = '';
 
         if($this->title == true){
-            $title = $this->shiftData->proTitle;
+            $title = $this->shiftData->title;
             $string .= '<h3>';
             if($this->link == true) {
                 $string .= '<a href=' . $this->linkURL . '>';
@@ -259,15 +259,15 @@ class BootstrapRows {
             }
         }
         if($this->image == true){
-            $image = $this->shiftData->proImagePath;
+            $image = $this->shiftData->image;
             $string .= "<img src='" . $image . "' />" . "\n";
         }
         if($this->description == true){
-            $description = $this->shiftData->proDescription;
+            $description = $this->shiftData->dscription;
             $string .= '<p>' . $description . '</p>';
         }
         if($this->price == true){
-            $price = $this->shiftData->proPrice;
+            $price = $this->shiftData->price;
             $string .= '<p class="priceTitle">  Price ';
             $string .= '<span class="price">' . '$' . $price . '</span></p>';
         }
@@ -279,7 +279,7 @@ class BootstrapRows {
         $string = '';
 
         if($this->title == true){
-            $title = $this->shiftData->proTitle;
+            $title = $this->shiftData->title;
             $string .= '<h3>';
             if($this->link == true) {
                 $string .= '<a href=' . $this->linkURL . '>';
@@ -290,19 +290,19 @@ class BootstrapRows {
             }
         }
         if($this->image == true){
-            $image = $this->shiftData->proImagePath;
+            $image = $this->shiftData->image;
             $string .= "<img src='" . $image . "' />" . "\n";
         }
         if($this->description == true){
-            $description = $this->shiftData->proDescription;
+            $description = $this->shiftData->description;
             $string .= '<p>' . $description . '</p>';
         }
         if($this->price == true){
-            $price = $this->shiftData->proPrice;
+            $price = $this->shiftData->price;
             $string .= '<p class="priceCut">  Original Price $';
             $string .= $price . '</p>';
             $string .= "<span class='priceTitle'> Sale Price </span>";
-            $string .= "<span class='price'>" . $this->discountPrice($price, $this->shiftData->salDiscount);
+            $string .= "<span class='price'>" . $this->discountPrice($price, $this->shiftData->discount);
             $string .= "</span>";
         }
 

@@ -20,10 +20,10 @@
 
     <section class="row form-spacing">
         <div class="col-md-2">
-            {!! Form::label('catName', 'Product Name:') !!}
+            {!! Form::label('name', 'Category Name:') !!}
         </div>
         <div class="col-md-4 input-lg">
-            {!! Form::text('catName', null, ['class' => 'form-control', 'placeholder' => 'Enter Category Name'])  !!}
+            {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter Category Name'])  !!}
         </div>
         <div class="col-md-2">
 

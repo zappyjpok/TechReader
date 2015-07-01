@@ -88,6 +88,10 @@ class CategoriesController extends Controller {
 	public function destroy($id)
 	{
 		//
+        $categories = Category::findOrFail($id);
+        $categories->delete();
+
+        return redirect ('categories');
 	}
 
 }

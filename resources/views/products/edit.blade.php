@@ -11,7 +11,7 @@
 @section('content')
 
 @include('products._partials._validation')
-    <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->proImagePath, 'Tech') }}">
+    <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}">
 
     {!! Form::model($product, [
         'method' => 'PATCH',
@@ -26,7 +26,5 @@
     @include('products._partials._form', ['submitButton' => 'Update Product'])
 
     {!! Form::close() !!}
-
-
 
 @endsection

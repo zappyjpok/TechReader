@@ -22,30 +22,30 @@ class CreateProductRequest extends Request {
 	public function rules()
 	{
 		return [
-            'proName' => 'required',
-            'proAuthor' => 'required',
-            'proTitle' => 'required',
-            'proPublishDate' => 'required|date',
-            'proPublisher' => 'required',
-            'proPrice' => 'required|regex:/^[0-9]+(\.[0-9]{2})?$/',
-            'proCategoryId' => 'required',
-            'proDescription' => 'required'
+            'name' => 'required',
+            'author' => 'required',
+            'title' => 'required',
+            'publish_date' => 'required|date',
+            'publisher' => 'required',
+            'price' => 'required|regex:/^[0-9]+(\.[0-9]{2})?$/',
+            'category_id' => 'required',
+            'description' => 'required'
 
 		];
 	}
     public function messages()
     {
         return [
-            'proName.required' => 'Please provide the product name',
-            'proAuthor.required' => 'Please provide the author\'s name',
-            'proTitle.required' => 'Please provide the book title',
-            'proPublishDate.required' => 'Please provide the publish date',
-            'proPublishDate.date' => 'The publish date you entered is not a valid date',
-            'proPublisher.required' => 'Please provide the publisher',
-            'proPrice.required' => 'Please provide a price',
-            'proPrice.regex' => 'The price you entered is not a valid price',
-            'proCategoryId.required' => 'Please select a category',
-            'proDescription.required' => 'Please provide a description of the book'
+            'name.required' => 'Please provide the product name',
+            'author.required' => 'Please provide the author\'s name',
+            'title.required' => 'Please provide the book title',
+            'publish_date.required' => 'Please provide the publish date',
+            'publish_date.date' => 'The publish date you entered is not a valid date',
+            'publisher.required' => 'Please provide the publisher',
+            'price.required' => 'Please provide a price',
+            'price.regex' => 'The price you entered is not a valid price',
+            'category_id.required' => 'Please select a category',
+            'description.required' => 'Please provide a description of the book'
         ];
 
     }

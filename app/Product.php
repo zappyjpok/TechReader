@@ -11,21 +11,21 @@ class Product extends Model {
 
     // List of fillable fields to protect from mass assignment
     protected $fillable = [
-        'proName',
-        'proAuthor',
-        'proTitle',
-        'proCategoryId',
-        'proPublishDate',
-        'proPublisher',
-        'proPrice',
-        'proDescription',
-        'proImagePath'
+        'name',
+        'author',
+        'title',
+        'category_id',
+        'publish_date',
+        'publisher',
+        'price',
+        'description',
+        'image'
         ];
 
 
     public function setPublishDateAttribute($date)
     {
-        $this->attributes['proPublishDate'] = Carbon::createFromFormat('Y-m-d', $date);
+        $this->attributes['publish_date'] = Carbon::createFromFormat('Y-m-d', $date);
     }
 
     /**
@@ -35,7 +35,7 @@ class Product extends Model {
      */
     public function sales()
     {
-        return $this->hasMany('App\Sale', 'salProductId');
+        return $this->hasMany('App\Sale', 'product_id');
     }
 
     /**
@@ -50,16 +50,16 @@ class Product extends Model {
 
     public function getCategoryName($id)
     {
-        $name = Category::where('id', $id)->first()->catName;
+        $name = Category::where('id', $id)->first()->name;
         return $name;
     }
 
     public function getSales($id)
     {
 
-        $sale = Sale::where('salProductId', $id, 'OR')
-            ->where('salStart', '<=', Carbon::now(), 'AND')
-            ->where('salFinish', '>=', Carbon::now())
+        $sale = Sale::where('product_id', $id, 'OR')
+            ->where('start', '<=', Carbon::now(), 'AND')
+            ->where('finish', '>=', Carbon::now())
             ->first();
 
         if(!is_null($sale))

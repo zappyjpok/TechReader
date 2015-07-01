@@ -45,7 +45,7 @@ class ProductsController extends Controller {
 	public function create()
 	{
 		// variables needed
-        $categories = Category::lists('catName', 'id');
+        $categories = Category::lists('name', 'id');
 
         return view('products.create')->with([
             'categories' => $categories
@@ -71,7 +71,7 @@ class ProductsController extends Controller {
         if (!empty($_FILES['image']['name']))
         {
             $file = $this->uploadFile($destination, $max);
-            $product->proImagePath = $file;
+            $product->image = $file;
             $product->save();
 
             $resize = new ResizeImage($file, 400, 400);
@@ -108,7 +108,7 @@ class ProductsController extends Controller {
 	{
 		// variables needed
         $product = Product::findOrFail($id);
-        $categories = Category::lists('catName', 'id');
+        $categories = Category::lists('name', 'id');
 
         return view('products.edit')->with([
             'product' => $product,
@@ -136,7 +136,7 @@ class ProductsController extends Controller {
         {
             $this->deleteImage($product->proImagePath);
             $file = $this->uploadFile($destination, $max);
-            $product->proImagePath = $file;
+            $product->image = $file;
             $product->save();
 
             $resize = new ResizeImage($file, 400, 400);
@@ -161,7 +161,7 @@ class ProductsController extends Controller {
         $product = Product::findOrFail($id);
 
         //Delete the image and thumbnail
-        $this->deleteImage($product->proImagePath);
+        $this->deleteImage($product->image);
         $product->delete();
 
         return redirect ('products');

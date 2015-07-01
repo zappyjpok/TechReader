@@ -1,8 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use App\Sale;
 use App\Services\BootstrapRows;
 use App\Product as Product;
 use App\Services\BootstrapRowsSales;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller {
@@ -39,11 +41,9 @@ class WelcomeController extends Controller {
         $output = '';
 
         // Refactor this into a class for everypage!
-
-
         $sale = DB::table('sales')
-            ->join('products', 'sales.salProductId', '=', 'products.id')
-            ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
+            ->join('products', 'sales.product_id', '=', 'products.id')
+            ->select('products.title', 'products.description', 'products.image','products.price', 'sales.discount')
             ->get();
 
         if(!empty($sale)) {
@@ -67,43 +67,17 @@ class WelcomeController extends Controller {
 
     public function test()
     {
+        $sales = Sale::current()->get();
+        $products = Product::find(2);
+        //$sale = Sale::find(3); $sale->product;
+        $sale = Sale::findProduct(2)->get(); // don't forget the get()
+        $test = Sale::current()->findProduct($products->id)->first(); // this works
+        $test2 = Sale::all();
 
-        $data = DB::table('products')->select('proTitle', 'proDescription', 'proImagePath','proPrice')->get();
-
-        $sales = DB::table('sales')
-            ->join('products', 'sales.salProductId', '=', 'products.id')
-            ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
-            ->get();
-
-        $sale = DB::table('products')
-            ->Leftjoin('sales', 'sales.salProductId', '=', 'products.id')
-            ->select('products.proTitle', 'products.proDescription', 'products.proImagePath','products.proPrice', 'sales.salDiscount')
-            ->get();
-
-        $all = '';
-
-        $grid = new BootstrapRows(4, 3, $sale);
-        $grid->setBootstrapClass('col-xs-3 col-md-3 col-lg-3');
-        $grid->setParentElement('section');
-        $grid->setChildElement('article');
-        $grid->addTitle();
-        $grid->addDescription();
-        $grid->addImage();
-        $grid->addPrice();
-        $grid->addLink('#');
-        $output = $grid->createBootstrapGrid();
-
-
-
-        $string = '';
+        return $test2;
 
         return view('test')->with([
-            'output' => $output,
-            'string' => $string,
-            'sales' => $sales,
             'sale' => $sale,
-            'data' => $data,
-            'all' => $all
         ]);
     }
 }

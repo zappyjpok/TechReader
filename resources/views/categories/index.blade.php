@@ -23,7 +23,7 @@
                 @foreach($categories as $category)
                     <tr>
                         <td> {{ $category->id }}</td>
-                        <td> {{ $category->catName }}</td>
+                        <td> {{ $category->name }}</td>
                         <td>
                             <a href="{{ action('CategoriesController@edit', [$category->id]) }}" class="btn btn-info btn-sm"> Edit House</a>
                         </td>

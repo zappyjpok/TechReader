@@ -33,28 +33,8 @@ class SalesController extends Controller {
 	public function create($name)
 	{
 		//
-        $product = Product::where('proTitle', $name)->first();
-        $discounts = [
-            '.05' => '%5',
-            '.1' => '%10',
-            '.15' => '%15',
-            '.2' => '%20',
-            '.25' => '%25',
-            '.3' => '%30',
-            '.35' => '%35',
-            '.40' => '%40',
-            '.45' => '%45',
-            '.50' => '%50',
-            '.55' => '%55',
-            '.60' => '%60',
-            '.65' => '%65',
-            '.70' => '%70',
-            '.75' => '%75',
-            '.80' => '%80',
-            '.85' => '%85',
-            '.90' => '%90',
-            '.95' => '%95',
-        ];
+        $product = Product::where('title', $name)->first();
+        $discounts [] = $this->getDiscounts();
 
         return view('sales.create')->with([
             'product'   => $product,
@@ -73,14 +53,15 @@ class SalesController extends Controller {
         //get values
         $input = $request->all();
         // Turn discount into a number
-        $discount = (float)$input['salDiscount'];
+
+        $discount = (float)$input['discount'];
 
         // Add values to database
         $sale = new Sale();
-        $sale->salStart = $input['salStart'];
-        $sale->salFinish = $input['salFinish'];
-        $sale->salDiscount = $discount;
-        $sale->salProductId = $input['salProductId'];
+        $sale->start = $input['start'];
+        $sale->finish = $input['finish'];
+        $sale->discount = $discount;
+        $sale->product_id = $input['product_id'];
         $sale->save();
 
         return redirect('products');
@@ -106,17 +87,66 @@ class SalesController extends Controller {
 	public function edit($name)
 	{
 		//
-        $product = Product::where('proTitle', $name)->first();
-        $products = Product::where('proTitle', $name)->get();
-        $productId = $products->first()->id;
-        $sale = DB::table('sales')
-            ->where('salProductId', '=', $productId)
-            ->where('salStart', '<=', Carbon::now())
-            ->where('salFinish', '>=', Carbon::now())
-            ->first()
-            ->id;
+        if (isset($_GET['id'])) {
+            $id = urlencode($_GET['id']);
+
+        } else {
+            return redirect('products');
+        }
+        $product = Product::where('title', $name)->first();
+        $sale = Sale::find($id);
+
+        $discounts [] = $this->getDiscounts();
 
 
+        return view('sales.edit')->with([
+            'product'   => $product,
+            'discounts'  => $discounts,
+            'sale' => $sale
+        ]);
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id, SaleRequest $request)
+	{
+        //get values
+        $input = $request->all();
+
+        // Turn discount into a number
+        $discount = (float)$input['discount'];
+
+        // Add values to database
+        $sale = Sale::findOrFail($id);
+        $sale->start = $input['start'];
+        $sale->finish = $input['finish'];
+        $sale->discount = $discount;
+        $sale->product_id = $input['product_id'];
+        $sale->save();
+
+        return redirect('products');
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+        $sale = Sale::findOrFail($id);
+        $sale->delete();
+
+        return redirect ('products');
+	}
+
+    public function getDiscounts()
+    {
         $discounts = [
             '.05' => '%5',
             '.1' => '%10',
@@ -138,34 +168,7 @@ class SalesController extends Controller {
             '.90' => '%90',
             '.95' => '%95',
         ];
-
-        return view('sales.edit')->with([
-            'product'   => $product,
-            'discounts'  => $discounts,
-            'sale' => $sale
-        ]);
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update(SaleRequest $request)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+        return $discounts;
+    }
 
 }

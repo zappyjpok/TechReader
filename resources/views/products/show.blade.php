@@ -13,12 +13,12 @@
 <article class="row">
     <section class="col-md-3"> <img src="{{ $product->proImagePath }}"> </section>
     <section class="col-md-6">
-        <h2> {{ $product->proTitle }} </h2>
-        <p> by {{ $product->proAuthor }} </p>
-        <p> Date Published: {{ $product->proPublishDate }} </p>
-        <p> Publisher {{ $product->proPublish}} </p>
-        <p> Price: ${{ $product->proPrice }} </p>
-        <p> {{ $product->proDescription }} </p>
+        <h2> {{ $product->title }} </h2>
+        <p> by {{ $product->author }} </p>
+        <p> Date Published: {{ $product->publish_date }} </p>
+        <p> Publisher {{ $product->publish}} </p>
+        <p> Price: ${{ $product->price }} </p>
+        <p> {{ $product->description }} </p>
     </section>
     <section class="col-md-3">
         <div >

@@ -46,29 +46,30 @@
     <tbody>
         @foreach($products as $product)
             <tr>
-                <td> <a href="{{ action('ProductsController@show', $product->id) }}"> {{ $product->proTitle }} </a> </td>
+                <td> <a href="{{ action('ProductsController@show', $product->id) }}"> {{ $product->title }} </a> </td>
                 <td>
                     @if($product->category)
-                        {{ $product->category->first()->catName }}
+                        {{ $product->category->first()->name }}
                     @else
-                        {{ $product->getCategoryName($product->proCategoryId) }}
+                        {{ $product->getCategoryName($product->category_id) }}
                     @endif
                 </td>
-                <td> {{ $product->proPublisher }} </td>
-                <td> {{ $product->proAuthor }} </td>
-                <td> ${{ $product->proPrice }} </td>
+                <td> {{ $product->publisher }} </td>
+                <td> {{ $product->author }} </td>
+                <td> ${{ $product->price }} </td>
                 <td>
-                    @if(!$product->getSales($product->id))
+                    @if(!App\Sale::current()->findProduct($product->id)->first())
                         Not On Sale
                     @else
-                        {{ $product->getSales($product->id) }}
+                        {{ App\Sale::current()->findProduct($product->id)->first()->discount }}
                     @endif
                 </td>
                 <td>
-                    @if(!$product->getSales($product->id))
-                        <a href="{{ action('SalesController@create', $product->proTitle) }}" class="btn btn-success"> Add Sale  </a>
+                    @if(!App\Sale::current()->findProduct($product->id)->first())
+                        <a href="{{ action('SalesController@create', $product->title) }}" class="btn btn-success"> Add Sale  </a>
                     @else
-                        <a href="{{ action('SalesController@edit', $product->proTitle) }}" class="btn btn-primary"> Edit Sale  </a>
+                        <a href="{{ action('SalesController@edit', [$product->title,
+                        'id' => App\Sale::current()->findProduct($product->id)->first()->id]) }}" class="btn btn-primary"> Edit Sale  </a>
                     @endif
                 </td>
                 <td>  <a href="{{ action('ProductsController@edit', $product->id) }}" class="btn btn-info"> Update  </a> </td>

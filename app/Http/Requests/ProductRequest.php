@@ -23,15 +23,15 @@ class ProductRequest extends Request {
 	{
 		return [
 			//
-            'proName' => 'required',
-            'proAuthor' => 'required',
-            'proTitle' => 'required',
-            'proPublishDate' => 'required|date',
-            'proPublisher' => 'required',
-            'proPrice' => 'required|regex:/[\d]{2},[\d]{2}/',
-            'proCategoryId' => 'required',
-            'proDescription' => 'required',
-            'proImagePath' => 'required'
+            'name' => 'required',
+            'author' => 'required',
+            'title' => 'required',
+            'publish_date' => 'required|date',
+            'publisher' => 'required',
+            'price' => 'required|regex:/[\d]{2},[\d]{2}/',
+            'category_id' => 'required',
+            'description' => 'required',
+            'image' => 'required'
 		];
 	}
 

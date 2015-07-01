@@ -15,14 +15,14 @@ class CreateAddressesTable extends Migration {
 		Schema::create('addresses', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('addUserId')->unsigned();
-            $table->string('addAddress');
-            $table->string('addCity');
-            $table->string('addPostalCode');
-            $table->string('addState');
+            $table->integer('user_id')->unsigned();
+            $table->string('address');
+            $table->string('city');
+            $table->string('postal_code');
+            $table->string('state');
 			$table->timestamps();
 
-            $table->foreign('addUserId')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

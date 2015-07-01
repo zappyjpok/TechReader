@@ -8,28 +8,28 @@
 
 <section class="row">
     <div class="col-md-2">
-        {!! Form::label('salStart', 'Start Date') !!}
+        {!! Form::label('start', 'Start Date') !!}
     </div>
     <div class="col-md-4 input-lg">
-        {!! Form::input('date', 'salStart', date('Y-m-d'), ['class' => 'form-control'] ) !!}
+        {!! Form::input('date', 'start', date('Y-m-d'), ['class' => 'form-control'] ) !!}
     </div>
     <div class="col-md-2">
-        {!! Form::label('salFinish', 'Finish Date') !!}
+        {!! Form::label('finish', 'Finish Date') !!}
     </div>
     <div class="col-md-4 input-lg">
-        {!! Form::input('date', 'salFinish', date('Y-m-d'), ['class' => 'form-control'] ) !!}
+        {!! Form::input('date', 'finish', date('Y-m-d'), ['class' => 'form-control'] ) !!}
     </div>
     </div>
 </section>
 <section class="row">
     <div class="col-md-2">
-        {!! Form::label('salDiscount', 'Discount') !!}
+        {!! Form::label('discount', 'Discount') !!}
     </div>
     <div class="col-md-4 input-lg">
-        {!! Form::select('salDiscount', $discounts) !!}
+        {!! Form::select('discount', $discounts) !!}
     </div>
     <div class="col-md-2">
-        {!! Form::input('hidden', 'salProductId', $product->id )!!}
+        {!! Form::input('hidden', 'product_id', $product->id )!!}
     </div>
     <div class="col-md-4">
         {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}

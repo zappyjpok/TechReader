@@ -14,16 +14,21 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('proCategoryId')->unsigned();
-            $table->string('proTitle');
-            $table->string('proName');
-            $table->string('proAuthor');
-            $table->date('proPublishDate');
-            $table->string('proPublisher');
-            $table->decimal('proPrice');
-            $table->string('proDescription');
-            $table->string('proImagePath');
+            $table->integer('category_id')->unsigned();
+            $table->string('title');
+            $table->string('name');
+            $table->string('author');
+            $table->date('publish_date');
+            $table->string('publisher');
+            $table->decimal('price');
+            $table->string('description');
+            $table->string('image');
             $table->timestamps();
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
         });
     }
 

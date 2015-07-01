@@ -19,7 +19,8 @@ Route::get('products/sales', 'SalesController@index');
 Route::get('products/sales/create/{name}', 'SalesController@create');
 Route::post('products/sales/store', 'SalesController@store');
 Route::get('products/sales/edit/{name}', 'SalesController@edit');
-Route::patch('products/sales/update', 'SalesController@update');
+Route::patch('products/sales/update/{id}', 'SalesController@update');
+Route::delete('products/sales/{id}', ['uses' => 'SalesController@destroy', 'as' => 'sales.destroy']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -29,7 +30,7 @@ Route::controllers([
 Route::resource('users', 'UsersController');
 Route::resource('products', 'ProductsController');
 Route::resource('categories', 'CategoriesController');
-
+//Route::resource('products/sales', 'SalesController');
 
 // delete later
 Route::get('test', 'WelcomeController@Test');

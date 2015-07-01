@@ -11,17 +11,17 @@
 @section('content')
     <section class="row">
         <div class="col-md-4 col-lg-4">
-            <h4> Title: {{ $product->proTitle }}</h4>
-            <h4> Price: {{ $product->proPrice }}</h4>
-            <h4> Publisher: {{ $product->proPublisher }}</h4>
+            <h4> Title: {{ $product->title }}</h4>
+            <h4> Price: {{ $product->price }}</h4>
+            <h4> Publisher: {{ $product->publisher }}</h4>
         </div>
         <div class="col-md-4 col-lg-4">
-            <h4> Name: {{ $product->proTitle }}</h4>
-            <h4> Author: {{ $product->proAuthor }}</h4>
-            <h4> Publish Date: {{ $product->proPublishDate }} </h4>
+            <h4> Name: {{ $product->title }}</h4>
+            <h4> Author: {{ $product->author }}</h4>
+            <h4> Publish Date: {{ $product->publish_date }} </h4>
         </div>
         <div class="col-md-4 col-lg-4">
-            <img src="{{ $product->proImagePath }}" class="img"/>
+            <img src="{{ $product->image }}" class="img"/>
         </div>
     </section>
     {!! Form::open([
