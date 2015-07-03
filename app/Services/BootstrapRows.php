@@ -20,11 +20,15 @@ class BootstrapRows {
     private $childElementClose = '</div>';
     private $columnNumber;
     private $rows;
-    private $bootstrapClass;
+    private $bootstrapClass = '';
     private $title = false;
+    private $titleName = 'title';
     private $description = false;
+    private $descriptionInfo;
     private $image = false;
+    private $imageName;
     private $price = false;
+    private $priceName;
     private $link = false;
     private $linkURL;
     private $errorMessage = [];
@@ -36,7 +40,29 @@ class BootstrapRows {
      * @param $row
      * @param $data
      */
-    public function __construct($columnNumber, $row, $data) {
+    public function __construct($columnNumber, $row, $data, $class=null, $title = null, $body = null, $price = null, $image=null)
+    {
+        if(!is_null($class))
+        {
+            $this->bootstrapClass = $class;
+        }
+        if(!is_null($title))
+        {
+            $this->addTitle($title);
+        }
+        if(!is_null($body))
+        {
+            $this->addDescription($body);
+        }
+        if(!is_null($price))
+        {
+            $this->addPrice($price);
+        }
+        if(!is_null($image))
+        {
+            $this->addImage($image);
+        }
+
         $this->columnNumber = $columnNumber;
         $this->rows = $row;
         $this->data = $data;
@@ -131,20 +157,12 @@ class BootstrapRows {
     }
 
     /**
-     * Set: bootstrap grid class
-     *
-     * @param $class
-     */
-    public function setBootstrapClass($class) {
-        $this->bootstrapClass = $class;
-    }
-
-    /**
      * Creates a title in each grid
      *
 
      */
-    public function addTitle(){
+    private function addTitle($title){
+        $this->titleName = $title;
         $this->title = true;
     }
 
@@ -152,7 +170,9 @@ class BootstrapRows {
      * Creates a description in each grid
      *
      */
-    public function addDescription() {
+    private function addDescription($body) {
+
+        $this->descriptionInfo = $body;
         $this->description = true;
     }
 
@@ -160,14 +180,16 @@ class BootstrapRows {
      * Creates a Image for each grid
      *
      */
-    public function addImage() {
+    private function addImage($image) {
+        $this->imageName = $image;
         $this->image = true;
     }
 
     /**
      * Creates a price for each grid
      */
-    public function addPrice() {
+    private function addPrice($price) {
+        $this->priceName = $price;
         $this->price = true;
     }
 
@@ -206,7 +228,6 @@ class BootstrapRows {
             $this->output .= $this->parentElement . " class='row'>";
             // content of child elements
             $this->output .= $this->createRow();
-
             $this->output .= $this->parentElementClose;
         }
 
@@ -218,9 +239,9 @@ class BootstrapRows {
      *
      * @return string
      */
-    private function createRow(){
+    public function createRow(){
         $string = '';
-        // Check a value added
+        // Check if value added
         if ($this->checkValuesAdded() == true) {
             // loop through number of columns
             for ($i = 0; $i < $this->columnNumber; $i++) {
@@ -228,9 +249,12 @@ class BootstrapRows {
                 $string .= $this->childElement . " class=" . $this->bootstrapClass . "> \n";
                 // create shift
                 $this->shiftData = array_shift($this->data);
-                if($this->shiftData->discount != null) {
+                if(!is_null($this->shiftData['discount']))
+                {
                     $string .= $this->createSalesColumn();
-                } else {
+                }
+                else
+                {
                     $string .= $this->createColumn();
                 }
                 $string .= $this->childElementClose . "\n";
@@ -263,7 +287,7 @@ class BootstrapRows {
             $string .= "<img src='" . $image . "' />" . "\n";
         }
         if($this->description == true){
-            $description = $this->shiftData->dscription;
+            $description = $this->shiftData->description;
             $string .= '<p>' . $description . '</p>';
         }
         if($this->price == true){
@@ -322,5 +346,10 @@ class BootstrapRows {
         return $discount;
     }
 
+    public function getValue() {
+        $this->shiftData = array_shift($this->data);
+        return gettype($this->data);
+
+    }
 
 }

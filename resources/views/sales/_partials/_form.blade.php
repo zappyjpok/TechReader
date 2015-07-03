@@ -11,13 +11,13 @@
         {!! Form::label('start', 'Start Date') !!}
     </div>
     <div class="col-md-4 input-lg">
-        {!! Form::input('date', 'start', date('Y-m-d'), ['class' => 'form-control'] ) !!}
+        {!! Form::input('date', 'start', null, ['class' => 'form-control'] ) !!}
     </div>
     <div class="col-md-2">
         {!! Form::label('finish', 'Finish Date') !!}
     </div>
     <div class="col-md-4 input-lg">
-        {!! Form::input('date', 'finish', date('Y-m-d'), ['class' => 'form-control'] ) !!}
+        {!! Form::input('date', 'finish', null, ['class' => 'form-control'] ) !!}
     </div>
     </div>
 </section>

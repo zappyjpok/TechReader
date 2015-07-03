@@ -38,26 +38,21 @@ class WelcomeController extends Controller {
 	public function index()
 	{
         $pageTitle = "Check Out Are Sales";
-        $output = '';
 
-        // Refactor this into a class for everypage!
-        $sale = DB::table('sales')
+        $sales = DB::table('sales')
             ->join('products', 'sales.product_id', '=', 'products.id')
             ->select('products.title', 'products.description', 'products.image','products.price', 'sales.discount')
             ->get();
 
-        if(!empty($sale)) {
-            $grid = new BootstrapRows(3, 3, $sale);
-            $grid->setBootstrapClass('col-md-3 col-lg-3');
-            $grid->setParentElement('section');
-            $grid->setChildElement('div');
-            $grid->addTitle();
-            $grid->addDescription();
-            $grid->addImage();
-            $grid->addPrice();
+        if(!empty($sales)) {
+            $grid = new BootstrapRows(3, 3, $sales, 'col-md-3 col-lg-3', 'title', 'description', 'price', 'image');
             $grid->addLink('#');
+
             $output = $grid->createBootstrapGrid();
+            $test = $grid->getValue();
         }
+
+        return $test;
 
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
@@ -68,13 +63,28 @@ class WelcomeController extends Controller {
     public function test()
     {
         $sales = Sale::current()->get();
-        $products = Product::find(2);
+        //$products = Product::find(2);
         //$sale = Sale::find(3); $sale->product;
-        $sale = Sale::findProduct(2)->get(); // don't forget the get()
-        $test = Sale::current()->findProduct($products->id)->first(); // this works
-        $test2 = Sale::all();
+        //$sale = Sale::findProduct(2)->get(); // don't forget the get()
+        //$test = Sale::current()->findProduct($products->id)->first(); // this works
+        //$test2 = Sale::all();
+        //$sales->first()->product->name;
+        //return $sales->first()->discount;
 
-        return $test2;
+        return $sales->first()->product;
+
+        $products = Product::all();
+        $array_products = [];
+
+        foreach($products as $product)
+        {
+            $array_products = [$product->title, $product->image, $product->description, $product->price];
+        }
+
+
+
+        return $y;
+
 
         return view('test')->with([
             'sale' => $sale,

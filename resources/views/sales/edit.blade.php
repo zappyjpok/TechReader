@@ -32,7 +32,7 @@
     'action' => ['SalesController@update', $product->id]
     ])
     !!}
-        @include('sales._partials._form', ['submitButton' => 'Edit Sale'])
+        @include('sales._partials._form', ['submitButton' => 'Add Sale'])
     {!! Form::close() !!}
 
     {!! Form::open(['method' => 'DELETE', 'route' => ['sales.destroy', $sale->id ]]) !!}
