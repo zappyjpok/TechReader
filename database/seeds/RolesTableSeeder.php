@@ -13,11 +13,11 @@ class RolesTableSeeder extends Seeder
         // TestDummy::times(20)->create('App\Post');
 
         Role::create([
-            'rolName' => 'Customer'
+            'name' => 'Customer'
         ]);
 
         Role::create([
-            'rolName' => 'Admin'
+            'name' => 'Admin'
         ]);
     }
 }

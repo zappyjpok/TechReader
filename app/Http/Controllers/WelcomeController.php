@@ -38,27 +38,30 @@ class WelcomeController extends Controller {
 	public function index()
 	{
         $pageTitle = "Check Out Are Sales";
+        $items = Sale::current()->get();
+        $row = '<article class="row">';
+        $rowClose = '</article>';
 
-        $sales = DB::table('sales')
-            ->join('products', 'sales.product_id', '=', 'products.id')
-            ->select('products.title', 'products.description', 'products.image','products.price', 'sales.discount')
-            ->get();
-
-        if(!empty($sales)) {
-            $grid = new BootstrapRows(3, 3, $sales, 'col-md-3 col-lg-3', 'title', 'description', 'price', 'image');
-            $grid->addLink('#');
-
-            $output = $grid->createBootstrapGrid();
-            $test = $grid->getValue();
-        }
-
-        return $test;
 
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
-            'output' => $output
+            'items' => $items,
+            'row' => $row,
+            'rowClose' => $rowClose
         ]);
 	}
+
+    public function show($name)
+    {
+        $name = str_replace("_", " ", $name);
+        $product = Product::where('title', $name)->first();
+        $quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+
+        return view('catalog.show')->with([
+            'product' => $product,
+            'quantity' => $quantity
+        ]);
+    }
 
     public function test()
     {

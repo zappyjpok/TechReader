@@ -34,5 +34,15 @@ class ChangeName {
         return $value;
     }
 
+    public static function replaceLinkSpaces($value)
+    {
+        $replace = str_replace(' ', '_', $value);
+        if(substr($replace, -1) === '_')
+        {
+            $replace = substr_replace($replace, "", -1);
+        }
+        return $replace;
+    }
+
 
 }

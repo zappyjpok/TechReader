@@ -13,6 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 
+
 Route::get('home', 'HomeController@index');
 
 Route::get('products/sales', 'SalesController@index');
@@ -30,6 +31,10 @@ Route::controllers([
 Route::resource('users', 'UsersController');
 Route::resource('products', 'ProductsController');
 Route::resource('categories', 'CategoriesController');
+
+// This route should be last
+Route::get('/{name}', 'WelcomeController@show');
+
 //Route::resource('products/sales', 'SalesController');
 
 // delete later

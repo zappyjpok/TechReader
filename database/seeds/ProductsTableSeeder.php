@@ -18,14 +18,14 @@ class ProductsTableSeeder extends Seeder
 
         for($i=0; $i<50; $i++) {
             Product::create([
-                'proTitle' => $faker->word,
-                'proAuthor' => $faker->name,
-                'proCategoryId' => $faker->numberBetween($min = 1, $max = 4),
-                'proPublishDate' => $faker->dateTimeThisDecade,
-                'proPublisher' => $faker->word,
-                'proPrice' => $faker->randomNumber(2),
-                'proDescription'=>$faker->text,
-                'proImagePath' => $faker->imageUrl($width = 640, $height = 480)
+                'title' => $faker->word,
+                'author' => $faker->name,
+                'category_id' => $faker->numberBetween($min = 1, $max = 4),
+                'publish_date' => $faker->dateTimeThisDecade,
+                'publisher' => $faker->word,
+                'price' => $faker->randomNumber(2),
+                'description'=>$faker->text,
+                'image' => $faker->imageUrl($width = 640, $height = 480)
             ]);
         }
     }

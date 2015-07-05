@@ -18,10 +18,10 @@ class AddressesTableSeeder extends Seeder
         for($i=0; $i<30; $i++)
         {
             Address::create([
-                'useAddress' => $faker->streetAddress,
-                'useCity' => $faker->city,
-                'usePostalCode' =>$faker->postcode,
-                'useState' => $faker->state
+                'address' => $faker->streetAddress,
+                'city' => $faker->city,
+                'postal_code' =>$faker->postcode,
+                'state' => $faker->state
             ]);
         }
     }

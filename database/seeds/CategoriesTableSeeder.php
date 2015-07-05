@@ -14,23 +14,23 @@ class CategoriesTableSeeder extends Seeder
         // TestDummy::times(20)->create('App\Post');
 
        Category::create([
-           'catName' => 'Programming'
+           'name' => 'Programming'
        ]);
 
         Category::create([
-            'catName' => 'Web Development'
+            'name' => 'Web Development'
         ]);
 
         Category::create([
-            'catName' => 'Networking'
+            'name' => 'Networking'
         ]);
 
         Category::create([
-            'catName' => 'Windows'
+            'name' => 'Windows'
         ]);
 
         Category::create([
-            'catName' => 'Mac'
+            'name' => 'Mac'
         ]);
     }
 }

@@ -18,10 +18,10 @@ class SalesTableSeeder extends Seeder
 
         for($i=0; $i<20; $i++) {
             Sale::create([
-                'salProductID' => $faker->numberBetween($min = 1, $max = 50),
-                'salStart' => $faker->dateTimeBetween('-14 days', 'now'),
-                'salFinish' => $faker->dateTimeBetween('now', '+14 days'),
-                'salDiscount' => $faker->randomElement($array = array(.1, .15, .2, .25, .3, .35, .40))
+                'product_id' => $faker->numberBetween($min = 1, $max = 50),
+                'start' => $faker->dateTimeBetween('-14 days', 'now'),
+                'finish' => $faker->dateTimeBetween('now', '+14 days'),
+                'discount' => $faker->randomElement($array = array(.1, .15, .2, .25, .3, .35, .40))
             ]);
         }
     }

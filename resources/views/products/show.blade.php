@@ -11,7 +11,7 @@
 @section('content')
 
 <article class="row">
-    <section class="col-md-3"> <img src="{{ $product->proImagePath }}"> </section>
+    <section class="col-md-3"> <img src="{{ $product->image }}"> </section>
     <section class="col-md-6">
         <h2> {{ $product->title }} </h2>
         <p> by {{ $product->author }} </p>

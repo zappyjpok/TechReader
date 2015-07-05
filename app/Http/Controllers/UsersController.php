@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller {
@@ -15,8 +16,18 @@ class UsersController extends Controller {
 	public function index()
 	{
 		// List of users for the site
+        $users = User::all();
+        $instructions = 'On this page you can use view users and change their roles';
+        $header = 'Users Page';
 
-        return view('admin.users.index')->with([
+        $user = User::find(2);
+
+        //return $user->profile->firstName;
+
+        return view('users.index')->with([
+            'instructions' => $instructions,
+            'users' => $users,
+            'header' => $header
 
         ]);
 	}
@@ -54,6 +65,7 @@ class UsersController extends Controller {
 	public function show($id)
 	{
 		//
+        return User::where('id', $id)->lists('name');
 	}
 
 	/**

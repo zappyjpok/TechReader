@@ -19,12 +19,9 @@ class UsersTableSeeder extends Seeder
         for($i=0; $i<20; $i++)
         {
             User::create([
-                'useEmail' => $faker->email,
-                'useFirstName' => $faker->firstName,
-                'useLastName' => $faker->lastName,
-                'usePassword' => Hash::make($faker->word),
-                'useVipNumber'=> $faker->numberBetween($min=1000, $max=9999),
-                'useDateJoined' => $faker->dateTimeThisYear($max = 'now'),
+                'email' => $faker->email,
+                'name' => $faker->userName,
+                'password' => Hash::make($faker->word),
             ]);
         }
 

@@ -11,16 +11,6 @@
     padding: 10px
 }
 
-img {
-    height: 150px;
-    width: 150px;
-}
-
-.img-lg {
-    height: 300px;
-    width: 300px;
-}
-
 .priceTitle {
     color:#00b3ee;
     font-weight: bold;
@@ -32,18 +22,25 @@ img {
     text-decoration: line-through
 }
 
-.form-spacing{
-    margin-top: 20px;
-}
-
-.form-style{
-
-
-}
-
-
 .price {
     color:#d58512;
 
     font-weight: bold;
 }
+
+.form-spacing{
+    margin-top: 20px;
+}
+
+
+.side-options {
+    background-color: #bababa;
+    margin: 10px;
+
+}
+
+.spacing-sm {
+    margin: 10px;
+    padding: 10px;
+}
+

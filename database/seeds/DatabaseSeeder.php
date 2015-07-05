@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Address as Address;
 use App\Sale as Sale;
 use App\Category;
+use App\Profile;
 
 class DatabaseSeeder extends Seeder {
 
@@ -20,9 +21,11 @@ class DatabaseSeeder extends Seeder {
 
         //$this->call('UsersTableSeeder');
         //$this->call('CategoriesTableSeeder');
-        //$this->call('ProductsTableSeeder');
-        //$this->call('SalesTableSeeder');
-        //$this->call('RolesTableSeeder');
+        //$this->call('ProfilesTableSeeder');
+        $this->call('AddressesTableSeeder');
+        $this->call('ProductsTableSeeder');
+        $this->call('SalesTableSeeder');
+        $this->call('RolesTableSeeder');
         $this->call('AddressesTableSeeder');
 	}
 
@@ -37,14 +40,14 @@ class AddressesTableSeeder extends Seeder
 
         Eloquent::unguard();
 
-        for($i=0; $i<30; $i++)
+        for($i=1; $i<30; $i++)
         {
             Address::create([
-                'addUserId' => $faker->numberBetween($min = 0, $max = 20),
-                'addAddress' => $faker->streetAddress,
-                'addCity' => $faker->city,
-                'addPostalCode' =>$faker->postcode,
-                'addState' => $faker->state
+                'user_id' => $i,
+                'address' => $faker->streetAddress,
+                'city' => $faker->city,
+                'postal_code' =>$faker->postcode,
+                'state' => $faker->state
             ]);
         }
     }
@@ -62,10 +65,10 @@ class SalesTableSeeder extends Seeder
 
         for($i=0; $i<10; $i++) {
             Sale::create([
-                'salProductID' => $faker->numberBetween($min = 1, $max = 50),
-                'salStart' => $faker->dateTimeBetween('-14 days', 'now'),
-                'salFinish' => $faker->dateTimeBetween('now', '+14 days'),
-                'salDiscount' => $faker->randomElement($array = array(.1, .15, .2, .25, .3, .35, .40))
+                'product_id' => $faker->numberBetween($min = 1, $max = 50),
+                'start' => $faker->dateTimeBetween('-14 days', 'now'),
+                'finish' => $faker->dateTimeBetween('now', '+14 days'),
+                'discount' => $faker->randomElement($array = array(.1, .15, .2, .25, .3, .35, .40))
             ]);
         }
     }
@@ -78,24 +81,46 @@ class CategoriesTableSeeder extends Seeder
         // TestDummy::times(20)->create('App\Post');
 
         Category::create([
-            'catName' => 'Programming'
+            'name' => 'Programming'
         ]);
 
         Category::create([
-            'catName' => 'Web Development'
+            'name' => 'Web Development'
         ]);
 
         Category::create([
-            'catName' => 'Networking'
+            'name' => 'Networking'
         ]);
 
         Category::create([
-            'catName' => 'Windows'
+            'name' => 'Windows'
         ]);
 
         Category::create([
-            'catName' => 'Mac'
+            'name' => 'Mac'
         ]);
+    }
+}
+
+class ProfilesTableSeeder extends Seeder
+{
+    public function run()
+    {
+        // TestDummy::times(20)->create('App\Post');
+        $faker = Faker\Factory::create();
+
+        Eloquent::unguard();
+
+        for($i=1; $i<20; $i++) {
+            Profile::create([
+                'user_id' => $i,
+                'firstName' => $faker->firstName,
+                'lastName' => $faker->lastName,
+                'phone' => $faker->phoneNumber,
+                'VIPNumber' => $faker->randomDigit
+            ]);
+        }
+
     }
 }
 
