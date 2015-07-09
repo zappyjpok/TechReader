@@ -15,10 +15,10 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('firstName');
-            $table->string('LastName');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('phone');
-            $table->string('VIPNumber');
+            $table->string('VIP_Number');
             $table->timestamps();
 
             $table->foreign('user_id')

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller {
+class ProfilesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -15,21 +15,8 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
-		// List of users for the site
-        $users = User::all();
-        $instructions = 'On this page you can use view users and change their roles';
-        $header = 'Users Page';
+		//
 
-        //$user = User::find(1);
-
-        //return $user->roles->first()->name;
-
-        return view('users.index')->with([
-            'instructions' => $instructions,
-            'users' => $users,
-            'header' => $header
-
-        ]);
 	}
 
 	/**
@@ -37,13 +24,15 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($name)
 	{
+        //Find User
+        $user = User::where('name', $name)->first();
 
-        return view('auth.register')->with([
 
+        return view('profiles.create')->with([
+            'user' => $user
         ]);
-
 	}
 
 	/**
@@ -64,16 +53,11 @@ class UsersController extends Controller {
 	 */
 	public function show($name)
 	{
-		//
-        $user = User::where('name', $name)->first();
-        $header = $user->name;
-        $instructions = 'View the users information here!';
+		//Find User
+        $user = User::where('username', $name)->first();
 
-        return view('users.show')->with([
-            'instructions' => $instructions,
-            'header' => $header,
-            'user' => $user
-        ]);
+
+        return $user;
 	}
 
 	/**

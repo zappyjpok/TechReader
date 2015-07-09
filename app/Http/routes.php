@@ -32,10 +32,13 @@ Route::resource('users', 'UsersController');
 Route::resource('products', 'ProductsController');
 Route::resource('categories', 'CategoriesController');
 
+//Profile Routes
+Route::get('users/profile/create/{name}', 'ProfilesController@create');
+Route::get('users/profile/show/{name}', 'ProfilesController@show');
+Route::post('users/profile/store/{name}', 'ProfilesController@store');
+
 // This route should be last
 Route::get('/{name}', 'WelcomeController@show');
-
-//Route::resource('products/sales', 'SalesController');
 
 // delete later
 Route::get('test', 'WelcomeController@Test');

@@ -11,24 +11,8 @@
 
 @section('content')
     <main class="container"> <!-- List of Products-->
-        <section class="jumbotron">
-            <h2>
-                @if(isset($header))
-                    {{ $header }}
-                @endif
-            </h2>
-            <p>
-                @if(isset($instructions))
-                    {{ $instructions }}
-                @endif
-            </p>
-            <p>
-                @if(isset($createButton))
-                    <a class="btn btn-default btn-lg" href="{{ action('ProductsController@create') }}"> {{ $createButton }} </a>
-                @endif
-            </p>
 
-        </section>
+        @include('_includes._jumbo')
 
         <table class="table">
             <thead>
@@ -47,18 +31,18 @@
             @foreach($users as $user)
                 <tr>
                     <td>
-                        <a href="{{ action('UsersController@show', $user->id) }}"> {{ $user->name }} </a>
+                        <a href="{{ action('UsersController@show', $user->name) }}"> {{ $user->name }} </a>
                     </td>
                     <td>
-                        @if(!empty($user->profile->first()->firstName ))
-                            {{ $user->profile->first()->firstName }}
+                        @if(!empty($user->profile->first()->first_name ))
+                            {{ $user->profile->first()->first_name }}
                         @else
                             Empty
                         @endif
                     </td>
                     <td>
-                        @if(!empty($user->profile->first()->LastName ))
-                            {{ $user->profile->first()->LastName}}
+                        @if(!empty($user->profile->first()->last_name ))
+                            {{ $user->profile->first()->last_name}}
                         @else
                             Empty
                         @endif
@@ -77,10 +61,14 @@
                         <a href="#" class="btn btn-success"> View Orders  </a>
                     </td>
                     <td>
-                       No Role
+                        @if(!empty($user->roles->first()->name))
+                            {{ $user->roles->first()->name }}
+                        @else
+                            No Role
+                        @endif
                     </td>
                     <td>
-                        <a href="#" class="btn btn-info"> View Orders  </a>
+                        <a href="#" class="btn btn-info"> Add Roles </a>
                     </td>
                 </tr>
             @endforeach
