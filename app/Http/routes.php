@@ -37,6 +37,9 @@ Route::get('users/profile/create/{name}', 'ProfilesController@create');
 Route::get('users/profile/show/{name}', 'ProfilesController@show');
 Route::post('users/profile/store/{name}', 'ProfilesController@store');
 
+//Address Routes
+Route::get('users/order/address/create/{name}', 'AddressesController@create');
+
 // This route should be last
 Route::get('/{name}', 'WelcomeController@show');
 

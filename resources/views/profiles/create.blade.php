@@ -38,8 +38,8 @@
                 </div>
             </div>
         </section>
-        <!-- Form  -->
 
+        <!-- Form  -->
         @if(!empty($user->profile->first_name))
             <section class="row top-buffer-20">
                 <h4> Please enter your order information  </h4>
@@ -48,7 +48,7 @@
                 'action' => 'ProfilesController@store'
                 ])
                 !!}
-                @include('profiles._partials._form', ['submitButton' => 'Add Sale'])
+                @include('addresses._partials._form')
                 {!! Form::close() !!}
             </section>
         @else

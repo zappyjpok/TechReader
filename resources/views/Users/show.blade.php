@@ -31,16 +31,28 @@
                     {{ $user->name }}
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->profile->first()->first_name)}}
+                    @if(!empty($user->profile->first()->first_name))
+                        {{ $user->profile->first()->first_name }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->profile->first()->last_name) }}
+                    @if(!empty($user->profile->first()->last_name))
+                        {{ $user->profile->first()->last_name }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
                     {{ $user->email }}
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->profile->first()->VIPNumber) }}
+                    @if(!empty($user->profile->first()->VIPNumber))
+                        {{ $user->profile->first()->VIPNumber }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
                     @if(!empty($user->roles->first()->name))
@@ -67,22 +79,39 @@
         <tbody>
             <tr>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->profile->first()->Phone) }}
+                    @if(!empty($user->profile->first()->Phone))
+                        {{ $user->profile->first()->Phone }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->addresses->first()->address) }}
+                    @if(!empty($user->addresses->first()->address))
+                        {{ $user->addresses->first()->address}}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->addresses->first()->address) }}
+                    @if(!empty($user->addresses->first()->city))
+                        {{ $user->addresses->first()->city }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->addresses->first()->city) }}
+                    @if(!empty($user->addresses->first()->state))
+                        {{ $user->addresses->first()->state }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
                 <td>
-                    {{ App\library\Functions::checkEmpty($user->addresses->first()->state) }}
-                </td>
-                <td>
-                    {{ App\library\Functions::checkEmpty($user->addresses->first()->postal_code) }}
+                    @if(!empty($user->addresses->first()->postal_code))
+                        {{ $user->addresses->first()->postal_code }}
+                    @else
+                        No Data Available
+                    @endif
                 </td>
             </tr>
         </tbody>
