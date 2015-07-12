@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use App\Address;
 use App\Http\Requests;
+use App\Http\Requests\CreateAddressRequest;
 use App\Http\Controllers\Controller;
 
 use App\User;
@@ -27,8 +29,12 @@ class AddressesController extends Controller {
 	{
         // Find User
         $user = User::where('name', $name)->first();
-
         $submitButton = 'Add Address';
+
+        if(empty($user->profile->first_name))
+        {
+            //return redirect('profiles.create');
+        }
 
         return view('addresses.create')->with([
             'user' => $user,
@@ -41,9 +47,23 @@ class AddressesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateAddressRequest $request, $id)
 	{
-		//
+		//find the user
+        $user = User::findOrFail($id);
+        $input = $request->all();
+
+
+        // Add values to database
+        $address = new Address();
+        $address->user_id = $user->id;
+        $address->address = $input['address'];
+        $address->city = $input['city'];
+        $address->state = $input['state'];
+        $address->postal_code = $input['postal_code'];
+        $address->save();
+
+        return 'check database';
 	}
 
 	/**
@@ -63,7 +83,7 @@ class AddressesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(CreateAddressRequest $request, $id)
 	{
 		//
 	}

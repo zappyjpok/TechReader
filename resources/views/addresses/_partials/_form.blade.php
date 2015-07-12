@@ -8,10 +8,10 @@
 
 <section class="row form-spacing">
     <div class="col-md-2">
-        {!! Form::label('Address', 'Street Address:') !!}
+        {!! Form::label('address', 'Street Address:') !!}
     </div>
     <div class="col-xs-10 col-md-10">
-        {!! Form::text('Address', null, ['class' => 'form-control'])  !!}
+        {!! Form::text('address', null, ['class' => 'form-control'])  !!}
     </div>
 </section>
 <section class="row top-buffer-20">
@@ -23,11 +23,11 @@
         {!! Form::text('state', null, ['class' => 'form-control'])  !!}
     </div>
     <div class="col-md-2">
-        {!! Form::label('City', 'City:') !!}
+        {!! Form::label('city', 'City:') !!}
 
     </div>
     <div class="col-md-4">
-        {!! Form::text('City', null, ['class' => 'form-control'])  !!}
+        {!! Form::text('city', null, ['class' => 'form-control'])  !!}
     </div>
 </section>
 <section class="row top-buffer-20">

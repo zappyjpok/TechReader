@@ -11,7 +11,7 @@
 
 @section('content')
 
-@include('products._partials._validation')
+@include('_layouts._validation')
 
 {!! Form::open([
     'class' => 'form-group',

@@ -34,22 +34,22 @@
                         <a href="{{ action('UsersController@show', $user->name) }}"> {{ $user->name }} </a>
                     </td>
                     <td>
-                        @if(!empty($user->profile->first()->first_name ))
-                            {{ $user->profile->first()->first_name }}
+                        @if(!empty($user->profile->first_name ))
+                            {{ $user->profile->first_name }}
                         @else
                             Empty
                         @endif
                     </td>
                     <td>
-                        @if(!empty($user->profile->first()->last_name ))
-                            {{ $user->profile->first()->last_name}}
+                        @if(!empty($user->profile->last_name ))
+                            {{ $user->profile->last_name}}
                         @else
                             Empty
                         @endif
                     </td>
                     <td>
-                        @if(!empty($user->profile->first()->phone ))
-                            {{ $user->profile->first()->phone}}
+                        @if(!empty($user->profile->phone ))
+                            {{ $user->profile->phone}}
                         @else
                             Empty
                         @endif
@@ -61,8 +61,8 @@
                         <a href="#" class="btn btn-success"> View Orders  </a>
                     </td>
                     <td>
-                        @if(!empty($user->roles->first()->name))
-                            {{ $user->roles->first()->name }}
+                        @if(!empty($user->roles->name))
+                            {{ $user->roles->name }}
                         @else
                             No Role
                         @endif

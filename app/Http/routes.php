@@ -36,9 +36,11 @@ Route::resource('categories', 'CategoriesController');
 Route::get('users/profile/create/{name}', 'ProfilesController@create');
 Route::get('users/profile/show/{name}', 'ProfilesController@show');
 Route::post('users/profile/store/{name}', 'ProfilesController@store');
+Route::patch('users/profile/store/{name}', 'ProfilesController@edit');
 
 //Address Routes
 Route::get('users/order/address/create/{name}', 'AddressesController@create');
+Route::post('users/order/address/store/{id}', 'AddressesController@store');
 
 // This route should be last
 Route::get('/{name}', 'WelcomeController@show');

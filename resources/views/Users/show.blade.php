@@ -31,15 +31,15 @@
                     {{ $user->name }}
                 </td>
                 <td>
-                    @if(!empty($user->profile->first()->first_name))
-                        {{ $user->profile->first()->first_name }}
+                    @if(!empty($user->profile->first_name))
+                        {{ $user->profile->first_name }}
                     @else
                         No Data Available
                     @endif
                 </td>
                 <td>
-                    @if(!empty($user->profile->first()->last_name))
-                        {{ $user->profile->first()->last_name }}
+                    @if(!empty($user->profile->last_name))
+                        {{ $user->profile->last_name }}
                     @else
                         No Data Available
                     @endif
@@ -48,15 +48,15 @@
                     {{ $user->email }}
                 </td>
                 <td>
-                    @if(!empty($user->profile->first()->VIPNumber))
-                        {{ $user->profile->first()->VIPNumber }}
+                    @if(!empty($user->profile->VIPNumber))
+                        {{ $user->profile->VIPNumber }}
                     @else
                         No Data Available
                     @endif
                 </td>
                 <td>
-                    @if(!empty($user->roles->first()->name))
-                        {{ $user->roles->first()->name }}
+                    @if(!empty($user->roles->name))
+                        {{ $user->roles->name }}
                     @else
                         No Role
                     @endif
@@ -79,36 +79,36 @@
         <tbody>
             <tr>
                 <td>
-                    @if(!empty($user->profile->first()->Phone))
-                        {{ $user->profile->first()->Phone }}
+                    @if(!empty($user->profile->Phone))
+                        {{ $user->profile->Phone }}
                     @else
                         No Data Available
                     @endif
                 </td>
                 <td>
-                    @if(!empty($user->addresses->first()->address))
-                        {{ $user->addresses->first()->address}}
+                    @if(!empty($user->addresses->address))
+                        {{ $user->addresses->address}}
                     @else
                         No Data Available
                     @endif
                 </td>
                 <td>
-                    @if(!empty($user->addresses->first()->city))
-                        {{ $user->addresses->first()->city }}
+                    @if(!empty($user->addresses->city))
+                        {{ $user->addresses->city }}
                     @else
                         No Data Available
                     @endif
                 </td>
                 <td>
-                    @if(!empty($user->addresses->first()->state))
-                        {{ $user->addresses->first()->state }}
+                    @if(!empty($user->addresses->state))
+                        {{ $user->addresses->state }}
                     @else
                         No Data Available
                     @endif
                 </td>
                 <td>
-                    @if(!empty($user->addresses->first()->postal_code))
-                        {{ $user->addresses->first()->postal_code }}
+                    @if(!empty($user->addresses->postal_code))
+                        {{ $user->addresses->postal_code }}
                     @else
                         No Data Available
                     @endif

@@ -10,7 +10,7 @@
 
 @section('content')
 
-@include('products._partials._validation')
+@include('_layouts._validation')
     <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}">
 
     {!! Form::model($product, [
