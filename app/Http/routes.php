@@ -36,14 +36,23 @@ Route::resource('categories', 'CategoriesController');
 Route::get('users/profile/create/{name}', 'ProfilesController@create');
 Route::get('users/profile/show/{name}', 'ProfilesController@show');
 Route::post('users/profile/store/{name}', 'ProfilesController@store');
-Route::patch('users/profile/store/{name}', 'ProfilesController@edit');
+Route::get('users/profile/edit/{name}', 'ProfilesController@edit');
+Route::patch('users/profile/update/{name}', 'ProfilesController@update');
+Route::delete('users/profile/delete/{id}', ['uses' => 'ProfilesController@destroy', 'as' => 'profile.destroy']);
 
 //Address Routes
 Route::get('users/order/address/create/{name}', 'AddressesController@create');
 Route::post('users/order/address/store/{id}', 'AddressesController@store');
-
-// This route should be last
-Route::get('/{name}', 'WelcomeController@show');
+Route::get('users/order/address/select_address/{name}', 'AddressesController@select');
+Route::get('users/order/address/edit/{id}', 'AddressesController@edit');
+Route::patch('users/order/address/update/{id}', 'AddressesController@update');
+Route::delete('users/order/address/delete/{id}', ['uses' => 'AddressesController@destroy', 'as' => 'address.destroy']);
 
 // delete later
 Route::get('test', 'WelcomeController@Test');
+
+// This route should be last
+Route::get('catalog/{name}', 'WelcomeController@show');
+Route::get('category/{name}', 'WelcomeController@display');
+
+

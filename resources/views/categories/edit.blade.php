@@ -1,23 +1,23 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: thuyshawn
- * Date: 20/06/2015
- * Time: 5:25 PM
- */
-?>
+ * User: Shawn
+ * Date: 13/07/2015
+ * Time: 2:08 PM
+ */?>
 
 @extends('_layouts._adminLayout')
 
 @section('content')
     <a href="{{ action('CategoriesController@index') }}" class="btn btn-primary btn-sm"> Return to Categories </a>
 
-    {!! Form::open([
+    {!! Form::model($category, [
+    'method' => 'PATCH',
     'class' => 'form-group',
-    'url' => 'categories'
+    'url' => ['categories', $category->id]
     ])
     !!}
-        @include('categories._partials._form')
+    @include('categories._partials._form')
 
     {!! Form::close() !!}
 

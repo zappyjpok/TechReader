@@ -11,12 +11,12 @@
 @section('content')
 
 <article class="row">
-    <section class="col-md-3"> <img src="{{ $product->image }}"> </section>
-    <section class="col-md-6">
+    <section class="col-md-5"> <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}"> </section>
+    <section class="col-md-4">
         <h2> {{ $product->title }} </h2>
         <p> by {{ $product->author }} </p>
         <p> Date Published: {{ $product->publish_date }} </p>
-        <p> Publisher {{ $product->publish}} </p>
+        <p> Publisher: {{ $product->publisher}} </p>
         <p> Price: ${{ $product->price }} </p>
         <p> {{ $product->description }} </p>
     </section>

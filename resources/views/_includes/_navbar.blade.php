@@ -10,12 +10,10 @@
 <nav class="row"> <!-- Navigation Tabs-->
     <section>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#"> Home </a></li>
-            <li><a href="#"> Programming </a></li>
-            <li><a href="#"> Web Development </a></li>
-            <li><a href="#"> Networking  </a></li>
-            <li><a href="#"> Windows  </a></li>
-            <li><a href="#"> Mac </a></li>
+            <li class="active"> <a href="{{ action('WelcomeController@index') }}"> Home </a></li>
+        @foreach($categories as $category)
+            <li> <a href="{{ action('WelcomeController@display', [$category->name]) }}"> {{ $category->name }}</a>  </li>
+        @endforeach
         </ul>
     </section>
 </nav>

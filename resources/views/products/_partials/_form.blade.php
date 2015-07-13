@@ -57,7 +57,7 @@
         {!! Form::label('category_id', 'Category') !!}
     </div>
     <div class="col-md-4 input-lg">
-        {!! Form::select('category_id', $categories) !!}
+        {!! Form::select('category_id', $categoriesList) !!}
     </div>
     <div class="col-md-2">
 

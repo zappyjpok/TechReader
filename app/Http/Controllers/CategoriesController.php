@@ -2,6 +2,7 @@
 
 use App\Category;
 use App\Http\Requests;
+use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Controllers\Controller;
 use Request;
 
@@ -38,10 +39,10 @@ class CategoriesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateCategoryRequest $request)
 	{
 		//
-        $input = Request::all();
+        $input = $request->all();
         Category::create($input);
         return redirect ('categories');
 	}
@@ -65,7 +66,12 @@ class CategoriesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		//find category
+        $category = Category::findOrFail($id);
+
+        return view('categories.edit')->with([
+            'category'      => $category
+        ]);
 	}
 
 	/**
@@ -74,9 +80,13 @@ class CategoriesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(CreateCategoryRequest $request, $id)
 	{
-		//
+		//find and update category
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        return redirect()->action('CategoriesController@index');
 	}
 
 	/**

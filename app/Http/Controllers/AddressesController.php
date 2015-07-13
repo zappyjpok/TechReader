@@ -33,7 +33,7 @@ class AddressesController extends Controller {
 
         if(empty($user->profile->first_name))
         {
-            //return redirect('profiles.create');
+            return redirect()->action('ProfilesController@create', [$user->name]);
         }
 
         return view('addresses.create')->with([
@@ -63,8 +63,36 @@ class AddressesController extends Controller {
         $address->postal_code = $input['postal_code'];
         $address->save();
 
-        return 'check database';
+        return redirect()->action('AddressesController@select', [$user->name]);
 	}
+
+    /**
+     * User can select an address
+     *
+     * @param $name -- user name
+     * @return $this
+     */
+    public function select($name)
+    {
+        // find the user
+        $user = User::where('name', $name)->first();
+        $submitButton = 'Continue';
+
+        if(empty($user->profile->first_name))
+        {
+            return redirect()->action('ProfilesController@create', [$user->name]);
+        }
+
+        if(empty($user->addresses->first()->address))
+        {
+            return redirect()->action('AddressesController@create', [$user->name]);
+        }
+
+        return view('addresses.select')->with([
+            'user' => $user,
+            'submitButton' => $submitButton
+        ]);
+    }
 
 	/**
 	 * Display the specified resource.
@@ -83,9 +111,19 @@ class AddressesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(CreateAddressRequest $request, $id)
+	public function edit($id)
 	{
 		//
+        $address = Address::findOrFail($id);
+        $user_id = $address->user_id;
+        $user = User::findOrFail($user_id);
+        $submitButton = 'Edit Address';
+
+        return view('addresses.edit')->with([
+            'user'          =>      $user,
+            'address'       =>      $address,
+            'submitButton'  =>      $submitButton
+        ]);
 	}
 
 	/**
@@ -94,9 +132,16 @@ class AddressesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(CreateAddressRequest $request, $id)
 	{
-		//
+		// Find the address and update
+        $address = Address::findOrFail($id);
+        $address->update($request->all());
+
+        $user = User::findOrFail($address->user_id);
+
+        return redirect()->action('AddressesController@select', [$user->name]);
+
 	}
 
 	/**
@@ -107,7 +152,14 @@ class AddressesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        // find the address and delete
+        $address = Address::findOrFail($id);
+        $user_id = $address->user_id;
+        $user = User::findOrFail($user_id);
+
+        $address->delete();
+
+        return redirect()->action('AddressesController@select', [$user->name]);
 	}
 
 }

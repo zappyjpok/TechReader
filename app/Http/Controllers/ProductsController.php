@@ -45,10 +45,10 @@ class ProductsController extends Controller {
 	public function create()
 	{
 		// variables needed
-        $categories = Category::lists('name', 'id');
+        $categoriesList = Category::lists('name', 'id');
 
         return view('products.create')->with([
-            'categories' => $categories
+            'categoriesList' => $categoriesList
         ]);
 	}
 
@@ -112,7 +112,7 @@ class ProductsController extends Controller {
 
         return view('products.edit')->with([
             'product' => $product,
-            'categories' => $categories
+            'categoriesList' => $categories
         ]);
 	}
 

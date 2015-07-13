@@ -31,6 +31,6 @@
 
     </div>
     <div class="col-md-4">
-        {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
+        {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
     </div>
 </section>

@@ -44,5 +44,13 @@ class ChangeName {
         return $replace;
     }
 
+    public static function shortenString($value, $length)
+    {
+        $short = substr($value, 0, $length);
+        return $short;
+    }
+
+
+
 
 }

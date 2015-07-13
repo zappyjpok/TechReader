@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Category;
 use App\Sale;
 use App\Services\BootstrapRows;
 use App\Product as Product;
@@ -63,9 +64,29 @@ class WelcomeController extends Controller {
         ]);
     }
 
+    public function display($name)
+    {
+        $category = Category::where('name', $name)->first();
+        $items = Product::where('category_id', $category->id)->get();
+
+        $pageTitle = "Our " . $category->name . ' books';
+        $row = '<article class="row">';
+        $rowClose = '</article>';
+
+        return view('catalog.index')->with([
+            'pageTitle' => $pageTitle,
+            'items' => $items,
+            'row' => $row,
+            'rowClose' => $rowClose
+        ]);
+
+    }
+
     public function test()
     {
-        $sales = Sale::current()->get();
+        return 'test';
+
+        //$sales = Sale::current()->get();
         //$products = Product::find(2);
         //$sale = Sale::find(3); $sale->product;
         //$sale = Sale::findProduct(2)->get(); // don't forget the get()
@@ -74,8 +95,9 @@ class WelcomeController extends Controller {
         //$sales->first()->product->name;
         //return $sales->first()->discount;
 
-        return $sales->first()->product;
+        //return $sales->first()->product;
 
+        /*
         $products = Product::all();
         $array_products = [];
 
@@ -92,6 +114,7 @@ class WelcomeController extends Controller {
         return view('test')->with([
             'sale' => $sale,
         ]);
+        */
     }
 }
 

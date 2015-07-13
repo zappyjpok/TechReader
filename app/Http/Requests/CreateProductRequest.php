@@ -33,6 +33,12 @@ class CreateProductRequest extends Request {
 
 		];
 	}
+
+    /**
+     * Validation messages
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
