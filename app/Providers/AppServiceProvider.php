@@ -1,6 +1,7 @@
 <?php namespace App\Providers;
 
 use App\Category;
+use App\Sale;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,12 @@ class AppServiceProvider extends ServiceProvider {
         View::composer($page, function($view)
         {
             $view->with('categories',Category::all());
+        });
+
+        View::composer($page, function($view)
+        {
+            $randomSales = Sale::all()->random(4);
+            $view->with('randomSales', $randomSales);
         });
 	}
 

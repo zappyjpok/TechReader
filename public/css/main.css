@@ -7,8 +7,12 @@
 }
 
 .side-menu {
-    background-color: #888a85;
-    padding: 10px
+    background-color: rgba(222, 202, 173, 0.52);
+    padding: 10px;
+}
+
+.side-menu ul {
+    list-style-type:none;
 }
 
 .priceTitle {

@@ -43,7 +43,6 @@ class WelcomeController extends Controller {
         $row = '<article class="row">';
         $rowClose = '</article>';
 
-
 		return view('welcome')->with([
             'pageTitle' => $pageTitle,
             'items' => $items,
