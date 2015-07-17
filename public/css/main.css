@@ -60,3 +60,19 @@
     padding: 5px;
 }
 
+.sections {
+    padding: 10px;
+}
+.sections p {
+    font-size: 120%;
+}
+
+.label-information {
+    font-weight: bold;
+}
+
+.info {
+    text-decoration-style: wavy;
+}
+
+

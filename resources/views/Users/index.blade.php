@@ -68,7 +68,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="#" class="btn btn-info"> Add Roles </a>
+                        <a href="{{ action('AddRolesController@create', $user->name) }}" class="btn btn-info"> Add Roles </a>
                     </td>
                 </tr>
             @endforeach

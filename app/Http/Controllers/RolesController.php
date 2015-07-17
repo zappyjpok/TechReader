@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\CreateRoleRequest;
 use App\Http\Controllers\Controller;
 
 use App\Role;
@@ -51,9 +52,13 @@ class RolesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateRoleRequest $request)
 	{
-		//
+		//Get Values
+        $input = $request->all();
+        $role =  Role::create($input);
+
+        return redirect ('roles');
 	}
 
 	/**
@@ -75,7 +80,14 @@ class RolesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		//find role
+        $role = Role::findOrFail($id);
+        $submitButton = "Edit Role";
+
+        return view('roles.edit')->with([
+            'submitButton'         => $submitButton,
+            'role'                 => $role
+        ]);
 	}
 
 	/**
@@ -84,9 +96,13 @@ class RolesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(CreateRoleRequest $request, $id)
 	{
-		//
+		// Find and update
+        $role = Role::findOrFail($id);
+        $role->update($request->all());
+
+        return redirect ('roles');
 	}
 
 	/**
@@ -97,7 +113,11 @@ class RolesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		// find and delete
+        $role = Role::findOrFail($id);
+        $role->delete();
+
+        return redirect ('roles');
 	}
 
 }

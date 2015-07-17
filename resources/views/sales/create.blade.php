@@ -24,13 +24,14 @@
             <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}" class="img"/>
         </div>
     </section>
-    {!! Form::open([
-    'class'  => 'form-group',
-    'action' => 'SalesController@store'
-    ])
-    !!}
+    @include('_layouts._validation')
+    <section>
+        {!! Form::open([
+        'class'  => 'form-group',
+        'action' => 'SalesController@store'
+        ])
+        !!}
         @include('sales._partials._form', ['submitButton' => 'Add Sale'])
-    {!! Form::close() !!}
-
-
+        {!! Form::close() !!}
+    </section>
 @endsection

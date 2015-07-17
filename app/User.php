@@ -31,20 +31,70 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * User can have many addresses
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function addresses()
     {
         return $this->hasMany('App\Address');
     }
 
+    /**
+     * User can have one profile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function profile()
     {
         return $this->hasOne('App\Profile');
     }
 
+    /**
+     * User can have one role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function roles()
     {
         return $this->belongsToMany('App\Role');
     }
 
+    /**
+     * Check if a user has a particular role
+     *
+     * @param $name
+     * @return bool
+     */
+    public function hasRole($name)
+    {
+        foreach ($this->roles as $role)
+        {
+            if ($role->name == $name) return true;
+        }
+        return false;
+    }
 
+    /**
+     * Assigns a role to a user
+     *
+     * @param $role
+     */
+    public function assignRole($role)
+    {
+        return $this->roles()->attach($role);
+    }
+
+
+    /**
+     * Removes a role from a user
+     *
+     * @param $role
+     * @return int
+     */
+    public function removeRole($role)
+    {
+        return $this->roles()->detach($role);
+    }
 }

@@ -6,9 +6,7 @@
  * Time: 8:33 PM
  */?>
 
-@extends('_layouts._adminLayout')
 
-@section('content')
     <section class="row form-spacing">
         <div class="col-md-2">
             {!! Form::label('name', 'Role Name:') !!}
@@ -23,4 +21,3 @@
             {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
         </div>
     </section>
-@endsection
