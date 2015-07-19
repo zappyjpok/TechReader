@@ -11,7 +11,7 @@
 @section('content')
 
 @include('_layouts._validation')
-    <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}">
+    <img src="{{ App\library\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}">
 
     {!! Form::model($product, [
         'method' => 'PATCH',

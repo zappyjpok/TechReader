@@ -14,7 +14,16 @@ use Illuminate\Support\Facades\Input;
 
 class SalesController extends Controller {
 
-	/**
+    /**
+     * Only admins are allowed to view this page except index
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('adminOnly');
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

@@ -18,26 +18,26 @@
                         <section class="col-md-3 col-xs-6">
                             <h4>
                                 <!-- If statement: if sale or product object -->
-                                <a href="{{ action('WelcomeController@show', [App\Services\ChangeName::replaceLinkSpaces($item->product->title)]) }}">
-                                    {{ App\Services\ChangeName::shortenString($item->product->title, 20) }}...
+                                <a href="{{ action('WelcomeController@show', [App\library\ChangeName::replaceLinkSpaces($item->product->title)]) }}">
+                                    {{ App\library\ChangeName::shortenString($item->product->title, 20) }}...
                                 </a>
                             </h4>
                             <div>
                                 <img src="{{
-                                    App\Services\ChangeName::changeToThumbnail(
-                                    App\Services\ChangeName::changeToLocalEnvironment($item->product->image, 'Tech'))
+                                    App\library\ChangeName::changeToThumbnail(
+                                    App\library\ChangeName::changeToLocalEnvironment($item->product->image, 'Tech'))
                                     }}" >
                             </div>
                             <p>
-                                {{ App\Services\ChangeName::shortenString($item->product->description, 80)  }}
-                                <a href="{{ action('WelcomeController@show', [App\Services\ChangeName::replaceLinkSpaces($item->title)]) }}">
+                                {{ App\library\ChangeName::shortenString($item->product->description, 80)  }}
+                                <a href="{{ action('WelcomeController@show', [App\library\ChangeName::replaceLinkSpaces($item->title)]) }}">
                                     read more
                                 </a>
                             </p>
                             @if(App\Sale::current()->findProduct($item->product->id)->first())
                                 <p class="priceCut"> ${{ $item->product->price }}</p>
                                 <p class="price">
-                                    ${{ App\Services\caculations::caculateDiscountPrice($item->product->price, $item->discount) }}
+                                    ${{ App\library\caculations::caculateDiscountPrice($item->product->price, $item->discount) }}
                                 </p>
                             @else
                                 <p class="price"> ${{ $item->product->price }}</p>

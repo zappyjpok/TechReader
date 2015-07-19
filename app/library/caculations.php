@@ -6,7 +6,7 @@
  * Time: 5:00 PM
  */
 
-namespace App\Services;
+namespace App\library;
 
 
 class caculations {

@@ -2,10 +2,9 @@
 
 use App\Category;
 use App\Sale;
-use App\Services\BootstrapRows;
 use App\Product as Product;
-use App\Services\BootstrapRowsSales;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller {
@@ -21,15 +20,6 @@ class WelcomeController extends Controller {
 	|
 	*/
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('guest');
-	}
 
 	/**
 	 * Show the application welcome screen to the user.
@@ -47,7 +37,7 @@ class WelcomeController extends Controller {
             'pageTitle' => $pageTitle,
             'items' => $items,
             'row' => $row,
-            'rowClose' => $rowClose
+            'rowClose' => $rowClose,
         ]);
 	}
 
@@ -79,41 +69,6 @@ class WelcomeController extends Controller {
             'rowClose' => $rowClose
         ]);
 
-    }
-
-    public function test()
-    {
-        return 'test';
-
-        //$sales = Sale::current()->get();
-        //$products = Product::find(2);
-        //$sale = Sale::find(3); $sale->product;
-        //$sale = Sale::findProduct(2)->get(); // don't forget the get()
-        //$test = Sale::current()->findProduct($products->id)->first(); // this works
-        //$test2 = Sale::all();
-        //$sales->first()->product->name;
-        //return $sales->first()->discount;
-
-        //return $sales->first()->product;
-
-        /*
-        $products = Product::all();
-        $array_products = [];
-
-        foreach($products as $product)
-        {
-            $array_products = [$product->title, $product->image, $product->description, $product->price];
-        }
-
-
-
-        return $y;
-
-
-        return view('test')->with([
-            'sale' => $sale,
-        ]);
-        */
     }
 }
 

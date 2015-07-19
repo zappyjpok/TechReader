@@ -17,12 +17,12 @@
                         <a href="{{ action('WelcomeController@show', $randomSale->product->title) }}"> {{ $randomSale->product->title }} </a>
                     </h4>
                     <img src="
-                        {{ App\Services\ChangeName::changeToThumbnail(
-                        App\Services\ChangeName::changeToLocalEnvironment($randomSale->product->image, 'Tech')) }}
+                        {{ App\library\ChangeName::changeToThumbnail(
+                        App\library\ChangeName::changeToLocalEnvironment($randomSale->product->image, 'Tech')) }}
                     ">
                     <p class="priceCut"> ${{ $randomSale->product->price }} </p>
                     <p class="price">
-                        ${{ App\Services\caculations::caculateDiscountPrice($randomSale->product->price, $randomSale->discount) }}
+                        ${{ App\library\caculations::caculateDiscountPrice($randomSale->product->price, $randomSale->discount) }}
                     </p>
                 </li>
             @endforeach

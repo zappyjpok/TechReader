@@ -76,6 +76,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return false;
     }
 
+    public function hasNoRole()
+    {
+        if(empty($this->roles->first()->name))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Assigns a role to a user
      *

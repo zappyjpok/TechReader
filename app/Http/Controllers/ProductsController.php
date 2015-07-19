@@ -5,16 +5,28 @@ use App\Category;
 use App\Http\Requests;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Controllers\Controller;
-use App\Services\UploadImage;
-use App\Services\ResizeImage;
-use App\Services\DeleteFile;
+use App\library\UploadImage;
+use App\library\ResizeImage;
+use App\library\DeleteFile;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class ProductsController extends Controller {
 
-	/**
+    /**
+     * Only admins are allowed to view this page except index
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('adminOnly', ['except' => 'index']);
+        $this->middleware('staffOnly');
+    }
+
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

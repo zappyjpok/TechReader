@@ -59,7 +59,34 @@ Route::post('users/role/store/{id}', 'AddRolesController@store');
 Route::delete('users/role/delete/{id}/{role}', ['uses' => 'AddRolesController@destroy', 'as' => 'AddRoles.destroy']);
 
 // delete later
-Route::get('test', 'WelcomeController@Test');
+Route::get('test', function(){
+
+    if(Illuminate\Support\Facades\Auth::user()->hasRole('Staff') || Illuminate\Support\Facades\Auth::user()->hasRole('Admin'))
+    {
+        return 'You are staff and your role is ' . Illuminate\Support\Facades\Auth::user()->roles->first()->name;
+    }
+    else {
+        return 'you are not staff';
+    }
+
+});
+
+Route::get('quiz', function(){
+
+    if(!Illuminate\Support\Facades\Auth::user()->hasNoRole())
+    {
+        return 'You are staff and your role';
+    }
+    else {
+        return 'you are not staff';
+    }
+
+});
+
+Route::get('admin', ["middleware" => "adminOnly", function(){
+
+    return "This page may only be viewed by managers";
+}]);
 
 // This route should be last
 Route::get('catalog/{name}', 'WelcomeController@show');

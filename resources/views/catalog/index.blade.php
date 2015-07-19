@@ -26,25 +26,25 @@
                         <?php if($i == 4) {$i=0;} ?>
                         <section class="col-md-3 col-xs-6">
                             <h4>
-                                <a href="{{ action('WelcomeController@show', [App\Services\ChangeName::replaceLinkSpaces($item->title)]) }}">
-                                    {{ App\Services\ChangeName::shortenString($item->title, 25)  }}...
+                                <a href="{{ action('WelcomeController@show', [App\library\ChangeName::replaceLinkSpaces($item->title)]) }}">
+                                    {{ App\library\ChangeName::shortenString($item->title, 25)  }}...
                                 </a>
                             </h4>
                             <div>
                                 <img src="{{
-                                    App\Services\ChangeName::changeToThumbnail(
-                                    App\Services\ChangeName::changeToLocalEnvironment($item->image, 'Tech'))
+                                    App\library\ChangeName::changeToThumbnail(
+                                    App\library\ChangeName::changeToLocalEnvironment($item->image, 'Tech'))
                                     }}" >
                             </div>
-                            <p> {{ App\Services\ChangeName::shortenString($item->description, 80)   }}...
-                                <a href="{{ action('WelcomeController@show', [App\Services\ChangeName::replaceLinkSpaces($item->title)]) }}">
+                            <p> {{ App\library\ChangeName::shortenString($item->description, 80)   }}...
+                                <a href="{{ action('WelcomeController@show', [App\library\ChangeName::replaceLinkSpaces($item->title)]) }}">
                                     read more
                                 </a>
                             </p>
                             @if(App\Sale::current()->findProduct($item->id)->first())
                                 <p class="priceCut"> ${{ $item->price }}</p>
                                 <p class="price">
-                                    ${{ App\Services\caculations::caculateDiscountPrice($item->price,
+                                    ${{ App\library\caculations::caculateDiscountPrice($item->price,
                                     \App\Sale::current()->where('product_id', $item->id)->first()->discount
                                     ) }}
                                 </p>

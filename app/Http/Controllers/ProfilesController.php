@@ -11,7 +11,17 @@ use Illuminate\Http\Request;
 
 class ProfilesController extends Controller {
 
-	/**
+    /**
+     * Only the user should be allowed to see or edit their profile
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('auth');
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

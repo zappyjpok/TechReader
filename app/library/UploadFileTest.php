@@ -6,7 +6,7 @@
  * Time: 11:11 PM
  */
 
-namespace App\Services;
+namespace App\library;
 
 
 class PostTest {

@@ -9,7 +9,17 @@ use Illuminate\Http\Request;
 
 class RolesController extends Controller {
 
-	/**
+    /**
+     * Only admins are allowed to view this page
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('adminOnly');
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

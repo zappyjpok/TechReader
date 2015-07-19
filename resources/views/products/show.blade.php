@@ -11,7 +11,7 @@
 @section('content')
 
 <article class="row">
-    <section class="col-md-5"> <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}"> </section>
+    <section class="col-md-5"> <img src="{{ App\library\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}"> </section>
     <section class="col-md-4">
         <h2> {{ $product->title }} </h2>
         <p> by {{ $product->author }} </p>
