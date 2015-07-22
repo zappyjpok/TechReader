@@ -6,18 +6,11 @@
         <section class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1">
             <h3> {{ $pageTitle }} </h3>
             <!-- Loop through the sales: every 4 sales should create a new row -->
-        <?php $i=0; ?>
-            @if(isset($items))
-                <article class="row">
-                    @foreach($items as $item)
-                        @if($i === 4)
-                            <!-- Variable Row: Creates a new row after  4 grids  -->
-                            {!! $row !!}
-                        @endif
-                        <?php if($i == 4) {$i=0;} ?>
-                        <section class="col-md-3 col-xs-6">
+            @foreach(array_chunk($items->all(), 3) as $row)
+                <section class="row">
+                    @foreach($row as $item)
+                        <div class="col-md-4">
                             <h4>
-                                <!-- If statement: if sale or product object -->
                                 <a href="{{ action('WelcomeController@show', [App\library\ChangeName::replaceLinkSpaces($item->product->title)]) }}">
                                     {{ App\library\ChangeName::shortenString($item->product->title, 20) }}...
                                 </a>
@@ -42,22 +35,13 @@
                             @else
                                 <p class="price"> ${{ $item->product->price }}</p>
                             @endif
-                        </section>
-                        <?php $i++ ?>
-                        @if($i === 4)
-                            {!! $rowClose !!}
-                        @endif
+                        </div>
                     @endforeach
-            @endif
+                </section> <!-- end products loop -->
+            @endforeach
         </section>
         <div>
-            <ul class="pagination">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
+            {!! $items->render() !!}
         </div>
     </main>
 @endsection

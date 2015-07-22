@@ -21,7 +21,7 @@
             <h4> Publish Date: {{ $product->publish_date }} </h4>
         </div>
         <div class="col-md-4 col-lg-4">
-            <img src="{{ App\Services\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}" class="img"/>
+            <img src="{{ App\library\ChangeName::changeToLocalEnvironment($product->image, 'Tech') }}" class="img"/>
         </div>
     </section>
     @include('_layouts._validation')

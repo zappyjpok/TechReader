@@ -29,7 +29,7 @@ class WelcomeController extends Controller {
 	public function index()
 	{
         $pageTitle = "Check Out Are Sales";
-        $items = Sale::current()->get();
+        $items = Sale::current()->paginate(2);
         $row = '<article class="row">';
         $rowClose = '</article>';
 
@@ -56,7 +56,7 @@ class WelcomeController extends Controller {
     public function display($name)
     {
         $category = Category::where('name', $name)->first();
-        $items = Product::where('category_id', $category->id)->get();
+        $items = Product::where('category_id', $category->id)->paginate(2);
 
         $pageTitle = "Our " . $category->name . ' books';
         $row = '<article class="row">';
