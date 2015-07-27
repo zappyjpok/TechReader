@@ -25,17 +25,7 @@
             <p> Date Published: {{ $product->publish_date }} </p>
         </section>
         <section class="col-md-3">
-            <div class="side-options">
-                <h3 class="spacing-sm"> Order Now </h3>
-                <p class="spacing-sm">
-                <a href="#" class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                    Add to Cart
-                </a>
-                </p>
-                <p class="spacing-sm"> All products are shipped in 24 hours</p>
-                <p class="spacing-sm"> Satisfaction guaranteed!  If you are not happy with your purchase please send it back for a full refund.  </p>
-            </div>
+            @include('catalog._partials._cart')
         </section>
     </article>
     <article class="row">

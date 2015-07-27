@@ -13,10 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 
-
 Route::get('home', 'HomeController@index');
-
-
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -61,14 +58,13 @@ Route::delete('users/role/delete/{id}/{role}', ['uses' => 'AddRolesController@de
 // delete later
 Route::get('test', function(){
 
-    if(Illuminate\Support\Facades\Auth::user()->hasRole('Staff') || Illuminate\Support\Facades\Auth::user()->hasRole('Admin'))
-    {
-        return 'You are staff and your role is ' . Illuminate\Support\Facades\Auth::user()->roles->first()->name;
-    }
-    else {
-        return 'you are not staff';
-    }
+      \Illuminate\Support\Facades\Session::forget('cart');
+    return var_dump(\Illuminate\Support\Facades\Session::get('cart'));
 
+});
+
+Route::get('session', function() {
+    return Session::get('cart');
 });
 
 Route::get('quiz', function(){
@@ -89,7 +85,8 @@ Route::get('admin', ["middleware" => "adminOnly", function(){
 }]);
 
 // This route should be last
-Route::get('catalog/{name}', 'WelcomeController@show');
-Route::get('category/{name}', 'WelcomeController@display');
+Route::get('catalog/product/{name}', 'WelcomeController@show');
+Route::post('catalog/store', 'WelcomeController@store');
+Route::get('catalog/{name}', 'WelcomeController@display');
 
 
