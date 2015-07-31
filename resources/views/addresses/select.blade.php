@@ -26,7 +26,7 @@
         <h4> Please select an address or create a new one </h4>
         <div class="row">
             {!! Form::open([
-            'action' => ['AddressesController@store', $user->id]
+            'action' => ['OrdersController@addAddress', $user->id]
             ])
             !!}
             @foreach($user->addresses as $address)

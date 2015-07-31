@@ -2,8 +2,10 @@
 
 use App\Category;
 use App\Sale;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\library\ShoppingCart as ShoppingCart;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -18,6 +20,28 @@ class AppServiceProvider extends ServiceProvider {
         View::composer($page, function($view)
         {
             $view->with('categories',Category::all());
+        });
+
+        View::composer($page, function($view)
+        {
+            $shoppingCart = new ShoppingCart();
+            $count = $shoppingCart->numberOfItems();
+            $itemCount = '';
+
+            if($count != 1)
+            {
+                $itemCount = "$count items";
+            } else {
+                $itemCount = "$count item";
+            }
+
+            $authCartCheck = $this->checkLogIn();
+
+
+            $view->with([
+                'itemCount'=> $itemCount,
+                'authCartCheck' => $authCartCheck
+            ]);
         });
 
         View::composer($page, function($view)
@@ -46,5 +70,16 @@ class AppServiceProvider extends ServiceProvider {
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
         }
 	}
+
+    private function checkLogIn()
+    {
+
+        if(Auth::check())
+        {
+            return action('OrdersController@show');
+        } else{
+            return  url('/auth/login');
+        }
+    }
 
 }

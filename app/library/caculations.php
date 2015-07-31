@@ -27,4 +27,9 @@ class caculations {
         return $newPrice;
     }
 
+    public static function calculatePrice($price, $quantity)
+    {
+        return number_format($price * $quantity, 2);
+    }
+
 }

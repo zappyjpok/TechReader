@@ -8,6 +8,7 @@ use App\library\ShoppingCart as ShoppingCart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class WelcomeController extends Controller {
@@ -48,7 +49,7 @@ class WelcomeController extends Controller {
     {
         $name = str_replace("_", " ", $name);
         $product = Product::where('title', $name)->first();
-        $quantity = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+        $quantity = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 
         return view('catalog.show')->with([
@@ -63,21 +64,8 @@ class WelcomeController extends Controller {
 
         $shoppingCart = new ShoppingCart();
         $shoppingCart->addItem($input['id'], $input['quantity']);
-        //$shoppingCart->removeAllItems();
 
-        $cart = Session::get('cart');
-        $testArray = $shoppingCart->getTestArray();
-        $test = $shoppingCart->getTempData();
-        $message = $shoppingCart->getMessages();
-        $var = $shoppingCart->getTest();
-
-        return view('test')->with([
-            'cart' => $cart,
-            'messages' => $message,
-            'testArray' => $testArray,
-            'test' => $test,
-            'var' => $var
-        ]);
+        return Redirect::back();
     }
 
     public function display($name)

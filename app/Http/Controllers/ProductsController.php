@@ -141,7 +141,7 @@ class ProductsController extends Controller {
         $product = Product::findOrFail($id);
 
         $max = 500 * 1024; //size of the image
-        $destination =  public_path('images/products'); //use local
+        $destination =  public_path('images/products');
 
         // Upadate image
         if (!empty($_FILES['image']['name']))

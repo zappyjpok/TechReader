@@ -55,6 +55,14 @@ Route::get('users/role/create/{name}', 'AddRolesController@create');
 Route::post('users/role/store/{id}', 'AddRolesController@store');
 Route::delete('users/role/delete/{id}/{role}', ['uses' => 'AddRolesController@destroy', 'as' => 'AddRoles.destroy']);
 
+// Order Controller Routes
+Route::get('order/', 'OrdersController@show');
+Route::get('order/remove_item/{id}', 'OrdersController@destroy');
+Route::post('order/update_quantity', 'OrdersController@updateQuantity');
+Route::post('order/store_address', 'OrdersController@addAddress');
+Route::get('order/confirm', 'OrdersController@create');
+Route::get('order/{id}', 'OrdersController@edit');
+
 // delete later
 Route::get('test', function(){
 
@@ -62,27 +70,6 @@ Route::get('test', function(){
     return var_dump(\Illuminate\Support\Facades\Session::get('cart'));
 
 });
-
-Route::get('session', function() {
-    return Session::get('cart');
-});
-
-Route::get('quiz', function(){
-
-    if(!Illuminate\Support\Facades\Auth::user()->hasNoRole())
-    {
-        return 'You are staff and your role';
-    }
-    else {
-        return 'you are not staff';
-    }
-
-});
-
-Route::get('admin', ["middleware" => "adminOnly", function(){
-
-    return "This page may only be viewed by managers";
-}]);
 
 // This route should be last
 Route::get('catalog/product/{name}', 'WelcomeController@show');

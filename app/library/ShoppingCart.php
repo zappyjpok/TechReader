@@ -10,7 +10,6 @@ namespace App\library;
 
 
 use Illuminate\Support\Facades\Session;
-use App\library\Sessions;
 
 class ShoppingCart {
 
@@ -35,6 +34,29 @@ class ShoppingCart {
     public function removeAllItems()
     {
         Session::forget('cart');
+    }
+
+    public function removeItem($id)
+    {
+        $this->item = $id;
+        $this->deleteSession();
+    }
+
+    public function updateQuantity($id, $quantity)
+    {
+        $this->item = $id;
+        $this->quantity = $quantity;
+        $this->deleteSession();
+        $this->runTests();
+        if($this->testsResult === true)
+        {
+            $this->addToSession();
+        }
+    }
+
+    public function numberOfItems()
+    {
+       return count(Session::get('cart'));
     }
 
     public function addItem($item, $quantity)
@@ -215,21 +237,6 @@ class ShoppingCart {
 
             }
         }
-    }
-
-    public function getTempData()
-    {
-        return $this->tempData;
-    }
-
-    public function getTestArray()
-    {
-        return $this->testArray;
-    }
-
-    public function getTest()
-    {
-        return $this->test;
     }
 
     public function getMessages()
