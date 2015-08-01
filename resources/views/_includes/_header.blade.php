@@ -9,7 +9,7 @@
 
 <header class="row"> <!-- logo and log in navbar -->
     <section class="pull-left"> <!-- Logo -->
-        <img src="#">
+        <img class="logo" src="{{ url('images/logo.png') }}">
     </section>
     <section> <!-- Login Navbar -->
         <ul class="nav navbar-nav navbar-right">

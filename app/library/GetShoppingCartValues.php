@@ -46,27 +46,30 @@ class GetShoppingCartValues {
      */
     private function queryDatabase()
     {
-        foreach(Session::get('cart') as $each_item)
+        if(!is_null(Session::get('cart')))
         {
-            foreach ($each_item as $key => $value)
+            foreach(Session::get('cart') as $each_item)
             {
-                if(!is_null($each_item[$key]['id']))
+                foreach ($each_item as $key => $value)
                 {
-                    $product = Product::findOrFail($each_item[$key]['id']);
-
-                    if(!is_null($each_item[$key]['quantity']))
+                    if(!is_null($each_item[$key]['id']))
                     {
-                        $price = $this->getPrice($product->id, $each_item[$key]['quantity'], $product->price);
-                        $this->prices [] = $price;
-                        $this->products [] =  [
-                            'id'            => $each_item[$key]['id'],
-                            'quantity'      => $each_item[$key]['quantity'],
-                            'title'         => $product->title,
-                            'author'        => $product->author,
-                            'description'   => $product->description,
-                            'image'         => $product->image,
-                            'price'         => $price
-                        ];
+                        $product = Product::findOrFail($each_item[$key]['id']);
+
+                        if(!is_null($each_item[$key]['quantity']))
+                        {
+                            $price = $this->getPrice($product->id, $each_item[$key]['quantity'], $product->price);
+                            $this->prices [] = $price;
+                            $this->products [] =  [
+                                'id'            => $each_item[$key]['id'],
+                                'quantity'      => $each_item[$key]['quantity'],
+                                'title'         => $product->title,
+                                'author'        => $product->author,
+                                'description'   => $product->description,
+                                'image'         => $product->image,
+                                'price'         => $price
+                            ];
+                        }
                     }
                 }
             }

@@ -62,6 +62,8 @@ Route::post('order/update_quantity', 'OrdersController@updateQuantity');
 Route::post('order/store_address', 'OrdersController@addAddress');
 Route::get('order/confirm', 'OrdersController@create');
 Route::get('order/{id}', 'OrdersController@edit');
+Route::get('order/store', 'OrdersController@store');
+Route::get('order/processed', 'OrdersController@processed');
 
 // delete later
 Route::get('test', function(){
