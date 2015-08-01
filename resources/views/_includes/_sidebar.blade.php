@@ -11,21 +11,23 @@
     <section>
         <h3> Latest Deals </h3>
         <ul>
-            @foreach($randomSales as $randomSale)
-                <li>
-                    <h4>
-                        <a href="{{ action('WelcomeController@show', $randomSale->product->title) }}"> {{ $randomSale->product->title }} </a>
-                    </h4>
-                    <img src="
-                        {{ App\library\ChangeName::changeToThumbnail(
-                        App\library\ChangeName::changeToLocalEnvironment($randomSale->product->image, 'Tech')) }}
-                    ">
-                    <p class="priceCut"> ${{ $randomSale->product->price }} </p>
-                    <p class="price">
-                        ${{ App\library\caculations::caculateDiscountPrice($randomSale->product->price, $randomSale->discount) }}
-                    </p>
-                </li>
-            @endforeach
+            @if(isset($randomSales)  && !is_null($randomSales))
+                @foreach($randomSales as $randomSale)
+                    <li>
+                        <h4>
+                            <a href="{{ action('WelcomeController@show', $randomSale->product->title) }}"> {{ $randomSale->product->title }} </a>
+                        </h4>
+                        <img src="
+                            {{ App\library\ChangeName::changeToThumbnail(
+                            App\library\ChangeName::changeToLocalEnvironment($randomSale->product->image, 'Tech')) }}
+                        ">
+                        <p class="priceCut"> ${{ $randomSale->product->price }} </p>
+                        <p class="price">
+                            ${{ App\library\caculations::caculateDiscountPrice($randomSale->product->price, $randomSale->discount) }}
+                        </p>
+                    </li>
+                @endforeach
+            @endif
         </ul>
     </section>
 </aside>
