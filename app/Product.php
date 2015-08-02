@@ -22,7 +22,11 @@ class Product extends Model {
         'image'
         ];
 
-
+    /**
+     * formats the date
+     *
+     * @param $date
+     */
     public function setPublishDateAttribute($date)
     {
         $this->attributes['publish_date'] = Carbon::createFromFormat('Y-m-d', $date);
@@ -36,6 +40,15 @@ class Product extends Model {
     public function sales()
     {
         return $this->hasMany('App\Sale', 'product_id');
+    }
+
+    /**
+     * This function allows values to be added to the order_product pivot table
+     *
+     */
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order');
     }
 
     /**

@@ -51,7 +51,15 @@
     </article>
 
     <article class="row top-buffer-20">
-        @include('orders._partials._orderInfo', ['button' => 'Confirm Order'])
+        @include('orders._partials._orderInfo')
+        <section class="row">
+            <div class="pull-right">
+                <h4 class="text-info"> Total: ${{ $total }} </h4>
+                <a href="{{ action('OrdersController@store') }}" class="btn btn-success">
+                    Confirm Order
+                </a>
+            </div>
+        </section>
     </article>
 
 @endsection

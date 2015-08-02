@@ -15,4 +15,13 @@ class Order extends Model {
         'order_date',
         'total'
     ];
+
+    /**
+     * This function allows values to be added to the order_product pivot table
+     *
+     */
+    public function products()
+    {
+        return $this->belongsToMany('App\Product');
+    }
 }

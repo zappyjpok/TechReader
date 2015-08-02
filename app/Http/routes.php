@@ -56,14 +56,14 @@ Route::post('users/role/store/{id}', 'AddRolesController@store');
 Route::delete('users/role/delete/{id}/{role}', ['uses' => 'AddRolesController@destroy', 'as' => 'AddRoles.destroy']);
 
 // Order Controller Routes
-Route::get('order/', 'OrdersController@show');
+
 Route::get('order/remove_item/{id}', 'OrdersController@destroy');
 Route::post('order/update_quantity', 'OrdersController@updateQuantity');
 Route::post('order/store_address', 'OrdersController@addAddress');
 Route::get('order/confirm', 'OrdersController@create');
-Route::get('order/{id}', 'OrdersController@edit');
-Route::get('order/store', 'OrdersController@store');
+Route::get('order/processing', 'OrdersController@store');
 Route::get('order/processed', 'OrdersController@processed');
+Route::get('order/', 'OrdersController@show');
 
 // delete later
 Route::get('test', function(){

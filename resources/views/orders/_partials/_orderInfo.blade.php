@@ -35,12 +35,4 @@
             </section>
         @endforeach
     @endif
-    <section class="row">
-        <div class="pull-right">
-            <h4 class="text-info"> Total: ${{ $total }} </h4>
-            <a href="{{ action('AddressesController@select', $user->name) }}" class="btn btn-success">
-                {{ $button }}
-            </a>
-        </div>
-    </section>
 </article>

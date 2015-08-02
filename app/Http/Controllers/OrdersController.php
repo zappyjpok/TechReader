@@ -4,9 +4,11 @@ use App\Address;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Order;
 use App\library\ShoppingCart;
 use App\Product;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\library\GetShoppingCartValues;
 use Illuminate\Support\Facades\Auth;
@@ -54,13 +56,11 @@ class OrdersController extends Controller {
 	 */
 	public function store()
 	{
-        // get variables
-        $user = Auth::user();
-        $order = new GetShoppingCartValues();
-        $products = $order->getProductInformation();
-        $total = $order->getTotal();
-        $quantity = $this->getQuantity();
-        $address = $this->getAddress();
+        $a = $this->addValuesOrders();
+
+        //Session::forget('cart');
+        //Session::forget('cart_address');
+        return redirect()->action('OrdersController@processed');
 	}
 
 	/**
@@ -84,30 +84,6 @@ class OrdersController extends Controller {
             'quantity'  => $quantity,
             'total'     => $total
         ]);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-        return $id;
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-
 	}
 
 	/**
@@ -177,6 +153,52 @@ class OrdersController extends Controller {
             45, 46, 47, 48, 49, 50
         ];
         return $value;
+    }
+
+    /**
+     * Adds values to the database
+     * Runs function that foreach loops through the products values.
+     *
+     *
+     */
+    private function addValuesOrders()
+    {
+        // get variables
+        $user = Auth::user();
+        $order = new GetShoppingCartValues();
+        $products = $order->getProductInformation();
+        $total = $order->getTotal();
+        $quantity = $this->getQuantity();
+        $address = $this->getAddress();
+
+        //Adding Values to the database
+        $db = new Order();
+        $db->user_id = $user->id;
+        $db->address_id = $address['id'];
+        $db->total = $total;
+        $db->order_date = Carbon::now();
+        $db->save();
+
+        $this->addValuesOrdersProductsTable($products, $db->id);
+
+    }
+
+    private function addValuesOrdersProductsTable($products, $order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        if(!is_null($products))
+        {
+            foreach ($products as $product)
+            {
+                try{
+                    $order->products()->attach($product['id'], ['quantity' => $product['quantity']]);
+
+                } catch (\Exception $e) {
+                    // maybe log this exception, but basically it's just here so we can rollback if we get a surprise
+                }
+
+            }
+        }
     }
 
 }

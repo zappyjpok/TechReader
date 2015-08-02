@@ -12,7 +12,15 @@
     <article class="row top-buffer-10">
         <h4> Welcome {{ $user->name }} </h4>
     </article>
-    @include('orders._partials._orderInfo', ['button' => 'Continue Order', 'redirect' => '#'])
+    @include('orders._partials._orderInfo')
+    <section class="row">
+        <div class="pull-right">
+            <h4 class="text-info"> Total: ${{ $total }} </h4>
+            <a href="{{ action('AddressesController@select', $user->name) }}" class="btn btn-success">
+                Continue Order
+            </a>
+        </div>
+    </section>
 
 @endsection
 
