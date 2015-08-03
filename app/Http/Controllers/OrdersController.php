@@ -58,8 +58,8 @@ class OrdersController extends Controller {
 	{
         $a = $this->addValuesOrders();
 
-        //Session::forget('cart');
-        //Session::forget('cart_address');
+        Session::forget('cart');
+        Session::forget('cart_address');
         return redirect()->action('OrdersController@processed');
 	}
 
@@ -103,7 +103,7 @@ class OrdersController extends Controller {
 
     public function processed()
     {
-        return 'your order has been processed';
+        return view('orders.processed');
     }
 
     /**
