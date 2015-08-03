@@ -29,6 +29,11 @@ class ChangeName {
             $newName = substr($value, $needle-1);
 
             $value = $newName;
+        } else {
+            $needle = strpos($value, 'public');
+            $newName = substr($value, $needle-1);
+
+            $value = $newName;
         }
 
         return $value;
