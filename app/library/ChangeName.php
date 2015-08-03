@@ -30,7 +30,7 @@ class ChangeName {
 
             $value = $newName;
         } else {
-            $needle = strpos($value, 'public');
+            $needle = strpos($value, 'images');
             $newName = substr($value, $needle-1);
 
             $value = $newName;
