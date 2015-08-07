@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider {
         View::composer($page, function($view)
         {
             $randomSales = '';
-            if(Sale::all() > 4)
+            if(count(Sale::all())  > 4)
             {
                 $randomSales = Sale::all()->random(4);
             }
