@@ -12,5 +12,20 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+
+    //mix.less('app.less');
+
+    mix.less([
+        'app.less'
+    ], 'public/css/final.css', 'resources/assets/less');
+
+    mix.scripts([
+        'jquery.js',
+        'jquery-timepicker.js',
+        'jquery-ui.js',
+        'modernizr.js',
+        'jquery-validation.js',
+        'validation.js',
+        'main.js'
+    ], 'public/js/final.js', 'resources/assets/js');
 });
