@@ -18,7 +18,7 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" id="registration-form" role="form" method="POST" action="{{ url('/auth/register') }}">
+                        <form class="form-horizontal validation-form" name="registration-form" role="form" method="POST" action="{{ url('/auth/register') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="form-group">
@@ -31,21 +31,21 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">E-Mail Address</label>
                                 <div class="col-md-6">
-                                    <input type="email" id="registration-email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" id="registration-password" class="form-control" name="password" required>
+                                    <input type="password" id="password" class="form-control" name="password" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Confirm Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" id="registration-confirm-password" class="form-control" name="password_confirmation" required>
+                                    <input type="password" id="confirm-password" class="form-control" name="password_confirmation" required>
                                 </div>
                             </div>
 
@@ -62,4 +62,10 @@
             </div>
         </div>
     </div>
+
+
 @endsection
+
+@section('footer')
+    @include('_layouts._footer')
+@stop

@@ -65,17 +65,15 @@ Route::get('order/processing', 'OrdersController@store');
 Route::get('order/processed', 'OrdersController@processed');
 Route::get('order/', 'OrdersController@show');
 
-// delete later
-Route::get('test', function(){
+// Validation Controller Routes
+Route::get('register/check/username/{name}', ['uses' => 'ValidationController@checkUserName', 'as' => 'checkName']);
+Route::get('register/check/email/{name}', ['uses' => 'ValidationController@checkEmail', 'as' => 'checkName']);
 
-      \Illuminate\Support\Facades\Session::forget('cart');
-    return var_dump(\Illuminate\Support\Facades\Session::get('cart'));
-
-});
-
-// This route should be last
+// Welcome Controller Routes
 Route::get('catalog/product/{name}', 'WelcomeController@show');
 Route::post('catalog/store', 'WelcomeController@store');
 Route::get('catalog/{name}', 'WelcomeController@display');
+
+
 
 

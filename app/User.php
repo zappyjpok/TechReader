@@ -76,6 +76,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return false;
     }
 
+    /**
+     * Check if user has a role
+     *
+     * @return bool
+     */
     public function hasNoRole()
     {
         if(empty($this->roles->first()->name))

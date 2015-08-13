@@ -61,12 +61,24 @@ class Product extends Model {
         return $this->belongsTo('App\Category', 'id');
     }
 
+    /**
+     * function to return the category name
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getCategoryName($id)
     {
         $name = Category::where('id', $id)->first()->name;
         return $name;
     }
 
+    /**
+     * Function to get the current sales of a product
+     *
+     * @param $id
+     * @return bool
+     */
     public function getSales($id)
     {
 

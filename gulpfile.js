@@ -21,6 +21,7 @@ elixir(function(mix) {
 
     mix.scripts([
         'jquery.js',
+        'bootstrap-min.js',
         'jquery-timepicker.js',
         'jquery-ui.js',
         'modernizr.js',

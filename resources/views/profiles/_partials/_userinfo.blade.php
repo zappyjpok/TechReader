@@ -7,29 +7,36 @@
  */ ?>
 
 <!-- Users Information -->
-<section class="row display-user-info top-buffer-20">
-    <h4> Your information </h4>
-    <div class="row">
-        <div class="col-md-2">
-            Username:
+<article class="panel panel-info">
+    <section class="panel-heading">
+        <h4> Your information </h4>
+    </section>
+    <section class="panel-body">
+        <div class="row">
+            <div class="col-md-4 input-lg">
+                Username:
+            </div>
+            <div class="col-md-8 input-lg">
+                {{ $user->name }}
+            </div>
         </div>
-        <div class="col-md-4 input-lg">
-            {{ $user->name }}
+        <div class="row">
+            <div class="col-md-4 input-lg">
+               Email:
+            </div>
+            <div class="col-md-8 input-lg">
+                {{ $user->email }}
+            </div>
         </div>
-        <div class="col-md-2">
-            Email:
-        </div>
-        <div class="col-md-4 input-lg">
-            {{ $user->email }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <a class="btn btn-success"
-               href="{{ action('ProductsController@create') }}"> Edit Information </a>
-        </div>
-        <div class="col-md-4 input-lg">
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-success"
+                   href="#"> Edit Information </a>
+            </div>
+            <div class="col-md-4 input-lg">
 
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</article>
+

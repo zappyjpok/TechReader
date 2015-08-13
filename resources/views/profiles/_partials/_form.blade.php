@@ -6,31 +6,51 @@
  * Time: 8:09 PM
  */ ?>
 
-<section class="row">
-    <div class="col-md-2">
-        {!! Form::label('first_name', 'First Name: ') !!}
+<section class="row top-buffer-20">
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2 ">
+            {!! Form::label('first_name', 'First Name: ', ['class' => 'label-control'] ) !!}
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::input('text', 'first_name', null,
+                ['class' => 'form-control',
+                'id' => 'first-name',
+                'placeholder' => 'Please enter your last name',
+                'required'] ) !!}
+        </div>
     </div>
-    <div class="col-md-4 input-lg">
-        {!! Form::input('text', 'first_name', null, ['class' => 'form-control'] ) !!}
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            {!! Form::label('last_name', 'Last Name: ', ['class' => 'label-control']) !!}
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::input('text', 'last_name', null,
+                ['class' => 'form-control',
+                'id' => 'last-name',
+                'placeholder' => 'Please enter your last name',
+                'required'] ) !!}
+        </div>
     </div>
-    <div class="col-md-2">
-        {!! Form::label('last_name', 'Last Name: ') !!}
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            {!! Form::label('phone', 'Phone Number:',
+                ['class' => 'label-control']) !!}
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::input('text', 'phone', null,
+                ['class' => 'form-control',
+                'id' => 'phone',
+                'placeholder' => 'Please enter your phone number',
+                'required'] ) !!}
+        </div>
     </div>
-    <div class="col-md-4 input-lg">
-        {!! Form::input('text', 'last_name', null, ['class' => 'form-control'] ) !!}
-    </div>
-</section>
-<section class="row">
-    <div class="col-md-2">
-        {!! Form::label('phone', 'Phone Number:') !!}
-    </div>
-    <div class="col-md-4 input-lg">
-        {!! Form::input('text', 'phone', null, ['class' => 'form-control'] ) !!}
-    </div>
-    <div class="col-md-2">
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
 
-    </div>
-    <div class="col-md-4">
-        {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
+        </div>
+        <div class="col-md-5">
+            {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
+        </div>
     </div>
 </section>
+

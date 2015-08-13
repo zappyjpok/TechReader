@@ -12,20 +12,35 @@
 
     <main class="container">
 
-        @include('profiles._partials._userInfo', ['user' => $user])
-
-        @include('_layouts._validation')
-        <!-- Form  -->
-        <section class="row top-buffer-20">
-            <h4> Please enter your order information  </h4>
-            {!! Form::open([
-            'class'  => 'form-group',
-            'action' => ['ProfilesController@store', $user->id]
-            ])
-            !!}
-            @include('profiles._partials._form', ['submitButton' => $submitButton])
-            {!! Form::close() !!}
-        </section>
+        <div class="row top-buffer-20">
+            <div class="col-md-6 col-md-offset-1">
+                <div class="panel panel-default">
+                    <article class="panel-heading">
+                        <h4> Please enter your order information  </h4>
+                    </article>
+                    <article class="panel-body">
+                        <!-- Form  -->
+                        <section class="row">
+                            @include('_layouts._validation')
+                            {!! Form::open([
+                            'class'  => 'form-horizontal validation-form',
+                            'action' => ['ProfilesController@store', $user->id]
+                            ])
+                            !!}
+                            @include('profiles._partials._form', ['submitButton' => $submitButton])
+                            {!! Form::close() !!}
+                        </section>
+                    </article>
+                </div>
+            </div>
+            <div class="col-md-5">
+                @include('profiles._partials._userInfo', ['user' => $user])
+            </div>
+        </div>
     </main>
 
 @endsection
+
+@section('footer')
+    @include('_layouts._footer')
+@stop

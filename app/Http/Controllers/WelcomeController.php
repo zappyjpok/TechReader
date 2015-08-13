@@ -2,12 +2,15 @@
 
 use App\Category;
 use App\Sale;
+use App\User;
 use App\Product as Product;
 use App\Http\Requests\AddToCart as Request;
 use App\library\ShoppingCart as ShoppingCart;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -45,6 +48,12 @@ class WelcomeController extends Controller {
         ]);
 	}
 
+    /**
+     * Shows a specific product
+     *
+     * @param $name
+     * @return $this
+     */
     public function show($name)
     {
         $name = str_replace("_", " ", $name);
@@ -58,6 +67,12 @@ class WelcomeController extends Controller {
         ]);
     }
 
+    /**
+     * Adds to the shopping cart
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function store(Request $request)
     {
         $input = $request->all();
@@ -68,6 +83,12 @@ class WelcomeController extends Controller {
         return Redirect::back();
     }
 
+    /**
+     * Shows all products of a specific category
+     *
+     * @param $name
+     * @return $this
+     */
     public function display($name)
     {
         $category = Category::where('name', $name)->first();
@@ -83,7 +104,6 @@ class WelcomeController extends Controller {
             'row' => $row,
             'rowClose' => $rowClose
         ]);
-
     }
 }
 
