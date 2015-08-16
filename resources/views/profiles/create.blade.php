@@ -13,7 +13,7 @@
     <main class="container">
 
         <div class="row top-buffer-20">
-            <div class="col-md-6 col-md-offset-1">
+            <div class="col-md-7">
                 <div class="panel panel-default">
                     <article class="panel-heading">
                         <h4> Please enter your order information  </h4>

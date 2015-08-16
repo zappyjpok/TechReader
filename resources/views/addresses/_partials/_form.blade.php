@@ -1,48 +1,67 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: thuyshawn
+ * User: Shawn
  * Date: 12/07/2015
  * Time: 5:36 PM
  */ ?>
 
-<section class="row form-spacing">
-    <div class="col-md-2">
-        {!! Form::label('address', 'Street Address:') !!}
-    </div>
-    <div class="col-xs-10 col-md-10">
-        {!! Form::text('address', null, ['class' => 'form-control'])  !!}
-    </div>
-</section>
 <section class="row top-buffer-20">
-    <div class="col-md-2">
-        {!! Form::label('state', 'State:') !!}
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            {!! Form::label('address', 'Street Address:', ['class' => 'label-control'] ) !!}
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::text('address', null,
+                ['class' => 'form-control',
+                'id' => 'address',
+                'placeholder' => 'Please enter your address',
+                'required'] ) !!}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            {!! Form::label('state', 'State:', ['class' => 'label-control'] ) !!}
 
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::text('state', null,
+                ['class' => 'form-control',
+                'id' => 'state',
+                'placeholder' => 'Please enter your state',
+                'required'] ) !!}
+        </div>
     </div>
-    <div class="col-md-4">
-        {!! Form::text('state', null, ['class' => 'form-control'])  !!}
-    </div>
-    <div class="col-md-2">
-        {!! Form::label('city', 'City:') !!}
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            {!! Form::label('city', 'City:', ['class' => 'label-control'] ) !!}
 
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::text('city', null,
+                ['class' => 'form-control',
+                'id' => 'city',
+                'placeholder' => 'Please enter your city',
+                'required'] ) !!}
+        </div>
     </div>
-    <div class="col-md-4">
-        {!! Form::text('city', null, ['class' => 'form-control'])  !!}
-    </div>
-</section>
-<section class="row top-buffer-20">
-    <div class="col-md-2">
-        {!! Form::label('postal_code', 'Postal Code:') !!}
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            {!! Form::label('postal_code', 'Postal Code:', ['class' => 'label-control'] ) !!}
 
+        </div>
+        <div class="col-md-5 input">
+            {!! Form::text('postal_code', null, [
+                'class' => 'form-control',
+                'id' => 'postalCode',
+                'placeholder' => 'Please enter your postal code',
+                'required'] ) !!}
+        </div>
     </div>
-    <div class="col-md-4">
-        {!! Form::text('postal_code', null, ['class' => 'form-control'])  !!}
-    </div>
-    <div class="col-md-2">
-
-    </div>
-    <div class="col-md-4">
-        {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-5">
+            {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
+        </div>
     </div>
 </section>
 

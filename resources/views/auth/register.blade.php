@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Name</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="registration-name" class="form-control" name="name" value="{{ old('name') }}" required>
+                                    <input type="text" id="username" class="form-control" name="name" value="{{ old('name') }}" required>
                                 </div>
                             </div>
 
@@ -62,6 +62,7 @@
             </div>
         </div>
     </div>
+
 
 
 @endsection
