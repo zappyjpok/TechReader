@@ -43,7 +43,6 @@ class ProfilesController extends Controller {
         $user = User::where('name', $name)->first();
         $submitButton = 'Add Profile';
 
-
         return view('profiles.create')->with([
             'user'          => $user,
             'submitButton'  => $submitButton
