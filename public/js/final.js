@@ -2175,8 +2175,8 @@ function compareValues(selector1, selector2, message) {
 // Ajax request to see if the username is available
 function checkUsername(selector){
     value = $(selector).val().trim();
-    var url = "/TechReader/public/register/check/username/" + value;
-    //var url = "/register/check/username/" + value;
+    //var url = "/TechReader/public/register/check/username/" + value;
+    var url = "/register/check/username/" + value;
 
     // Ajax request to see if the username has been taken
     var result = ajaxUsernameRequest(url);
@@ -2191,8 +2191,8 @@ function checkUsername(selector){
 // Ajax request to see if the email is available
 function checkEmail(selector){
     value = $(selector).val().trim();
-    var url = "/TechReader/public/register/check/email/" + value;
-    //var url = "/register/check/email/" + value;
+    //var url = "/TechReader/public/register/check/email/" + value;
+    var url = "/register/check/email/" + value;
 
     // Ajax request to see if the username has been taken
     var result = ajaxUsernameRequest(url);
