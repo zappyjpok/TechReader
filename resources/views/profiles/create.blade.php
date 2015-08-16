@@ -34,7 +34,9 @@
                 </div>
             </div>
             <div class="col-md-5">
-                @include('profiles._partials._userInfo', ['user' => $user])
+                @if(file_exists('profiles._partials._userInfo'))
+                    @include('profiles._partials._userInfo', ['user' => $user]);
+                @endif
             </div>
         </div>
     </main>
