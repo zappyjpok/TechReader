@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 use App\Order;
 use App\library\ShoppingCart;
-use App\Product;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,8 +22,31 @@ class OrdersController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$orders = Order::all();
+
+        // Add instructions and a link
+        $header = 'View orders';
+        $instructions = 'You can view and update shipping information here';
+
+        return view('orders.index')->with([
+            'orders' => $orders,
+            'header' => $header,
+            'instructions' => $instructions,
+        ]);
 	}
+
+    public function view($id)
+    {
+        $order = Order::findOrFail($id);
+        $header = 'View orders';
+        $instructions = 'You can view a specific order and update the shipping information here';
+
+        return view('orders.view')->with([
+            'order' => $order,
+            'header' => $header,
+            'instructions' => $instructions,
+        ]);
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -130,6 +152,14 @@ class OrdersController extends Controller {
         Session::push('cart_address', ['address' => $_POST['address_id']]);
 
         return redirect()->action('OrdersController@create');
+    }
+
+    /**
+     *
+     */
+    public function updateShipping($id)
+    {
+        return redirect()->action('OrdersController@index');
     }
 
     /**
