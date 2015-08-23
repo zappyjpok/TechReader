@@ -19,8 +19,9 @@
                         </h4>
                         <img src="
                             {{ App\library\ChangeName::changeToThumbnail(
-                            App\library\ChangeName::changeToLocalEnvironment($randomSale->product->image, 'Tech')) }}
-                        ">
+                            App\library\ChangeName::changeToLocalEnvironment($randomSale->product->image, 'Tech')) }}"
+                                alt="{{ $randomSale->product->title }}"
+                                >
                         <p class="priceCut"> ${{ $randomSale->product->price }} </p>
                         <p class="price">
                             ${{ App\library\caculations::caculateDiscountPrice($randomSale->product->price, $randomSale->discount) }}

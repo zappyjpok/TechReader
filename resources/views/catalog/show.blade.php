@@ -9,10 +9,11 @@
 @extends('_layouts._layout')
 
 @section('content')
-    <article class="row">
-        <section class="col-md-4">
-            <img src="{{ App\library\ChangeName::changeToLocalEnvironment($product->image, 'Tech')   }}">
-        </section>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ App\library\ChangeName::changeToLocalEnvironment($product->image, 'Tech')   }}"
+                    alt="{{ $product->title  }}">
+        </div>
         <section class="col-md-5">
             <h2> {{ $product->title }} </h2>
             <p> by {{ $product->author }} </p>
@@ -24,11 +25,11 @@
             <p> Publisher: {{ $product->publisher }} </p>
             <p> Date Published: {{ $product->publish_date }} </p>
         </section>
-        <section class="col-md-3">
+        <div class="col-md-3">
             @include('catalog._partials._cart')
-        </section>
-    </article>
-    <article class="row">
+        </div>
+    </div>
+    <section class="row">
         <h3> Customers who have bought this product have also bought </h3>
-    </article>
+    </section>
 @endsection

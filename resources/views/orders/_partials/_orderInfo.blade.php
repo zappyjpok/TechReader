@@ -10,7 +10,7 @@
     <h3> Your order information </h3>
     @if(isset($products) && !empty($products))
         @foreach(array_chunk($products, 2) as $row)
-            <section class="row">
+            <div class="row">
                 @foreach($row as $product)
                     <div class="col-md-6">
                         <h5> Title: {{ $product['title'] }} </h5>
@@ -19,7 +19,9 @@
                                 <img src="{{
                                     App\library\ChangeName::changeToThumbnail(
                                     App\library\ChangeName::changeToLocalEnvironment($product['image'], 'Tech'))
-                                    }}">
+                                    }}"
+                                        alt="{{ $product['title'] }}"
+                                        >
                             </div>
                             <div class="col-md-7">
                                 <p> Author: {{ $product['author'] }} </p>
@@ -32,7 +34,7 @@
                         </div>
                     </div>
                 @endforeach
-            </section>
+            </div>
         @endforeach
     @endif
 </article>

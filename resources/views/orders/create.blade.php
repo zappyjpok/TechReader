@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <article class="row">
+    <div class="row">
         <section class="col-md-6 payment-box">
             <h4> User Information </h4>
             <div class="row">
@@ -34,7 +34,7 @@
             </div>
         </section>
 
-        <section class="col-md-5 col-md-offset-1 payment-box">
+        <div class="col-md-5 col-md-offset-1 payment-box">
             <section class="row">
                 <div class="col-md-6">
                     <h4> Shipping Information </h4>
@@ -47,20 +47,20 @@
                     {{ $address->postal_code }}
                 </div>
             </section>
-        </section>
-    </article>
+        </div>
+    </div>
 
-    <article class="row top-buffer-20">
+    <div class="row top-buffer-20">
         @include('orders._partials._orderInfo')
-        <section class="row">
-            <div class="pull-right">
+        <div class="row">
+            <section class="pull-right">
                 <h4 class="text-info"> Total: ${{ $total }} </h4>
                 <a href="{{ action('OrdersController@store') }}" class="btn btn-success">
                     Confirm Order
                 </a>
-            </div>
-        </section>
-    </article>
+            </section>
+        </div>
+    </div>
 
 @endsection
 

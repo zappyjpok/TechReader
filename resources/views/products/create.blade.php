@@ -12,17 +12,18 @@
 @section('content')
 
 @include('_layouts._validation')
-
-{!! Form::open([
+<div>
+    {!! Form::open([
     'class' => 'form-group',
     'url' => 'products',
     'file' => true,
     'enctype' => 'multipart/form-data'
     ])
-!!}
+    !!}
 
     @include('products._partials._form', ['submitButton' => 'Add Product'])
 
-{!! Form::close() !!}
+    {!! Form::close() !!}
+</div>
 
 @endsection

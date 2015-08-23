@@ -13,14 +13,14 @@
         <h4> Welcome {{ $user->name }} </h4>
     </article>
     @include('orders._partials._orderInfo')
-    <section class="row">
-        <div class="pull-right">
+    <div class="row">
+        <section class="pull-right">
             <h4 class="text-info"> Total: ${{ $total }} </h4>
             <a href="{{ action('AddressesController@select', $user->name) }}" class="btn btn-success">
                 Continue Order
             </a>
-        </div>
-    </section>
+        </section>
+    </div>
 
 @endsection
 

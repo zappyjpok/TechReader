@@ -6,7 +6,7 @@
  * Time: 7:59 PM
  */?>
 
-<section>
+<div>
     @if($errors->any())
     <ul class="alert alert-danger">
         @foreach($errors->all() as $error)
@@ -14,4 +14,4 @@
         @endforeach
     </ul>
     @endif
-</section>
+</div>

@@ -18,9 +18,9 @@
                     <article class="panel-heading">
                         <h4> Please enter your order information  </h4>
                     </article>
-                    <article class="panel-body">
+                    <div class="panel-body">
                         <!-- Form  -->
-                        <section class="row">
+                        <div class="row">
                             @include('_layouts._validation')
                             {!! Form::open([
                             'class'  => 'form-horizontal validation-form',
@@ -29,17 +29,17 @@
                             !!}
                             @include('profiles._partials._form', ['submitButton' => $submitButton])
                             {!! Form::close() !!}
-                        </section>
-                    </article>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-5">
                 <!-- Users Information -->
-                <article class="panel panel-info">
+                <div class="panel panel-info">
                     <section class="panel-heading">
                         <h4> Your information </h4>
                     </section>
-                    <section class="panel-body">
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4 input-lg">
                                 Username:
@@ -65,8 +65,8 @@
 
                             </div>
                         </div>
-                    </section>
-                </article>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

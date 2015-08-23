@@ -7,7 +7,7 @@
  */
 ?>
 
-<section class="row top-buffer-20"> <!-- Search Box and Shopping Cart-->
+<div class="row top-buffer-20"> <!-- Search Box and Shopping Cart-->
     <div class="pull-left"> <!-- Shopping Cart-->
         <a href="{{ $authCartCheck }}" class="btn btn-info btn-lg">
             <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -23,4 +23,4 @@
         </form>
     </div>
 
-</section>
+</div>

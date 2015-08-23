@@ -15,7 +15,6 @@ class Product extends Model {
         'author',
         'title',
         'category_id',
-        'publish_date',
         'publisher',
         'price',
         'description',

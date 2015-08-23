@@ -6,7 +6,7 @@
  * Time: 5:36 PM
  */ ?>
 
-<section class="row top-buffer-20">
+<div class="row top-buffer-20">
     <div class="form-group">
         <div class="col-md-3 col-md-offset-2">
             {!! Form::label('address', 'Street Address:', ['class' => 'label-control'] ) !!}
@@ -48,7 +48,6 @@
     <div class="form-group">
         <div class="col-md-3 col-md-offset-2">
             {!! Form::label('postal_code', 'Postal Code:', ['class' => 'label-control'] ) !!}
-
         </div>
         <div class="col-md-5 input">
             {!! Form::text('postal_code', null, [
@@ -63,5 +62,5 @@
             {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control', 'name' => 'Submit']) !!}
         </div>
     </div>
-</section>
+</div>
 

@@ -17,7 +17,7 @@
                     <h4> Please Select your address  </h4>
                 </article>
                 <article class="panel-body">
-                    <section class="row">
+                    <div class="row">
                         <div class="col-md-offset-1">
                             <h5> Need to create a new address </h5>
                             <div>
@@ -25,8 +25,8 @@
                                    href="{{ action('AddressesController@create', $user->name) }}"> Create a new Address </a>
                             </div>
                         </div>
-                    </section>
-                    <section class="row top-buffer-10">
+                    </div>
+                    <div class="row top-buffer-10">
                         <div class="col-md-offset-1">
                             <div class="row">
                                 {!! Form::open([
@@ -53,7 +53,7 @@
                                 {!! Form::close() !!}
                             </div>
                         </div>
-                    </section>
+                    </div>
                 </article>
             </div>
         </div>

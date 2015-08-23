@@ -8,10 +8,10 @@
 ?>
 
 <header class="row"> <!-- logo and log in navbar -->
-    <section class="pull-left"> <!-- Logo -->
-        <img class="logo" src="{{ url('images/logo.png') }}">
-    </section>
-    <section> <!-- Login Navbar -->
+    <div class="pull-left"> <!-- Logo -->
+        <img class="logo" src="{{ url('images/logo.png') }}" alt="logo">
+    </div>
+    <div> <!-- Login Navbar -->
         <ul class="nav navbar-nav navbar-right">
             @if (Auth::guest())
                 <li><a href="{{ url('/auth/login') }}">Login</a></li>
@@ -28,5 +28,5 @@
                 </li>
             @endif
         </ul>
-    </section>
+    </div>
 </header>

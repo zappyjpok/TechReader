@@ -7,9 +7,9 @@
             <h3> {{ $pageTitle }} </h3>
             <!-- Loop through the sales: every 4 sales should create a new row -->
             @foreach(array_chunk($items->all(), 3) as $row)
-                <section class="row">
+                <div class="row">
                     @foreach($row as $item)
-                        <div class="col-md-4">
+                        <section class="col-md-4">
                             <h4>
                                 <a href="{{ action('WelcomeController@show', [App\library\ChangeName::replaceLinkSpaces($item->product->title)]) }}">
                                     {{ App\library\ChangeName::shortenString($item->product->title, 20) }}...
@@ -19,7 +19,9 @@
                                 <img src="{{
                                     App\library\ChangeName::changeToThumbnail(
                                     App\library\ChangeName::changeToLocalEnvironment($item->product->image, 'Tech'))
-                                    }}" >
+                                    }}"
+                                    alt="{{ $item->product->title }}"
+                                        >
                             </div>
                             <p>
                                 {{ App\library\ChangeName::shortenString($item->product->description, 80)  }}
@@ -35,9 +37,9 @@
                             @else
                                 <p class="price"> ${{ $item->product->price }}</p>
                             @endif
-                        </div>
+                        </section>
                     @endforeach
-                </section> <!-- end products loop -->
+                </div> <!-- end products loop -->
             @endforeach
         </section>
         <div>

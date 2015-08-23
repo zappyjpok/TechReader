@@ -8,7 +8,7 @@
 
 <!-- Users Information -->
 <!-- Users Information -->
-<article class="panel panel-info">
+<div class="panel panel-info">
     <section class="panel-heading">
         <h4> Your information </h4>
     </section>
@@ -102,4 +102,4 @@
         </div>
 
     </section>
-</article>
+</div>

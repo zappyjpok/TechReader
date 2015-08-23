@@ -6,7 +6,7 @@
  * Time: 7:41 PM
  */ ?>
 
-<section>
+<div>
     {!! Form::open([
     'class' => 'form-group',
     'action' => 'OrdersController@updateQuantity'
@@ -20,4 +20,4 @@
         {!! Form::submit('Update', ['class' => 'btn btn-info', 'name' => 'Submit']) !!}
     </div>
     {!! Form::close() !!}
-</section>
+</div>

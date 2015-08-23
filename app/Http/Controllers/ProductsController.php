@@ -76,8 +76,20 @@ class ProductsController extends Controller {
         $destination =  public_path('images/products'); //use local
 
 		// Add values to the database
+        // Publish_date needs to be formatted for Jquery calendar
         $input = $request->all();
-        $product = Product::create($input);
+        $product = new Product();
+        $product->category_id = $input['category_id'];
+        $product->title = $input['title'];
+        $product->name = $input['name'];
+        $product->author = $input['author'];
+        $product->publisher = $input['publisher'];
+        $product->price = $input['price'];
+        $product->description = $input['description'];
+        $product->publish_date = date('Y-d-m', strtotime($input['publish_date']));
+        $product->save();
+
+        //$product = Product::create($input);
 
         // Save the newly created image path to the database
         if (!empty($_FILES['image']['name']))
@@ -205,6 +217,11 @@ class ProductsController extends Controller {
         return $file;
     }
 
+    /**
+     * function that deletes an image from the folder
+     *
+     * @param $image
+     */
     private function deleteImage($image)
     {
         $results = [];
@@ -221,6 +238,5 @@ class ProductsController extends Controller {
             }
         }
     }
-
 
 }
