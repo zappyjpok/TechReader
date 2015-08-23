@@ -105,5 +105,10 @@ class WelcomeController extends Controller {
             'rowClose' => $rowClose
         ]);
     }
+
+    public function aboutUs()
+    {
+        return view('about');
+    }
 }
 

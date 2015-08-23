@@ -14,8 +14,7 @@
         @foreach($categories as $category)
             <li> <a href="{{ action('WelcomeController@display', [$category->name]) }}"> {{ $category->name }}</a>  </li>
         @endforeach
-            <li> <a href="#"> About Us </a></li>
-            <li> <a href="#">  Contact Us </a></li>
+            <li> <a href="{{ action('WelcomeController@aboutUs')  }}"> About Us </a></li>
         </ul>
     </div>
 </nav>
