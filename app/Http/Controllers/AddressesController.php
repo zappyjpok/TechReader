@@ -42,11 +42,13 @@ class AddressesController extends Controller {
         ]);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param CreateAddressRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
 	public function store(CreateAddressRequest $request, $id)
 	{
 		//find the user

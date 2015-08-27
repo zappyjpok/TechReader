@@ -2,121 +2,102 @@
  * Created by thuyshawn on 8/08/2015.
  */
 $(document).ready(function(){
+
     $('.validation-form').submit(function () {
+        restart();
+        var fields = [];
+        var passed = [];
         var abort = false;
-        $('div.error').remove();
-        $(':input[required]').each(function(){
-            if ($(this).val()=== '') {
-                $(this).before('<div class="error"> This field can not be blank </div>');
+        $('.validation-form input').each(function(index, element){
+            if(element.name != '_token' && element.name != 'Search' && element.name != '') {
+                fields.push(element.name);
+            } // end if
+        }); // end each form value
+        $.each(fields, function(key, value){
+            //get what needs to be checked
+            var checks = getChecks(value);
+            //run validation
+            passed.push(validations(checks, 'input[name=' + value + ']'));
+        });
+        // check if any values failed to abort the submit
+        $.each(passed, function(key, value){
+            if (value === false) {
                 abort = true;
-            }
+                return false;
+            } // end if
         }) // go through each required value
         if(abort) { return false; } else { return true;}
     }) // on submit
 
-    /*
-     * These functions will test the various fields to see if they are blank.  In order to validate a field,
-     * you must first set a selector variable telling Jquey where to find the value.  Next, create a check object with
-     * any of the following fields
-     * notEmpty = checks if the field is empty, longEnough = checks if the field is long enough,
-     * lettersOnly = only letters are allowed in this field, numbersOnly only numbers are allowed in this field,,
-     * email = checks if its an email,
-     * usernameAvailable & emailAvailable = are Ajax functions that check to the database to see if the values are still
-     * available
-     *
-     * The validation functions will automatically run tests on every check object
+    /**
+     * When the user clicks away from a field, then Jquery will check if the user entered
+     * the correct information.  The blur function will first check what is to be tested from
+     * the getAllChecks functions.  It will then  run the validation function which will run
+     * the specific checks for each field.
      */
-    $('#username').blur(function(){
-        var selector = '#username';
-        // Object that will select which objects will be tested
-        var check = { notEmpty : false, longEnough : false, min:4, usernameAvailable : false };
-        // removes previous errors
+
+    $('.validation-form input').blur(function (){
         restart();
-        // This functions tests all the validations on the check object
-        validations(check, selector);
 
-    }); // blur function
+        var name = $(this).prop('name');
+        var selector = 'input[name=' + name + ']';
+        console.log(selector);
 
-    $('#email').blur(function(){
-        selector = '#email';
-        restart();
-        var value = $(this).val().trim();
-        var url = "/TechReader/public/register/check/email/" + value;
-        //var url = "/register/check/email/" + value;
-        var check = { notEmpty : false, email : false, emailAvailable : false };
-        // run validation
-        validations(check, selector);
-    }); // blur function
+        //find what values to check
+        var checks = getChecks(name);
 
-    $('#password').blur(function(){
-        restart();
-        var selector = '#password';
-        var check = { notEmpty : false, longEnough : false, min:6 };
-        // run validation
-        validations(check, selector);
+        // run the validation
+        var passed = validations(checks, selector);
 
-    }); // blur function
-
-    $('#confirm-password').blur(function(){
-        $('div.error').remove();
-        var selector = '#confirm-password';
-        var check = { notEmpty : false, match : false, matchValue : '#password'};
-        validations(check, selector);
-
-    }); // blur function
-
-    $('#first-name').blur(function () {
-        restart();
-        var selector = '#first-name';
-        // validation checks
-        var check = {notEmpty: false, lettersOnly: false };
-        validations(check, selector);
+        //If checks fail focus on
+        if(passed === false){
+            notCorrect(selector);
+        } else {
+            correct(selector);
+        }
     });
 
-    $('#last-name').blur(function () {
-        restart();
-        var selector = '#last-name';
-        // validation checks
-        var check = {notEmpty: false, lettersOnly: false };
-        validations(check, selector);
-    });
+    /**
+     * gets the checks for a specific check
+     *
+     */
+    function getChecks(name) {
+        var allValidation = getAllChecks();
+        var check = [];
+        $.each(allValidation, function(key, value){
+            if(name === key) {
+                $.each(value, function(key, value){
+                    $.each(value, function(key, value){
 
-    $('#phone').blur(function () {
-        restart();
-        var selector = '#phone';
-        // validation checks
-        var check = {notEmpty: false, numbersOnly: false };
-        validations(check, selector);
-    });
-    $('#address').blur(function () {
-        restart();
-        var selector = '#address';
-        // validation checks
-        var check = {notEmpty: false };
-        validations(check, selector);
-    });
-    $('#state').blur(function () {
-        restart();
-        var selector = '#state';
-        // validation checks
-        var check = {notEmpty: false, lettersOnly: false };
-        validations(check, selector);
-    });
-    $('#city').blur(function () {
-        restart();
-        var selector = '#city';
-        // validation checks
-        var check = {notEmpty: false, lettersOnly: false };
-        validations(check, selector);
-    });
-    $('#postalCode').blur(function () {
-        restart();
-        var selector = '#postalCode';
-        // validation checks
-        var check = {notEmpty: false, numbersOnly: false };
-        validations(check, selector);
-    });
+                        check[key] = value;
+                    });// end foreach get test values
+                });// end sub foreach key is values
+            }
+        }); // end main foreach
+        return check;
+    }
 
+    /**
+     * Stores all checks
+     */
+    function getAllChecks() {
+        var validation = {
+            // validation checks for the user page
+            name: {values: {notEmpty: false, longEnough: false, min: 4, usernameAvailable: false}},
+            email: {values: {notEmpty: false, email: false, emailAvailable: false}},
+            password: {values: {notEmpty: false, longEnough: false, min: 6}},
+            password_confirmation: {values: {notEmpty: false, match: false, matchValue: '#password'}},
+            first_name: {values: {notEmpty: false, lettersOnly: false}},
+            last_name: {values: {notEmpty: false, lettersOnly: false}},
+            phone: {values: {notEmpty: false, numbersOnly: false}},
+            address : {values: {notEmpty: false }},
+            state: {values: {notEmpty: false, lettersOnly: false }},
+            city : {values: {notEmpty: false, lettersOnly: false }},
+            postal_code : {values: {notEmpty: false, numbersOnly: false }}
+        };
+        // end object
+        return validation;
+    }
 
 }); // document ready
 
@@ -128,61 +109,71 @@ $(document).ready(function(){
  *
  * @param check
  * @param selector
+ * @return Bool -- this value tells if tests were passed
  */
 function validations(check, selector) {
     if(typeof check.notEmpty !== 'undefined') {
         // check if the value is empty
         check.notEmpty = checkIfEmpty(selector, 'This cannot be blank!');
-        if(check.notEmpty === false) {return; }
+        if(check.notEmpty === false) {return false; }
 
-    }
-    if(typeof check.blackwash !== 'undefined') {
-        console.log('run the long enough check');
     }
     if(typeof check.longEnough !== 'undefined' && typeof check.min !== 'undefined') {
         // check if the value is long enough
         var message = "This must be at least " + check.min + " characters long";
         check.longEnough = checkIfLongEnough(selector, message, check.min);
-        if(check.longEnough === false ) {return;}
+        if(check.longEnough === false ) {return false;}
 
     }
     if(typeof check.lettersOnly !== 'undefined') {
         check.lettersOnly = lettersOnly(selector);
-        if(check.lettersOnly === false ) {return;}
+        if(check.lettersOnly === false ) {return false;}
     }
     if(typeof check.numbersOnly !== 'undefined') {
         check.numbersOnly = numbersOnly(selector);
-        if(check.numbersOnly === false ) {return;}
+        if(check.numbersOnly === false ) {return false;}
     }
     if(typeof check.match !== 'undefined' && typeof check.matchValue !== 'undefined') {
         check.match = compareValues(selector, check.matchValue, 'Your passwords must match');
-        if(check.match === false ) {return;}
+        if(check.match === false ) {return false;}
     }
     if(typeof check.email !== 'undefined') {
         check.email = checkIfEmail(selector);
-        if(check.email === false ) {return;}
+        if(check.email === false ) {return false;}
     }
     if(typeof check.usernameAvailable !== 'undefined') {
         check.usernameAvailable = checkUsername(selector);
-        if(check.usernameAvailable === false ) {return;}
+        if(check.usernameAvailable === false ) {return false;}
     }
     if(typeof check.emailAvailable !== 'undefined') {
         check.emailAvailable = checkEmail(selector);
-        if(check.emailAvailable === false ) {return;}
+        if(check.emailAvailable === false ) {return false;}
     }
     correct(selector);
+    return true;
 }
+
+/**
+ * A list of functions that call different types of values
+ * Each one will be called when the user leaves the field and on submit
+ *
+ */
+// checks user name
 
 // removes all previous erros
 function restart(){
     // remove past error messages
     $('div.error').remove();
+    $('div.ui-effects-wrapper').remove();
 }
 
 // css for when validation is passed
 function correct(value)
 {
-    $(value).css('background-color', '#D1FFC2');
+    // make sure the submit button is not affected
+    if(value != 'input[name=Submit]'){
+        $(value).css('background-color', '#D1FFC2');
+    }
 }
 
 // css for when validation fails
@@ -282,8 +273,8 @@ function compareValues(selector1, selector2, message) {
 // Ajax request to see if the username is available
 function checkUsername(selector){
     value = $(selector).val().trim();
-    //var url = "/TechReader/public/register/check/username/" + value;
-    var url = "/register/check/username/" + value;
+    var url = "/TechReader/public/register/check/username/" + value;
+    //var url = "/register/check/username/" + value;
 
     // Ajax request to see if the username has been taken
     var result = ajaxUsernameRequest(url);
@@ -298,8 +289,8 @@ function checkUsername(selector){
 // Ajax request to see if the email is available
 function checkEmail(selector){
     value = $(selector).val().trim();
-    //var url = "/TechReader/public/register/check/email/" + value;
-    var url = "/register/check/email/" + value;
+    var url = "/TechReader/public/register/check/email/" + value;
+    //var url = "/register/check/email/" + value;
 
     // Ajax request to see if the username has been taken
     var result = ajaxUsernameRequest(url);

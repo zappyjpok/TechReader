@@ -76,3 +76,5 @@
 @section('footer')
     @include('_layouts._footer')
 @stop
+
+

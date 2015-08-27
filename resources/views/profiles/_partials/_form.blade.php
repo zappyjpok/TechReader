@@ -16,6 +16,7 @@
                 ['class' => 'form-control',
                 'id' => 'first-name',
                 'placeholder' => 'Please enter your last name',
+                'pattern' => '[a-zA-Z]+',
                 'required'] ) !!}
         </div>
     </div>
@@ -28,6 +29,7 @@
                 ['class' => 'form-control',
                 'id' => 'last-name',
                 'placeholder' => 'Please enter your last name',
+                'pattern' => '[a-zA-Z]+',
                 'required'] ) !!}
         </div>
     </div>
@@ -41,6 +43,7 @@
                 ['class' => 'form-control',
                 'id' => 'phone',
                 'placeholder' => 'Please enter your phone number',
+                'pattern' => '[0-9]+',
                 'required'] ) !!}
         </div>
     </div>
